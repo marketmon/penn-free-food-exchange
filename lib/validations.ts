@@ -1,7 +1,7 @@
-import { meadows } from "@/constants/meadows";
+import { meadows } from "@/lib/constants";
 import * as z from "zod";
 
-export const SignUpSelectMeadowSchema = z.object({
+export const selectMeadowSchema = z.object({
   meadow: z.string().refine(
     // Check if the meadow value matches any of the meadow names
     (meadow) => meadows.some((item) => item.name === meadow),
@@ -15,6 +15,7 @@ export const SignUpSchema = (domain: string) =>
   z.object({
     email: z
       .string()
+      .min(1, { message: "Email is required" })
       .email({
         message: "Invalid email",
       })
@@ -23,7 +24,10 @@ export const SignUpSchema = (domain: string) =>
       }),
     password: z
       .string()
-      .min(8, {
+      .refine((password) => password.length > 0, {
+        message: "Password is required",
+      })
+      .refine((password) => password.length >= 8, {
         message: "Password must be at least 8 characters long",
       })
       .refine((password) => /[A-Z]/.test(password) && /[0-9]/.test(password), {
@@ -31,6 +35,44 @@ export const SignUpSchema = (domain: string) =>
       }),
   });
 
-export const SignUpVerifySchema = z.object({
-  verificationCode: z.string().refine((code) => /^\d{6}$/.test(code)),
+export const verificationCodeSchema = z.object({
+  verificationCode: z
+    .string()
+    .min(1, { message: "Verification code is required" })
+    .refine((code) => /^\d{6}$/.test(code), {
+      message: "Invalid verification code",
+    }),
 });
+
+export const logInSchema = z.object({
+  email: z.string().min(1, { message: "Email is required" }).email({
+    message: "Invalid email",
+  }),
+  password: z.string().min(1, { message: "Password is required" }),
+});
+
+export const emailSchema = z.object({
+  email: z.string().min(1, { message: "Email is required" }).email({
+    message: "Invalid email",
+  }),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .refine((password) => password.length > 0, {
+        message: "Password is required",
+      })
+      .refine((password) => password.length >= 8, {
+        message: "Password must be at least 8 characters long",
+      })
+      .refine((password) => /[A-Z]/.test(password) && /[0-9]/.test(password), {
+        message: "Password must have at least one uppercase and one number",
+      }),
+    verifyPassword: z.string().min(1, { message: "Please verify the password" }),
+  })
+  .refine((data) => data.newPassword === data.verifyPassword, {
+    message: "Passwords don't match",
+    path: ["verifyPassword"],
+  });

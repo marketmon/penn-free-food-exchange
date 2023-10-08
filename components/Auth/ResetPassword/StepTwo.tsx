@@ -1,21 +1,18 @@
-import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
-import { useSignUpContext } from "@/context/SignUpProvider";
+import { useSignInContext } from "@/context/SignInProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";
 
-export default function StepThree() {
-  const { signUp, setActive } = useSignUpContext();
-
-  const router = useRouter();
+export default function StepTwo() {
+  const { signIn, setStep } = useSignInContext();
 
   async function handleSubmit(values: z.infer<ZodSchema<any>>) {
-    const result = await signUp!.attemptEmailAddressVerification({
+    await signIn?.attemptFirstFactor({
+      strategy: "reset_password_email_code",
       code: values.verificationCode,
     });
-    await setActive!({ session: result.createdSessionId });
-    router.push("/");
+    setStep(3);
   }
 
   return (
@@ -35,7 +32,7 @@ export default function StepThree() {
         ]}
         handleInputs={handleSubmit}
       />
-      <AuthPrompt promptTo="Resend code" authData={signUp} />
+      <AuthPrompt promptTo="Resend code" authData={signIn} />
     </>
   );
 }
