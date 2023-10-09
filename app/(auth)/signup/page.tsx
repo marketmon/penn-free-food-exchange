@@ -1,6 +1,6 @@
 "use client";
 
-import { useSignUpContext } from "@/context/SignUpProvider";
+import { useSignUpContext } from "@/context/AuthProvider";
 import StepOne from "@/components/Auth/SignUp/StepOne";
 import StepTwo from "@/components/Auth/SignUp/StepTwo";
 import StepThree from "@/components/Auth/SignUp/StepThree";

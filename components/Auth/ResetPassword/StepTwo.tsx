@@ -1,5 +1,5 @@
 import { ZodSchema, z } from "zod";
-import { useSignInContext } from "@/context/SignInProvider";
+import { useSignInContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";

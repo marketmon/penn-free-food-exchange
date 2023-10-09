@@ -1,5 +1,5 @@
 import { ZodSchema, z } from "zod";
-import { useSignUpContext } from "@/context/SignUpProvider";
+import { useSignUpContext } from "@/context/AuthProvider";
 import { SignUpSchema } from "@/lib/validations";
 import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";
@@ -11,7 +11,7 @@ export default function StepTwo() {
     await signUp!.create({
       emailAddress: values.email,
       password: values.password,
-      unsafeMetadata: { meadow },
+      unsafeMetadata: { meadow: meadow! },
     });
 
     await signUp!.prepareEmailAddressVerification({
@@ -24,7 +24,7 @@ export default function StepTwo() {
     <>
       <AuthForm
         title="Sign up"
-        schema={SignUpSchema(meadow)}
+        schema={SignUpSchema(meadow!)}
         defaultValues={{
           email: "",
           password: "",

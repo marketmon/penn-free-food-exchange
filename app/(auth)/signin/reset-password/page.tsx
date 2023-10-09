@@ -1,6 +1,6 @@
 "use client";
 
-import { useSignInContext } from "@/context/SignInProvider";
+import { useSignInContext } from "@/context/AuthProvider";
 import StepOne from "@/components/Auth/ResetPassword/StepOne";
 import StepTwo from "@/components/Auth/ResetPassword/StepTwo";
 import StepThree from "@/components/Auth/ResetPassword/StepThree";

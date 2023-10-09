@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { resetPasswordSchema } from "@/lib/validations";
-import { useSignInContext } from "@/context/SignInProvider";
+import { useSignInContext } from "@/context/AuthProvider";
 import AuthForm from "../AuthForm";
 
 export default function StepThree() {

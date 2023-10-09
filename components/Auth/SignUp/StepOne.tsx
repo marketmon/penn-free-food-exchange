@@ -1,5 +1,5 @@
 import { ZodSchema, z } from "zod";
-import { useSignUpContext } from "@/context/SignUpProvider";
+import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
 import { mapMeadowToDomain } from "@/lib/utils";
 import AuthForm from "../AuthForm";
@@ -9,7 +9,7 @@ export default function StepOne() {
   const { setMeadow, setStep } = useSignUpContext();
 
   function handleSubmit(values: z.infer<ZodSchema<any>>) {
-    setMeadow(mapMeadowToDomain(values.meadow));
+    setMeadow!(mapMeadowToDomain(values.meadow));
     setStep(2);
   }
 

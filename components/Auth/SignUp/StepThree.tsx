@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
-import { useSignUpContext } from "@/context/SignUpProvider";
+import { useSignUpContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";

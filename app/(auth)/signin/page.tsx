@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { logInSchema } from "@/lib/validations";
-import { useSignInContext } from "@/context/SignInProvider";
+import { useSignInContext } from "@/context/AuthProvider";
 import AuthForm from "@/components/Auth/AuthForm";
 import AuthPrompt from "@/components/Auth/AuthPrompt";
 
@@ -17,7 +17,7 @@ export default function Page() {
       identifier: values.email,
       password: values.password,
     });
-    await setActive!({ session: result.createdSessionId });
+    await setActive({ session: result.createdSessionId });
     router.push("/");
   }
 

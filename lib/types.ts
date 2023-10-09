@@ -18,13 +18,13 @@ export type SignUp = {
 
 export type SignIn = {
   create: (credentials: {
-    strategy: "reset_password_email_code";
     identifier: string;
+    strategy?: "reset_password_email_code";
+    password?: string;
   }) => Promise<any>;
   attemptFirstFactor: (credentials: {
     strategy: "reset_password_email_code";
     code: string;
   }) => Promise<any>;
   resetPassword: (credentials: { password: string }) => Promise<any>;
-  prepareFirstFactor: (config: { strategy: "email_code" }) => Promise<any>;
 };
