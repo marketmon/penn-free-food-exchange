@@ -30,7 +30,6 @@ function createAuthContext(useAuth: () => AuthType, authFor: string) {
   function AuthProvider({ children }: { children: React.ReactNode }) {
     const auth = useAuth();
     const [step, setStep] = useState(1);
-    console.log(step)
     const [meadow, setMeadow] = useState("");
 
     return (
