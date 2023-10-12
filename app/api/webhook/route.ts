@@ -1,6 +1,8 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { createUserService, deleteUserService, updateUserService } from "@/server/service/user";
+import { WebhookRequestType } from "@/lib/types";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || "";
@@ -42,12 +44,17 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-  const { id } = evt.data;
   const eventType = evt.type;
+  const data = evt.data;
+  const dataTyped = data as WebhookRequestType;
 
-  // TODO: post/update user data to db c
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
+  if (eventType === "user.created") {
+    createUserService(dataTyped);
+  } else if (eventType === "user.updated") {
+    updateUserService(dataTyped);
+  } else if (eventType === "user.deleted") {
+    deleteUserService(dataTyped);
+  }
 
   return new Response("", { status: 201 });
 }

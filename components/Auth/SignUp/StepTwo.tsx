@@ -9,6 +9,8 @@ export default function StepTwo() {
 
   async function handleSubmit(values: z.infer<ZodSchema<any>>) {
     await signUp!.create({
+      firstName: values.firstName,
+      lastName: values.lastName,
       emailAddress: values.email,
       password: values.password,
       unsafeMetadata: { meadow: meadow! },
@@ -26,10 +28,14 @@ export default function StepTwo() {
         title="Sign up"
         schema={SignUpSchema(meadow!)}
         defaultValues={{
+          firstName: "",
+          lastName: "",
           email: "",
           password: "",
         }}
         inputs={[
+          { name: "firstName", label: "First name", type: "text" },
+          { name: "lastName", label: "Last name", type: "text" },
           { name: "email", label: "Email address", type: "text" },
           { name: "password", label: "Password", type: "password" },
         ]}

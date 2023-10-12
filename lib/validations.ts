@@ -13,6 +13,8 @@ export const selectMeadowSchema = z.object({
 
 export const SignUpSchema = (domain: string) =>
   z.object({
+    firstName: z.string().min(1, { message: "First name is required" }),
+    lastName: z.string().min(1, { message: "Last name is required" }),
     email: z
       .string()
       .min(1, { message: "Email is required" })
@@ -70,7 +72,9 @@ export const resetPasswordSchema = z
       .refine((password) => /[A-Z]/.test(password) && /[0-9]/.test(password), {
         message: "Password must have at least one uppercase and one number",
       }),
-    verifyPassword: z.string().min(1, { message: "Please verify the password" }),
+    verifyPassword: z
+      .string()
+      .min(1, { message: "Please verify the password" }),
   })
   .refine((data) => data.newPassword === data.verifyPassword, {
     message: "Passwords don't match",
