@@ -17,8 +17,8 @@ export default function Page() {
       identifier: values.email,
       password: values.password,
     });
-    await setActive({ session: result.createdSessionId });
-    router.push("/");
+    await setActive!({ session: result.createdSessionId });
+    router.push("/listings");
   }
 
   if (!isLoaded) {
