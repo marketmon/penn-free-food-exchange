@@ -11,12 +11,39 @@ datasource db {
 }
 
 model User {
-  id           String   @id @map("_id")
+  id           String    @id @map("_id")
   firstName    String
   lastName     String
   meadow       String
-  primaryEmail String   @unique
-  primaryPhone String?  @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  primaryEmail String    @unique
+  primaryPhone String?   @unique
+  listings     Listing[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model StillThere {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  stillThere Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  listing    Listing  @relation(fields: [listingId], references: [id])
+  listingId  String   @unique @db.ObjectId
+}
+
+model Listing {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  latitude  String
+  longitude String
+  location  String
+  meadow    String
+  icon      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  caption   String
+  images    String[] @default([])
+  contact   String?
+  creator    User        @relation(fields: [creatorId], references: [id])
+  creatorId  String
+  stillThere StillThere?
 }
