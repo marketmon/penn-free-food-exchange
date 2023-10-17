@@ -14,10 +14,11 @@ model User {
   id           String    @id @map("_id")
   firstName    String
   lastName     String
-  meadow       String
   primaryEmail String    @unique
   primaryPhone String?   @unique
   listings     Listing[]
+  meadow       Meadow    @relation(fields: [meadowId], references: [id])
+  meadowId     String    @unique @db.ObjectId
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -32,18 +33,29 @@ model StillThere {
 }
 
 model Listing {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  latitude  String
-  longitude String
-  location  String
-  meadow    String
-  icon      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  caption   String
-  images    String[] @default([])
-  contact   String?
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  latitude   Float
+  longitude  Float
+  location   String
+  icon       String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  caption    String
+  images     String[]    @default([])
+  contact    String?
   creator    User        @relation(fields: [creatorId], references: [id])
   creatorId  String
   stillThere StillThere?
+  meadow     Meadow      @relation(fields: [meadowId], references: [id])
+  meadowId   String      @unique @db.ObjectId
+}
+
+model Meadow {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  domain    String    @unique
+  latitude  Float 
+  longitude Float
+  listings  Listing[]
+  users     User[]
 }

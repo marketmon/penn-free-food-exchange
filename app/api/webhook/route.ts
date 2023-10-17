@@ -55,6 +55,6 @@ export async function POST(req: Request) {
   } else if (eventType === "user.deleted") {
     deleteUserService(dataTyped);
   }
-
+  
   return new Response("", { status: 201 });
 }

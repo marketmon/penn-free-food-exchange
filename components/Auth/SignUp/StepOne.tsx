@@ -1,15 +1,28 @@
+import { useQuery } from "react-query";
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
-import { mapMeadowToDomain } from "@/lib/utils";
 import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";
 
 export default function StepOne() {
-  const { setMeadow, setStep } = useSignUpContext();
+  const { isLoading, data } = useQuery(
+    "meadows",
+    async () => {
+      const res = await fetch("/api/meadows");
+      const meadows = await res.json();
+      return meadows;
+    },
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const { setDomain, setStep } = useSignUpContext();
 
   function handleSubmit(values: z.infer<ZodSchema<any>>) {
-    setMeadow!(mapMeadowToDomain(values.meadow));
+    setDomain!(values.meadow);
     setStep(2);
   }
 
@@ -17,12 +30,14 @@ export default function StepOne() {
     <>
       <AuthForm
         title="Choose your meadow"
-        schema={selectMeadowSchema}
+        schema={selectMeadowSchema(data)}
         defaultValues={{
           meadow: "",
         }}
         inputs={[{ name: "meadow", label: "Meadow", type: "select" }]}
         handleInputs={handleSubmit}
+        meadowsLoading={isLoading}
+        meadows={data}
       />
       <AuthPrompt promptTo="Sign in" />
     </>

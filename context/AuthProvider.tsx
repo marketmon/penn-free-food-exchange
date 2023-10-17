@@ -20,8 +20,8 @@ type AuthType = {
 type AuthContextType = AuthType & {
   step: number;
   setStep: Dispatch<SetStateAction<number>>;
-  meadow?: string;
-  setMeadow?: Dispatch<SetStateAction<string>>;
+  domain?: string;
+  setDomain?: Dispatch<SetStateAction<string>>;
 };
 
 function createAuthContext(useAuth: () => AuthType, authFor: string) {
@@ -30,7 +30,7 @@ function createAuthContext(useAuth: () => AuthType, authFor: string) {
   function AuthProvider({ children }: { children: React.ReactNode }) {
     const auth = useAuth();
     const [step, setStep] = useState(1);
-    const [meadow, setMeadow] = useState("");
+    const [domain, setDomain] = useState("");
 
     return (
       <AuthContext.Provider
@@ -38,7 +38,7 @@ function createAuthContext(useAuth: () => AuthType, authFor: string) {
           ...auth,
           step,
           setStep,
-          ...(authFor === "signUp" ? { meadow, setMeadow } : {}),
+          ...(authFor === "signUp" ? { domain, setDomain } : {}),
         }}
       >
         {children}

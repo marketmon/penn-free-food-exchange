@@ -4,17 +4,27 @@ export async function createUser(
   id: string,
   firstName: string,
   lastName: string,
-  meadow: string,
+  domain: string,
   primaryEmail: string
 ): Promise<void> {
+  const meadow = await prisma.meadow.findUnique({
+    where: {
+      domain,
+    },
+  });
+
   await prisma.user.create({
     data: {
       id,
       firstName,
       lastName,
-      meadow,
       primaryEmail,
       primaryPhone: null,
+      meadow: {
+        connect: {
+          id: meadow!.id,
+        },
+      },
     },
   });
 }
@@ -39,7 +49,7 @@ export async function updateUser(
   };
 
   if (primaryPhone) {
-    data.primaryPhone = primaryPhone; 
+    data.primaryPhone = primaryPhone;
   }
 
   await prisma.user.update({

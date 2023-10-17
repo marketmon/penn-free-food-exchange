@@ -1,15 +1,16 @@
-import { meadows } from "@/lib/constants";
 import * as z from "zod";
+import { MeadowsType } from "./types";
 
-export const selectMeadowSchema = z.object({
-  meadow: z.string().refine(
-    // Check if the meadow value matches any of the meadow names
-    (meadow) => meadows.some((item) => item.name === meadow),
-    {
-      message: "Please select a meadow",
-    }
-  ),
-});
+export const selectMeadowSchema = (meadows: MeadowsType[]) =>
+  z.object({
+    meadow: z.string().refine(
+      // Check if the meadow value matches any of the meadow names
+      (domain) => meadows?.some((meadow) => meadow.domain === domain),
+      {
+        message: "Please select a meadow",
+      }
+    ),
+  });
 
 export const SignUpSchema = (domain: string) =>
   z.object({

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import QueryProvider from "@/context/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,27 +19,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <div>
-            <SignedIn>
-              <UserButton
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    avatarBox: "h-10 w-10",
-                  },
-                  variables: {
-                    colorPrimary: "#ff7000",
-                  },
-                }}
-              />
-            </SignedIn>
-          </div>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <QueryProvider>
+      <ClerkProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <div>
+              <SignedIn>
+                <UserButton
+                  afterSignOutUrl="/"
+                  appearance={{
+                    elements: {
+                      avatarBox: "h-10 w-10",
+                    },
+                    variables: {
+                      colorPrimary: "#ff7000",
+                    },
+                  }}
+                />
+              </SignedIn>
+            </div>
+            {children}
+          </body>
+        </html>
+      </ClerkProvider>
+    </QueryProvider>
   );
 }

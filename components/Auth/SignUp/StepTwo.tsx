@@ -5,7 +5,7 @@ import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";
 
 export default function StepTwo() {
-  const { signUp, meadow, setStep } = useSignUpContext();
+  const { signUp, domain, setStep } = useSignUpContext();
 
   async function handleSubmit(values: z.infer<ZodSchema<any>>) {
     await signUp!.create({
@@ -13,7 +13,7 @@ export default function StepTwo() {
       lastName: values.lastName,
       emailAddress: values.email,
       password: values.password,
-      unsafeMetadata: { meadow: meadow! },
+      unsafeMetadata: { domain: domain! },
     });
 
     await signUp!.prepareEmailAddressVerification({
@@ -26,7 +26,7 @@ export default function StepTwo() {
     <>
       <AuthForm
         title="Sign up"
-        schema={SignUpSchema(meadow!)}
+        schema={SignUpSchema(domain!)}
         defaultValues={{
           firstName: "",
           lastName: "",

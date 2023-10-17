@@ -19,8 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { meadows } from "@/lib/constants";
-import { FormInput } from "@/lib/types";
+import { FormInput, MeadowsType } from "@/lib/types";
 import AuthPrompt from "./AuthPrompt";
 
 type AuthFormProps = {
@@ -31,6 +30,8 @@ type AuthFormProps = {
   };
   inputs: FormInput[];
   handleInputs: (values: z.infer<ZodSchema<any>>) => Promise<void> | void;
+  meadowsLoading?: boolean;
+  meadows?: MeadowsType[];
 };
 
 export default function AuthForm({
@@ -39,6 +40,8 @@ export default function AuthForm({
   defaultValues,
   inputs,
   handleInputs,
+  meadowsLoading,
+  meadows,
 }: AuthFormProps) {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -72,33 +75,37 @@ export default function AuthForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{input.label}</FormLabel>
-                  <FormControl>
-                    {input.type === "select" ? (
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your meadow" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {meadows.map((meadow) => (
-                            <SelectItem key={meadow.id} value={meadow.name}>
-                              {meadow.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    ) : (
-                      <Input {...field} type={input.type} />
-                    )}
-                  </FormControl>
+                  {meadowsLoading ? (
+                    <div>Loading</div>
+                  ) : (
+                    <FormControl>
+                      {input.type === "select" ? (
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select your meadow" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {meadows!.map((meadow) => (
+                              <SelectItem key={meadow.id} value={meadow.domain}>
+                                {meadow.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      ) : (
+                        <Input {...field} type={input.type} />
+                      )}
+                    </FormControl>
+                  )}
                   <FormMessage />
                 </FormItem>
               )}
             />
           ))}
-          {title === "Sign in" && <AuthPrompt promptTo="Forgot password"/>}
+          {title === "Sign in" && <AuthPrompt promptTo="Forgot password" />}
           <Button type="submit" disabled={isLoading}>
             Continue
           </Button>
