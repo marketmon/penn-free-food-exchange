@@ -15,7 +15,7 @@ model User {
   firstName    String
   lastName     String
   primaryEmail String    @unique
-  primaryPhone String?   @unique
+  primaryPhone String?   
   listings     Listing[]
   meadow       Meadow    @relation(fields: [meadowId], references: [id])
   meadowId     String    @unique @db.ObjectId

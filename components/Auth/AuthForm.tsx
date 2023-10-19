@@ -89,7 +89,13 @@ export default function AuthForm({
                           </SelectTrigger>
                           <SelectContent>
                             {meadows!.map((meadow) => (
-                              <SelectItem key={meadow.id} value={meadow.domain}>
+                              <SelectItem
+                                key={meadow.id}
+                                value={JSON.stringify({
+                                  domain: meadow.domain,
+                                  id: meadow.id,
+                                })}
+                              >
                                 {meadow.name}
                               </SelectItem>
                             ))}

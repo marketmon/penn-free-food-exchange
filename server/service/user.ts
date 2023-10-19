@@ -13,12 +13,12 @@ export async function createUserService(data: WebhookRequestType) {
 
   const firstName = first_name;
   const lastName = last_name;
-  const domain = unsafe_metadata.domain;
+  const meadowId = unsafe_metadata.meadowId;
   const primaryEmail = email_addresses.find(
     (email) => (email.id = primary_email_address_id)
   )!.email_address;
 
-  await createUser(id!, firstName, lastName, domain, primaryEmail);
+  await createUser(id!, firstName, lastName, meadowId, primaryEmail);
 }
 
 export async function updateUserService(data: WebhookRequestType) {

@@ -1,4 +1,4 @@
-import { getMeadows } from "../repository/meadow";
+import { getMeadows, getMeadowById } from "../repository/meadow";
 
 export async function getMeadowsService() {
   try {
@@ -7,6 +7,18 @@ export async function getMeadowsService() {
       throw new NotFoundError("No meadows found");
     }
     return meadows;
+  } catch (error) {
+    throw new ServerError("ServerError");
+  }
+}
+
+export async function getMeadowByIdService(meadowId: string) {
+  try {
+    const meadow = await getMeadowById(meadowId);
+    if (!meadow) {
+      throw new NotFoundError("No meadow found");
+    }
+    return meadow;
   } catch (error) {
     throw new ServerError("ServerError");
   }

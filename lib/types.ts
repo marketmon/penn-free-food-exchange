@@ -9,12 +9,14 @@ import {
   UserJSON,
 } from "@clerk/nextjs/server";
 
+export type DomainType = { id: string; domain: string };
+
 export type MeadowsType = {
-  id: string,
-  domain: string,
-  name: string,
-  latitude: number,
-  longitude: number,
+  id: string;
+  domain: string;
+  name: string;
+  latitude: number;
+  longitude: number;
 };
 
 export type FormInput = {

@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { currentUser } from "@clerk/nextjs";
+import type { User } from "@clerk/nextjs/api";
 
 type MeadowDomainMappings = {
   [key: string]: string;
@@ -17,4 +19,9 @@ export function mapMeadowToDomain(meadow: string) {
   };
   return "gmail.com";
   return meadowDomainMappings[meadow];
+}
+
+export async function getCurrentUser() {
+  const user: User | null = await currentUser();
+  return user;
 }

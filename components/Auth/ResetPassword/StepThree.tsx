@@ -14,7 +14,7 @@ export default function StepThree() {
       password: values.newPassword,
     });
     await setActive!({ session: result.createdSessionId });
-    router.push("/");
+    router.push("/listings");
   }
 
   return (

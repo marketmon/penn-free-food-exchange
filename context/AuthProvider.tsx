@@ -1,4 +1,4 @@
-"use client" 
+"use client";
 
 import React, {
   useContext,
@@ -8,7 +8,7 @@ import React, {
   SetStateAction,
 } from "react";
 import { useSignIn, useSignUp } from "@clerk/nextjs";
-import { SignIn, SignUp } from "@/lib/types";
+import { DomainType, SignIn, SignUp } from "@/lib/types";
 
 type AuthType = {
   isLoaded: boolean;
@@ -20,8 +20,8 @@ type AuthType = {
 type AuthContextType = AuthType & {
   step: number;
   setStep: Dispatch<SetStateAction<number>>;
-  domain?: string;
-  setDomain?: Dispatch<SetStateAction<string>>;
+  meadowInfo?: DomainType;
+  setMeadowInfo?: Dispatch<SetStateAction<DomainType>>;
 };
 
 function createAuthContext(useAuth: () => AuthType, authFor: string) {
@@ -30,7 +30,7 @@ function createAuthContext(useAuth: () => AuthType, authFor: string) {
   function AuthProvider({ children }: { children: React.ReactNode }) {
     const auth = useAuth();
     const [step, setStep] = useState(1);
-    const [domain, setDomain] = useState("");
+    const [meadowInfo, setMeadowInfo] = useState({ id: "", domain: "" });
 
     return (
       <AuthContext.Provider
@@ -38,7 +38,7 @@ function createAuthContext(useAuth: () => AuthType, authFor: string) {
           ...auth,
           step,
           setStep,
-          ...(authFor === "signUp" ? { domain, setDomain } : {}),
+          ...(authFor === "signUp" ? { meadowInfo, setMeadowInfo } : {}),
         }}
       >
         {children}
@@ -59,14 +59,10 @@ function createAuthContext(useAuth: () => AuthType, authFor: string) {
   return { AuthProvider, useAuthContext };
 }
 
-const {
-  AuthProvider: SignUpProvider,
-  useAuthContext: useSignUpContext,
-} = createAuthContext(useSignUp, "signUp");
+const { AuthProvider: SignUpProvider, useAuthContext: useSignUpContext } =
+  createAuthContext(useSignUp, "signUp");
 
-const {
-  AuthProvider: SignInProvider,
-  useAuthContext: useSignInContext,
-} = createAuthContext(useSignIn, "signIn");
+const { AuthProvider: SignInProvider, useAuthContext: useSignInContext } =
+  createAuthContext(useSignIn, "signIn");
 
 export { SignUpProvider, useSignUpContext, SignInProvider, useSignInContext };

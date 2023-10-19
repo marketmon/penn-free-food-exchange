@@ -3,9 +3,16 @@ import { MeadowsType } from "./types";
 
 export const selectMeadowSchema = (meadows: MeadowsType[]) =>
   z.object({
-    meadow: z.string().refine(
+    meadowInfo: z.string().refine(
       // Check if the meadow value matches any of the meadow names
-      (domain) => meadows?.some((meadow) => meadow.domain === domain),
+      (domainInfo) => {
+        if (domainInfo) {
+          const domainInfoParsed = JSON.parse(domainInfo);
+          return meadows.some(
+            (meadow) => meadow.domain === domainInfoParsed.domain
+          );
+        }
+      },
       {
         message: "Please select a meadow",
       }
