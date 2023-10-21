@@ -21,7 +21,7 @@ export function mapMeadowToDomain(meadow: string) {
   return meadowDomainMappings[meadow];
 }
 
-export async function getCurrentUser() {
+export async function getClerkCurrentUser() {
   const user: User | null = await currentUser();
   return user;
 }

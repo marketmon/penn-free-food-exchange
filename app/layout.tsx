@@ -3,8 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { SignedIn, UserButton } from "@clerk/nextjs";
 import QueryProvider from "@/context/QueryProvider";
+import Navigation from "@/components/common/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,23 +22,9 @@ export default function RootLayout({
     <QueryProvider>
       <ClerkProvider>
         <html lang="en">
-          <body className={inter.className}>
-            <div>
-              <SignedIn>
-                <UserButton
-                  afterSignOutUrl="/"
-                  appearance={{
-                    elements: {
-                      avatarBox: "h-10 w-10",
-                    },
-                    variables: {
-                      colorPrimary: "#ff7000",
-                    },
-                  }}
-                />
-              </SignedIn>
-            </div>
-            {children}
+          <body className={`${inter.className} h-screen`}>
+            <Navigation />
+            <div className="h-[calc(100vh-40px)]">{children}</div>
           </body>
         </html>
       </ClerkProvider>

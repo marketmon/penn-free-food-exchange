@@ -18,7 +18,7 @@ model User {
   primaryPhone String?   
   listings     Listing[]
   meadow       Meadow    @relation(fields: [meadowId], references: [id])
-  meadowId     String    @unique @db.ObjectId
+  meadowId     String    @db.ObjectId
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }

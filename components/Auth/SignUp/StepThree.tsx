@@ -6,7 +6,7 @@ import AuthForm from "../AuthForm";
 import AuthPrompt from "../AuthPrompt";
 
 export default function StepThree() {
-  const { signUp, setActive } = useSignUpContext();
+  const { signUp, meadowInfo, setActive } = useSignUpContext();
 
   const router = useRouter();
 
@@ -15,7 +15,7 @@ export default function StepThree() {
       code: values.verificationCode,
     });
     await setActive!({ session: result.createdSessionId });
-    router.push("/listings");
+    router.push(`/${meadowInfo!.id}`);
   }
 
   return (

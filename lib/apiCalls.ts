@@ -1,5 +1,5 @@
 import type { User } from "@clerk/nextjs/api";
-import { getCurrentUser } from "./utils";
+import { getClerkCurrentUser } from "./utils";
 
 const BASE_URL = "https://friendly-eureka-x6jxvj44qgcvwwx-3000.app.github.dev";
 
@@ -9,11 +9,17 @@ export async function getListOfMeadows() {
   return meadows;
 }
 
-export async function getMeadowForCurrentUser() {
-  const user: User | null = await getCurrentUser();
-  const meadowId = user!.unsafeMetadata.meadowId;
+export async function getMeadowById(id: string) {
+  const res = await fetch(`${BASE_URL}/api/meadows/${id}`);
+  const data = await res.json();
+  return data;
+}
 
-  const res = await fetch(`${BASE_URL}/api/meadows/${meadowId}`);
+export async function getCurrentUser() {
+  const user: User | null = await getClerkCurrentUser();
+  const userId = user!.id;
+  
+  const res = await fetch(`${BASE_URL}/api/user/${userId}`);
   const data = await res.json();
   return data;
 }

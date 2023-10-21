@@ -5,16 +5,15 @@ import { useSignInContext } from "@/context/AuthProvider";
 import AuthForm from "../AuthForm";
 
 export default function StepThree() {
-  const { signIn, setActive } = useSignInContext();
+  const { signIn } = useSignInContext();
 
   const router = useRouter();
 
   async function handleSubmit(values: z.infer<ZodSchema<any>>) {
-    const result = await signIn?.resetPassword({
+    await signIn?.resetPassword({
       password: values.newPassword,
     });
-    await setActive!({ session: result.createdSessionId });
-    router.push("/listings");
+    router.push("/signin");
   }
 
   return (
