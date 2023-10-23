@@ -1,9 +1,10 @@
 import { useCreateListing } from "@/context/CreateListingProvider";
-import L, { Icon } from "leaflet";
+import { DivIcon, Icon } from "leaflet";
 import { useRef } from "react";
 import { Marker, useMapEvents, useMap } from "react-leaflet";
+import ListingMarker from "../ListingMarker";
 
-export default function NewListingMarker() {
+export default function CreateListingMarker() {
   const {
     position,
     setPosition,
@@ -19,7 +20,7 @@ export default function NewListingMarker() {
   const markerRef = useRef<any>(null);
 
   const markerDivIcon = (emoji: string) =>
-    L.divIcon({
+    new DivIcon({
       html: `<h1 style="font-size: 1.8rem">
       ${emoji}
     </h1>`,
@@ -59,13 +60,12 @@ export default function NewListingMarker() {
 
   return (
     (hasClickedMap || position) && (
-      <Marker
-        attribution='<a href="https://www.flaticon.com/free-icons/location" title="location icons">Location icons created by IconMarketPK - Flaticon</a>'
+      <ListingMarker
         draggable={true}
-        eventHandlers={onMarkerDrag}
         position={position!}
-        ref={markerRef}
+        markerRef={markerRef}
         icon={icon === "Default pin" ? markerDefaultIcon : markerDivIcon(icon)}
+        eventHandlers={onMarkerDrag}
       />
     )
   );

@@ -4,8 +4,8 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { getCurrentUser } from "@/lib/apiCalls";
-import CreateListing from "@/components/Listings/CreateListing";
-import ListingsMapCreate from "@/components/Listings/Map/ListingsMapCreate";
+import CreateListingSidebar from "@/components/Listings/Create/CreateListingSidebar";
+import CreateListingMap from "@/components/Listings/Create/CreateListingMap";
 import ListingDashboard from "@/components/Listings/ListingDashboard";
 
 export default async function Page({
@@ -26,8 +26,8 @@ export default async function Page({
     return (
       <HydrationBoundary state={dehydratedState}>
         <ListingDashboard
-          mapcomponent={<ListingsMapCreate meadowId={params.meadowId} />}
-          sidebarComponent={<CreateListing meadowId={params.meadowId} />}
+          mapcomponent={<CreateListingMap meadowId={params.meadowId} />}
+          sidebarComponent={<CreateListingSidebar meadowId={params.meadowId} />}
         />
       </HydrationBoundary>
     );

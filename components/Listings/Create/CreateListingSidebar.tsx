@@ -7,7 +7,7 @@ import { listingFormSchema } from "@/lib/validations";
 import Link from "next/link";
 import ListingForm from "@/components/Listings/ListingForm";
 
-export default function CreateListing({ meadowId }: { meadowId: string }) {
+export default function CreateListingSidebar({ meadowId }: { meadowId: string }) {
   const { data } = useQuery({
     queryKey: ["currentUser"],
     queryFn: getCurrentUser,

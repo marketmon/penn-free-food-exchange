@@ -5,15 +5,15 @@ import { getCurrentUser } from "@/lib/apiCalls";
 import { Meadow } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 
-const Map = dynamic(() => import("@/components/Listings/Map/Map"), {
+const ListingMap = dynamic(() => import("@/components/Listings/ListingMap"), {
   ssr: false,
 });
 
-const NewListingMarker = dynamic(() => import("../Marker/NewListingMarker"), {
+const CreateListingMarker = dynamic(() => import("@/components/Listings/Create/CreateListingMarker"), {
   ssr: false,
 });
 
-export default function ListingsMapCreate({ meadowId }: { meadowId: string }) {
+export default function CreateListingMap({ meadowId }: { meadowId: string }) {
   const { data } = useQuery({
     queryKey: ["currentUser"],
     queryFn: getCurrentUser,
@@ -29,8 +29,8 @@ export default function ListingsMapCreate({ meadowId }: { meadowId: string }) {
   ];
 
   return (
-    <Map latitude={latitude} longitude={longitude} zoom={17}>
-      <NewListingMarker />
-    </Map>
+    <ListingMap latitude={latitude} longitude={longitude} zoom={17}>
+      <CreateListingMarker />
+    </ListingMap>
   );
 }

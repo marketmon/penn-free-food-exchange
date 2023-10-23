@@ -1,14 +1,14 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-type MapProps = {
+type ListingMapProps = {
   children?: React.ReactNode;
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-export default function Map({ children, latitude, longitude, zoom }: MapProps) {
+export default function ListingMap({ children, latitude, longitude, zoom }: ListingMapProps) {
   return (
     <MapContainer center={[latitude, longitude]} zoom={zoom} className="h-full">
       <TileLayer

@@ -5,7 +5,7 @@ import { getMeadowById } from "@/lib/apiCalls";
 import { SignedIn, useUser } from "@clerk/nextjs";
 import { useQuery } from "@tanstack/react-query";
 
-export default function AllListings({ meadowId }: { meadowId: string }) {
+export default function ViewListingsSidebar({ meadowId }: { meadowId: string }) {
   const { user } = useUser();
   const { data } = useQuery({
     queryKey: [`$meadow-${meadowId}`],
