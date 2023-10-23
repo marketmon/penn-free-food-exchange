@@ -6,7 +6,7 @@ import {
 import { getMeadowById } from "@/lib/apiCalls";
 import AllListings from "@/components/Listings/AllListings";
 import ListingsMapDisplay from "@/components/Listings/Map/ListingsMapDisplay";
-
+import ListingDashboard from "@/components/Listings/ListingDashboard";
 
 export default async function Page({
   params,
@@ -24,14 +24,10 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="flex h-full">
-        <div className="w-2/3">
-          <ListingsMapDisplay meadowId={meadowId} />
-        </div>
-        <div className="w-1/3">
-          <AllListings meadowId={meadowId} />
-        </div>
-      </div>
+      <ListingDashboard
+        mapcomponent={<ListingsMapDisplay meadowId={meadowId} />}
+        sidebarComponent={<AllListings meadowId={meadowId} />}
+      />
     </HydrationBoundary>
   );
 }

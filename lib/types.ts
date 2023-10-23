@@ -9,9 +9,9 @@ import {
   UserJSON,
 } from "@clerk/nextjs/server";
 
-export type DomainType = { id: string; domain: string };
+export type Domain = { id: string; domain: string };
 
-export type MeadowsType = {
+export type Meadow = {
   id: string;
   domain: string;
   name: string;
@@ -24,6 +24,19 @@ export type FormInput = {
   label: string;
   type: string;
 };
+
+export type Position = {
+  lat: number;
+  lng: number;
+} | null;
+
+export type Auth = {
+  isLoaded: boolean;
+  signIn?: SignIn;
+  signUp?: SignUp;
+  setActive: ((config: { session: string }) => Promise<void>) | undefined;
+};
+
 
 export type SignUp = {
   create: (credentials: {
@@ -52,11 +65,11 @@ export type SignIn = {
   resetPassword: (credentials: { password: string }) => Promise<any>;
 };
 
-type PhoneVerificationType = {
+type PhoneVerification = {
   status: "unverified" | "verified";
 };
 
-type ClerkRequestDataType = {
+type ClerkRequestData = {
   first_name: "string";
   last_name: "string";
   unsafe_metadata: { [key: string]: string };
@@ -65,12 +78,12 @@ type ClerkRequestDataType = {
   phone_numbers: {
     id: string;
     phone_number: string;
-    verification: PhoneVerificationType | null;
+    verification: PhoneVerification | null;
   }[];
   primary_phone_number_id: string;
 };
 
-export type WebhookRequestType = (
+export type WebhookRequest = (
   | UserJSON
   | DeletedObjectJSON
   | SessionJSON
@@ -80,4 +93,4 @@ export type WebhookRequestType = (
   | OrganizationMembershipJSON
   | OrganizationInvitationJSON
 ) &
-  ClerkRequestDataType;
+  ClerkRequestData;

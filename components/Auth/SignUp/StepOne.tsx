@@ -3,15 +3,14 @@ import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
 import { getListOfMeadows } from "@/lib/apiCalls";
-import AuthForm from "../AuthForm";
-import AuthPrompt from "../AuthPrompt";
+import AuthForm from "@/components/Auth/AuthForm";
+import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepOne() {
   const { isLoading, data } = useQuery({
     queryKey: ["meadows"],
     queryFn: getListOfMeadows,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+    staleTime: Infinity,
   });
 
   const { setMeadowInfo, setStep } = useSignUpContext();

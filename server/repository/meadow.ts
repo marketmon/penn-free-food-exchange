@@ -12,6 +12,7 @@ export async function getMeadowById(meadowId: string) {
     },
     include: {
       listings: true,
+      users: true,
     },
   });
   return meadow;

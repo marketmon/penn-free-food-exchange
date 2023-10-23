@@ -1,7 +1,9 @@
 import * as z from "zod";
-import { MeadowsType } from "./types";
+import { PhoneNumberUtil, PhoneNumber } from "google-libphonenumber";
+import { Meadow } from "@/lib/types";
+import { COUNTRY_CODES } from "@/lib/constants";
 
-export const selectMeadowSchema = (meadows: MeadowsType[]) =>
+export const selectMeadowSchema = (meadows: Meadow[]) =>
   z.object({
     meadowInfo: z.string().refine(
       // Check if the meadow value matches any of the meadow names
@@ -88,3 +90,30 @@ export const resetPasswordSchema = z
     message: "Passwords don't match",
     path: ["verifyPassword"],
   });
+
+const phoneUtil = PhoneNumberUtil.getInstance();
+
+function isPhoneValid(phone: string): boolean {
+  // only country code means user hasn't entered an optional phone number
+  if (COUNTRY_CODES.includes(phone)) {
+    return true;
+  }
+  try {
+    const phoneNumber: PhoneNumber = phoneUtil.parseAndKeepRawInput(phone);
+    return phoneUtil.isValidNumber(phoneNumber);
+  } catch (error) {
+    return false;
+  }
+}
+
+export const listingFormSchema = z.object({
+  location: z
+    .string()
+    .min(1, { message: "Location is required" })
+    .max(30, { message: "Location must be less than 30 characters" }),
+  caption: z
+    .string()
+    .max(300, { message: "Caption must be less than 300 characters" }),
+  contact: z.string().refine(isPhoneValid),
+  icon: z.string().min(1, { message: "Icon is required" }),
+});

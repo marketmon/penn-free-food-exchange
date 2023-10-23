@@ -2,7 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { createUserService, deleteUserService, updateUserService } from "@/server/service/user";
-import { WebhookRequestType } from "@/lib/types";
+import { WebhookRequest } from "@/lib/types";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || "";
@@ -37,8 +37,7 @@ export async function POST(req: Request) {
       "svix-signature": svix_signature,
     }) as WebhookEvent;
   } catch (err) {
-    console.error("Error verifying webhook:", err);
-    return new Response("Error occured", {
+    return new Response("Server error", {
       status: 400,
     });
   }
@@ -46,7 +45,7 @@ export async function POST(req: Request) {
   // Get the ID and type
   const eventType = evt.type;
   const data = evt.data;
-  const dataTyped = data as WebhookRequestType;
+  const dataTyped = data as WebhookRequest;
 
   if (eventType === "user.created") {
     createUserService(dataTyped);

@@ -1,7 +1,8 @@
-import { WebhookRequestType } from "@/lib/types";
-import { createUser, deleteUser, getUserById, updateUser } from "../repository/user";
+import { WebhookRequest } from "@/lib/types";
+import { createUser, deleteUser, getUserById, updateUser } from "@/server/repository/user";
+import { NotFoundError, ServerError } from "@/lib/errors";
 
-export async function createUserService(data: WebhookRequestType) {
+export async function createUserService(data: WebhookRequest) {
   const {
     id,
     first_name,
@@ -13,7 +14,7 @@ export async function createUserService(data: WebhookRequestType) {
 
   const firstName = first_name;
   const lastName = last_name;
-  const meadowId = unsafe_metadata.meadowId;
+  const meadowId = unsafe_metadata.initialMeadowId;
   const primaryEmail = email_addresses.find(
     (email) => (email.id = primary_email_address_id)
   )!.email_address;
@@ -21,7 +22,7 @@ export async function createUserService(data: WebhookRequestType) {
   await createUser(id!, firstName, lastName, meadowId, primaryEmail);
 }
 
-export async function updateUserService(data: WebhookRequestType) {
+export async function updateUserService(data: WebhookRequest) {
   const {
     id,
     first_name,
@@ -54,7 +55,7 @@ export async function updateUserService(data: WebhookRequestType) {
   await updateUser(id!, firstName, lastName, primaryEmail, primaryPhone);
 }
 
-export async function deleteUserService(data: WebhookRequestType) {
+export async function deleteUserService(data: WebhookRequest) {
   const { id } = data;
   await deleteUser(id!);
 }

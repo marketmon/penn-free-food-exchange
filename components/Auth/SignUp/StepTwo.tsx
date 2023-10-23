@@ -1,8 +1,8 @@
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { SignUpSchema } from "@/lib/validations";
-import AuthForm from "../AuthForm";
-import AuthPrompt from "../AuthPrompt";
+import AuthForm from "@/components/Auth/AuthForm";
+import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepTwo() {
   const { signUp, meadowInfo, setStep } = useSignUpContext();
@@ -13,7 +13,7 @@ export default function StepTwo() {
       lastName: values.lastName,
       emailAddress: values.email,
       password: values.password,
-      unsafeMetadata: { meadowId: meadowInfo!.id },
+      unsafeMetadata: { initialMeadowId: meadowInfo!.id },
     });
 
     await signUp!.prepareEmailAddressVerification({

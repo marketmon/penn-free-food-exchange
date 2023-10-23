@@ -11,6 +11,7 @@ export default async function Page() {
   await queryClient.prefetchQuery({
     queryKey: ["meadows"],
     queryFn: getListOfMeadows,
+    staleTime: Infinity,
   });
   const dehydratedState = dehydrate(queryClient);
 

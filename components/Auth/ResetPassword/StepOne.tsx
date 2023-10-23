@@ -1,7 +1,7 @@
 import { ZodSchema, z } from "zod";
 import { useSignInContext } from "@/context/AuthProvider";
 import { emailSchema } from "@/lib/validations";
-import AuthForm from "../AuthForm";
+import AuthForm from "@/components/Auth/AuthForm";
 
 export default function StepOne() {
   const { signIn, setStep } = useSignInContext();

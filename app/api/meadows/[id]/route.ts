@@ -1,3 +1,4 @@
+import { NotFoundError, ServerError } from "@/lib/errors";
 import { getMeadowByIdService } from "@/server/service/meadow";
 
 export async function GET(request: Request) {

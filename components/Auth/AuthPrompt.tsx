@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ResendVerificationCode from "./ResendVerificationCode";
+import ResendVerificationCode from "@/components/Auth/ResendVerificationCode";
 import { SignIn, SignUp } from "@/lib/types";
 
 type AuthPromptProps = {

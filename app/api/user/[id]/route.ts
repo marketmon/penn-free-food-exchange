@@ -1,3 +1,4 @@
+import { NotFoundError, ServerError } from "@/lib/errors";
 import { getUserByIdService } from "@/server/service/user";
 
 export async function GET(request: Request) {

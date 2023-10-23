@@ -1,8 +1,8 @@
 import { ZodSchema, z } from "zod";
 import { useSignInContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
-import AuthForm from "../AuthForm";
-import AuthPrompt from "../AuthPrompt";
+import AuthForm from "@/components/Auth/AuthForm";
+import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepTwo() {
   const { signIn, setStep } = useSignInContext();

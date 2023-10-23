@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,10 +12,10 @@ model User {
   firstName    String
   lastName     String
   primaryEmail String    @unique
-  primaryPhone String?   
+  primaryPhone String?
   listings     Listing[]
-  meadow       Meadow    @relation(fields: [meadowId], references: [id])
-  meadowId     String    @db.ObjectId
+  meadowIds    String[]  @db.ObjectId
+  meadows      Meadow[]  @relation(fields: [meadowIds], references: [id])
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -54,8 +51,9 @@ model Meadow {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String    @unique
   domain    String    @unique
-  latitude  Float 
+  latitude  Float
   longitude Float
   listings  Listing[]
-  users     User[]
+  userIds   String[]
+  users     User[]    @relation(fields: [userIds], references: [id])
 }

@@ -8,23 +8,16 @@ import React, {
   SetStateAction,
 } from "react";
 import { useSignIn, useSignUp } from "@clerk/nextjs";
-import { DomainType, SignIn, SignUp } from "@/lib/types";
+import { Auth, Domain } from "@/lib/types";
 
-type AuthType = {
-  isLoaded: boolean;
-  signIn?: SignIn;
-  signUp?: SignUp;
-  setActive: ((config: { session: string }) => Promise<void>) | undefined;
-};
-
-type AuthContextType = AuthType & {
+type AuthContextType = Auth & {
   step: number;
   setStep: Dispatch<SetStateAction<number>>;
-  meadowInfo?: DomainType;
-  setMeadowInfo?: Dispatch<SetStateAction<DomainType>>;
+  meadowInfo?: Domain;
+  setMeadowInfo?: Dispatch<SetStateAction<Domain>>;
 };
 
-function createAuthContext(useAuth: () => AuthType, authFor: string) {
+function createAuthContext(useAuth: () => Auth, authFor: string) {
   const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
   function AuthProvider({ children }: { children: React.ReactNode }) {

@@ -19,7 +19,7 @@ export async function createUser(
       firstName,
       lastName,
       primaryEmail,
-      meadow: {
+      meadows: {
         connect: {
           id: meadow!.id,
         },
@@ -72,7 +72,7 @@ export async function getUserById(id: string) {
       id,
     },
     include: {
-      meadow: true,
+      meadows: true,
     }
   });
   return user;

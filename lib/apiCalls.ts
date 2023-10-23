@@ -1,5 +1,5 @@
 import type { User } from "@clerk/nextjs/api";
-import { getClerkCurrentUser } from "./utils";
+import { getClerkCurrentUser } from "@/lib/utils";
 
 const BASE_URL = "https://friendly-eureka-x6jxvj44qgcvwwx-3000.app.github.dev";
 

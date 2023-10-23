@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FormInput, MeadowsType } from "@/lib/types";
-import AuthPrompt from "./AuthPrompt";
+import { FormInput, Meadow } from "@/lib/types";
+import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 type AuthFormProps = {
   title: string;
@@ -31,7 +31,7 @@ type AuthFormProps = {
   inputs: FormInput[];
   handleInputs: (values: z.infer<ZodSchema<any>>) => Promise<void> | void;
   meadowsLoading?: boolean;
-  meadows?: MeadowsType[];
+  meadows?: Meadow[];
 };
 
 export default function AuthForm({
