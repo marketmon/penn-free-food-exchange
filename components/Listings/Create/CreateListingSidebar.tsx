@@ -86,7 +86,7 @@ export default function CreateListingSidebar({
               location: "",
               caption: "",
               contact: "",
-              icon: "Default pin",
+              icon: "📍",
             }}
             onSubmit={onSubmit}
             isLoading={isLoading}

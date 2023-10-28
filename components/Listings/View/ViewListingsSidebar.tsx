@@ -20,7 +20,7 @@ export default function ViewListingsSidebar({ meadowId }: { meadowId: string }) 
     <div className="h-full overflow-y-hidden">
       {data.userIds.includes(userMeadowId) && (
         <SignedIn>
-          <div className="flex justify-between sticky top-0">
+          <div className="flex justify-between sticky top-0 px-3">
             <Link href={`/${meadowId}/create`}>Create</Link>
             <Link href={`/${meadowId}/manage`}>Manage Your Listings</Link>
           </div>

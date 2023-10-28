@@ -29,11 +29,6 @@ export default function ListingMarker({
       iconSize: [24, 46],
     });
 
-  const markerDefaultIcon = new Icon({
-    iconUrl: "/marker.png",
-    iconSize: [45, 45],
-  });
-
   return (
     <Marker
       attribution='<a href="https://www.flaticon.com/free-icons/location" title="location icons">Location icons created by IconMarketPK - Flaticon</a>'
@@ -41,7 +36,7 @@ export default function ListingMarker({
       eventHandlers={eventHandlers && eventHandlers}
       position={position!}
       ref={markerRef}
-      icon={icon === "Default pin" ? markerDefaultIcon : markerDivIcon(icon)}
+      icon={markerDivIcon(icon)}
     >
       {children}
     </Marker>

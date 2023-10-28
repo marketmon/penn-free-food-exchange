@@ -33,7 +33,7 @@ export function CreateListingProvider({
   const [hasClickedMap, setHasClickedMap] = useState(false);
   const [isPositionBasedOnUserLocation, setIsPositionBasedOnUserLocation] =
     useState(false);
-  const [icon, setIcon] = useState("Default pin");
+  const [icon, setIcon] = useState("📍");
 
   return (
     <CreateListingContext.Provider

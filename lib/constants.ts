@@ -16,7 +16,7 @@
 // ];
 
 export const ICON_LIST = [
-  { id: 1, icon: "Default pin" },
+  { id: 1, icon: "📍" },
   { id: 2, icon: "🍎" },
   { id: 3, icon: "🥬" },
   { id: 4, icon: "🍪" },

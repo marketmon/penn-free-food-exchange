@@ -20,6 +20,7 @@ export type Listing = {
   userId: string;
   meadowId: string;
   updatedAt?: string;
+  usersThankedIds?: string[];
 };
 
 export type Domain = { id: string; domain: string };
