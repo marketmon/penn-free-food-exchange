@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { getMeadowById } from "@/lib/apiCalls";
 import { SignedIn, useUser } from "@clerk/nextjs";
 import { useQuery } from "@tanstack/react-query";
+import { getMeadowById } from "@/lib/apiCalls";
 
 export default function ViewListingsSidebar({ meadowId }: { meadowId: string }) {
   const { user } = useUser();
   const { data } = useQuery({
-    queryKey: [`$meadow-${meadowId}`],
+    queryKey: [`meadow-${meadowId}`],
     queryFn: () => getMeadowById(meadowId),
   });
 

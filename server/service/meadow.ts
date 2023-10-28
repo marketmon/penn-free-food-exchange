@@ -9,7 +9,7 @@ export async function getMeadowsService() {
     }
     return meadows;
   } catch (error) {
-    throw new ServerError("ServerError");
+    throw new ServerError("Server error");
   }
 }
 
@@ -21,6 +21,6 @@ export async function getMeadowByIdService(meadowId: string) {
     }
     return meadow;
   } catch (error) {
-    throw new ServerError("ServerError");
+    throw new ServerError("Server error");
   }
 }

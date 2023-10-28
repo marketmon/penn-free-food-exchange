@@ -16,7 +16,7 @@ export default async function Page({
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery({
     queryKey: ["currentUser"],
-    queryFn: getCurrentUser,
+    queryFn: () => getCurrentUser(),
   });
   const dehydratedState = dehydrate(queryClient);
 

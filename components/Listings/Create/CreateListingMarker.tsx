@@ -1,8 +1,7 @@
 import { useCreateListing } from "@/context/CreateListingProvider";
-import { DivIcon, Icon } from "leaflet";
 import { useRef } from "react";
-import { Marker, useMapEvents, useMap } from "react-leaflet";
-import ListingMarker from "../ListingMarker";
+import { useMapEvents, useMap } from "react-leaflet";
+import ListingMarker from "@/components/Listings/ListingMarker";
 
 export default function CreateListingMarker() {
   const {
@@ -18,20 +17,6 @@ export default function CreateListingMarker() {
   const map = useMap();
 
   const markerRef = useRef<any>(null);
-
-  const markerDivIcon = (emoji: string) =>
-    new DivIcon({
-      html: `<h1 style="font-size: 1.8rem">
-      ${emoji}
-    </h1>`,
-      className: "test--marker--icon",
-      iconSize: [24, 46],
-    });
-
-  const markerDefaultIcon = new Icon({
-    iconUrl: "/marker.png",
-    iconSize: [45, 45],
-  });
 
   const onMarkerDrag = {
     dragend() {
@@ -64,7 +49,7 @@ export default function CreateListingMarker() {
         draggable={true}
         position={position!}
         markerRef={markerRef}
-        icon={icon === "Default pin" ? markerDefaultIcon : markerDivIcon(icon)}
+        icon={icon}
         eventHandlers={onMarkerDrag}
       />
     )

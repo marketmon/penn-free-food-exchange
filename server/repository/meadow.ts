@@ -1,7 +1,15 @@
 import { prisma } from "@/lib/db";
 
 export async function getMeadows() {
-  const meadows = await prisma.meadow.findMany();
+  const meadows = await prisma.meadow.findMany({
+    select: {
+      id: true,
+      name: true,
+      domain: true,
+      lat: true,
+      lng: true,
+    },
+  });
   return meadows;
 }
 

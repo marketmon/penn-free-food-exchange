@@ -93,7 +93,7 @@ export const resetPasswordSchema = z
 
 const phoneUtil = PhoneNumberUtil.getInstance();
 
-function isPhoneValid(phone: string): boolean {
+export function isPhoneValid(phone: string): boolean {
   // only country code means user hasn't entered an optional phone number
   if (COUNTRY_CODES.includes(phone)) {
     return true;
@@ -114,6 +114,10 @@ export const listingFormSchema = z.object({
   caption: z
     .string()
     .max(300, { message: "Caption must be less than 300 characters" }),
-  contact: z.string().refine(isPhoneValid),
+  contact: z
+    .string()
+    .refine(isPhoneValid, {
+      message: "Invalid phone number",
+    }),
   icon: z.string().min(1, { message: "Icon is required" }),
 });

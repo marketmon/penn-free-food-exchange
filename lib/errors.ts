@@ -8,7 +8,13 @@ export class NotFoundError extends Error {
 export class ServerError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "ServerErrorz";
+    this.name = "ServerError";
   }
 }
 
+export class BadRequestError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "BadRequestError";
+  }
+}

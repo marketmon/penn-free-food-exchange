@@ -15,9 +15,8 @@ export default async function Page({
 }) {
   const meadowId = params.meadowId;
   const queryClient = new QueryClient();
-  const queryKey = `$meadow-${meadowId}`;
   await queryClient.prefetchQuery({
-    queryKey: [queryKey],
+    queryKey: [`meadow-${meadowId}`],
     queryFn: () => getMeadowById(meadowId),
   });
   const dehydratedState = dehydrate(queryClient);

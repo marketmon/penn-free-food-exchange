@@ -1,3 +1,36 @@
+// export const MEADOWS = [
+//   {
+//     id: "6533d94f24987278f18ad88d",
+//     name: "University of Pennsylvania",
+//     latitude: 39.95295329909881,
+//     longitude: -75.1935820978563,
+//     domain: "gmail.com",
+//   },
+//   {
+//     id: "6533d9a024987278f18ad88e",
+//     name: "University of Florida",
+//     latitude: 29.64653229434124,
+//     longitude: -82.35326826910915,
+//     domain: "outlook.com",
+//   },
+// ];
+
+export const ICON_LIST = [
+  { id: 1, icon: "Default pin" },
+  { id: 2, icon: "🍎" },
+  { id: 3, icon: "🥬" },
+  { id: 4, icon: "🍪" },
+  { id: 5, icon: "🍕" },
+  { id: 6, icon: "🥪" },
+  { id: 7, icon: "🍩" },
+  { id: 8, icon: "🥫" },
+  { id: 9, icon: "🥡" },
+  { id: 10, icon: "🍛" },
+  { id: 11, icon: "🌯" },
+  { id: 12, icon: "🥞" },
+  { id: 13, icon: "☕" },
+];
+
 export const COUNTRY_CODES = [
   "+93",
   "+355",
@@ -212,3 +245,8 @@ export const COUNTRY_CODES = [
   "+260",
   "+263",
 ];
+
+export const MAP_ATTRIBUTION =
+  "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors";
+
+export const MAP_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";

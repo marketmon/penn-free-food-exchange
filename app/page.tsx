@@ -10,8 +10,7 @@ export default async function Page() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["meadows"],
-    queryFn: getListOfMeadows,
-    staleTime: Infinity,
+    queryFn: () => getListOfMeadows(),
   });
   const dehydratedState = dehydrate(queryClient);
 

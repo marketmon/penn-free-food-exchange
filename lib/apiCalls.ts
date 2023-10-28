@@ -10,16 +10,24 @@ export async function getListOfMeadows() {
 }
 
 export async function getMeadowById(id: string) {
-  const res = await fetch(`${BASE_URL}/api/meadows/${id}`);
+  const res = await fetch(`${BASE_URL}/api/meadows/${id}`, {
+    cache: "no-store",
+  });
   const data = await res.json();
   return data;
 }
 
-export async function getCurrentUser() {
-  const user: User | null = await getClerkCurrentUser();
-  const userId = user!.id;
+export async function getCurrentUser(id?: string) {
+  let userId = id;
+  // if userId is not provided (i.e. not called from client), use server side getClerkCurrentUser
+  if (!userId) {
+    const user: User | null = await getClerkCurrentUser();
+    userId = user!.id;
+  }
   
-  const res = await fetch(`${BASE_URL}/api/user/${userId}`);
+  const res = await fetch(`${BASE_URL}/api/user/${userId}`, {
+    cache: "no-store",
+  });
   const data = await res.json();
   return data;
 }

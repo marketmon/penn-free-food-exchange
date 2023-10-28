@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ZodSchema, z } from "zod";
 import { useCreateListing } from "@/context/CreateListingProvider";
+import { ICON_LIST } from "@/lib/constants";
 import {
   Form,
   FormControl,
@@ -31,10 +32,14 @@ type ListingFormProps = {
   };
   onSubmit: (values: z.infer<ZodSchema<any>>) => Promise<void> | void;
   isLoading: boolean;
-  formDisabled: boolean;
 };
 
 const LISTING_FORM_INPUTS = [
+  {
+    name: "icon",
+    label: "Marker Icon",
+    type: "select",
+  },
   {
     name: "location",
     label: "Location",
@@ -50,27 +55,6 @@ const LISTING_FORM_INPUTS = [
     label: "Contact (optional)",
     type: "tel",
   },
-  {
-    name: "icon",
-    label: "Marker Icon",
-    type: "select",
-  },
-];
-
-const ICON_LIST = [
-  { id: 1, icon: "Default pin" },
-  { id: 2, icon: "🍎" },
-  { id: 3, icon: "🥬" },
-  { id: 4, icon: "🍪" },
-  { id: 5, icon: "🍕" },
-  { id: 6, icon: "🥪" },
-  { id: 7, icon: "🍩" },
-  { id: 8, icon: "🥫" },
-  { id: 9, icon: "🥡" },
-  { id: 10, icon: "🍛" },
-  { id: 11, icon: "🌯" },
-  { id: 12, icon: "🥞" },
-  { id: 13, icon: "☕" },
 ];
 
 export default function ListingForm({
@@ -78,7 +62,6 @@ export default function ListingForm({
   defaultValues,
   onSubmit,
   isLoading,
-  formDisabled,
 }: ListingFormProps) {
   const { setIcon } = useCreateListing();
 
@@ -106,7 +89,6 @@ export default function ListingForm({
                         setIcon(value);
                       }}
                       defaultValue={field.value}
-                      disabled={formDisabled}
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -120,7 +102,7 @@ export default function ListingForm({
                       </SelectContent>
                     </Select>
                   ) : input.type === "textarea" ? (
-                    <Textarea disabled={formDisabled} />
+                    <Textarea />
                   ) : input.type === "tel" ? (
                     <PhoneInput
                       defaultCountry="us"
@@ -128,14 +110,9 @@ export default function ListingForm({
                       onChange={(phone) => {
                         field.onChange(phone);
                       }}
-                      disabled={formDisabled}
                     />
                   ) : (
-                    <Input
-                      {...field}
-                      disabled={formDisabled}
-                      type={input.type}
-                    />
+                    <Input {...field} type={input.type} />
                   )}
                 </FormControl>
                 <FormMessage />

@@ -1,41 +1,69 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { z } from "zod";
 import { useCreateListing } from "@/context/CreateListingProvider";
 import { getCurrentUser } from "@/lib/apiCalls";
 import { listingFormSchema } from "@/lib/validations";
-import Link from "next/link";
 import ListingForm from "@/components/Listings/ListingForm";
 
-export default function CreateListingSidebar({ meadowId }: { meadowId: string }) {
-  const { data } = useQuery({
+export default function CreateListingSidebar({
+  meadowId,
+}: {
+  meadowId: string;
+}) {
+  const queryClient = useQueryClient();
+
+  const { user } = useUser();
+
+  const userId = useQuery({
     queryKey: ["currentUser"],
-    queryFn: getCurrentUser,
-  });
-
-  const userId = data.id;
-
-  // const { mutate, isPending } = useMutation({
-  //   mutationFn: (values) => {
-  //     return fetch("/");
-  //   },
-  // })
-
-  function onSubmit(values: any) {
-    console.log(values);
-  }
+    queryFn: () => getCurrentUser(user?.id),
+  }).data.id;
 
   const { position, setPosition, setIsPositionBasedOnUserLocation } =
     useCreateListing();
 
+  const {
+    mutate,
+    isPending: isLoading,
+    isSuccess,
+  } = useMutation({
+    mutationFn: async (values: z.infer<typeof listingFormSchema>) => {
+      const newListing = { ...values, ...position, userId, meadowId };
+      const response = await fetch("/api/listings", {
+        method: "POST",
+        body: JSON.stringify(newListing),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [`meadow-${meadowId}`] });
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof listingFormSchema>) {
+    mutate(values);
+  }
+
   function getCurrentLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setPosition({ lat: latitude, lng: longitude });
+      const { latitude: lat, longitude: lng } = position.coords;
+      setPosition({ lat, lng });
       setIsPositionBasedOnUserLocation(true);
     });
   }
 
+  if (isSuccess) {
+    redirect(`/${meadowId}`);
+  }
   return (
     <div>
       <Link href={`/${meadowId}`}>Back</Link>
@@ -43,22 +71,23 @@ export default function CreateListingSidebar({ meadowId }: { meadowId: string })
       {!position ? (
         <div>Click the map at the location where the food is.</div>
       ) : (
-        <div>
-          <div>You can drag the marker to change location.</div>
-        </div>
+        <>
+          <div>
+            <div>You can drag the marker to change location.</div>
+          </div>
+          <ListingForm
+            schema={listingFormSchema}
+            defaultValues={{
+              location: "",
+              caption: "",
+              contact: "",
+              icon: "Default pin",
+            }}
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+          />
+        </>
       )}
-      <ListingForm
-        schema={listingFormSchema}
-        defaultValues={{
-          location: "",
-          caption: "",
-          contact: "",
-          icon: "Default pin",
-        }}
-        onSubmit={onSubmit}
-        isLoading={false}
-        formDisabled={!position}
-      />
     </div>
   );
 }

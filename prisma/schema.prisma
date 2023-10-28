@@ -30,29 +30,29 @@ model StillThere {
 }
 
 model Listing {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  latitude   Float
-  longitude  Float
-  location   String
-  icon       String
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  caption    String
-  images     String[]    @default([])
-  contact    String?
-  creator    User        @relation(fields: [creatorId], references: [id])
-  creatorId  String
-  stillThere StillThere?
-  meadow     Meadow      @relation(fields: [meadowId], references: [id])
-  meadowId   String      @unique @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  lat    Float
+  lng   Float
+  location    String
+  icon        String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  caption     String?
+  linkToPhoto String?
+  contact     String?
+  creator     User        @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  stillThere  StillThere?
+  meadow      Meadow      @relation(fields: [meadowId], references: [id])
+  meadowId    String      @db.ObjectId
 }
 
 model Meadow {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String    @unique
   domain    String    @unique
-  latitude  Float
-  longitude Float
+  lat  Float
+  lng Float
   listings  Listing[]
   userIds   String[]
   users     User[]    @relation(fields: [userIds], references: [id])
