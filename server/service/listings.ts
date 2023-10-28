@@ -26,6 +26,7 @@ export async function createListingService(payload: Listing) {
     } else if (!isPhoneValid(contact)) {
       throw new BadRequestError("Invalid phone number");
     }
+    
     const newListing = createListing(
       lat,
       lng,

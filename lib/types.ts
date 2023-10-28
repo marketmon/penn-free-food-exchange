@@ -19,6 +19,7 @@ export type Listing = {
   icon: string;
   userId: string;
   meadowId: string;
+  updatedAt?: string;
 };
 
 export type Domain = { id: string; domain: string };
@@ -49,7 +50,6 @@ export type Auth = {
   signUp?: SignUp;
   setActive: ((config: { session: string }) => Promise<void>) | undefined;
 };
-
 
 export type SignUp = {
   create: (credentials: {

@@ -40,6 +40,7 @@ export default function CreateListingMap({ meadowId }: { meadowId: string }) {
       center={[currentMeadow.lat, currentMeadow.lng]}
       zoom={17}
       className="h-full"
+      style={{ cursor: "auto" }}
     >
       <TileLayer attribution={MAP_ATTRIBUTION} url={MAP_URL} />
       <CreateListingMarker />

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -10,15 +11,18 @@ import { getCurrentUser } from "@/lib/apiCalls";
 import { listingFormSchema } from "@/lib/validations";
 import ListingForm from "@/components/Listings/ListingForm";
 
+
 export default function CreateListingSidebar({
   meadowId,
 }: {
   meadowId: string;
 }) {
+  const router = useRouter();
+
   const queryClient = useQueryClient();
 
   const { user } = useUser();
-
+  
   const userId = useQuery({
     queryKey: ["currentUser"],
     queryFn: () => getCurrentUser(user?.id),
@@ -61,9 +65,10 @@ export default function CreateListingSidebar({
     });
   }
 
-  if (isSuccess) {
-    redirect(`/${meadowId}`);
-  }
+  useEffect(() => {
+    if (isSuccess) router.push(`/${meadowId}`);
+  }, [isSuccess, meadowId, router]);
+
   return (
     <div>
       <Link href={`/${meadowId}`}>Back</Link>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { SignedIn, useUser } from "@clerk/nextjs";
 import { useQuery } from "@tanstack/react-query";
 import { getMeadowById } from "@/lib/apiCalls";
+import { Listing } from "@/lib/types";
+import ListingCard from "@/components/Listings/ListingCard";
 
 export default function ViewListingsSidebar({ meadowId }: { meadowId: string }) {
   const { user } = useUser();
@@ -29,8 +31,8 @@ export default function ViewListingsSidebar({ meadowId }: { meadowId: string }) 
           <div>No food in this area:&#40;</div>
         ) : (
           <ul>
-            {data.listings.map((listing: any) => (
-              <li key={listing.id}>{listing.id}</li>
+            {data.listings.map((listing: Listing) => (
+              <ListingCard key={listing.id} listing={listing} />
             ))}
           </ul>
         )}

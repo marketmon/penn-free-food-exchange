@@ -4,6 +4,7 @@ import { Marker } from "react-leaflet";
 import { DivIcon, Icon } from "leaflet";
 
 type ListingMarkerProps = {
+  children?: React.ReactNode;
   draggable?: boolean;
   position: Position;
   markerRef?: MutableRefObject<any>;
@@ -12,6 +13,7 @@ type ListingMarkerProps = {
 };
 
 export default function ListingMarker({
+  children,
   draggable,
   position,
   markerRef,
@@ -40,6 +42,8 @@ export default function ListingMarker({
       position={position!}
       ref={markerRef}
       icon={icon === "Default pin" ? markerDefaultIcon : markerDivIcon(icon)}
-    />
+    >
+      {children}
+    </Marker>
   );
 }

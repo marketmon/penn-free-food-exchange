@@ -102,7 +102,7 @@ export default function ListingForm({
                       </SelectContent>
                     </Select>
                   ) : input.type === "textarea" ? (
-                    <Textarea />
+                    <Textarea {...field} />
                   ) : input.type === "tel" ? (
                     <PhoneInput
                       defaultCountry="us"
