@@ -15,7 +15,7 @@ export default function StepThree() {
       code: values.verificationCode,
     });
     await setActive!({ session: result.createdSessionId });
-    router.push(`/${meadowInfo!.id}`);
+    router.push("/");
   }
 
   return (

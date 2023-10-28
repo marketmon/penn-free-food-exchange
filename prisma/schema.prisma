@@ -8,16 +8,18 @@ datasource db {
 }
 
 model User {
-  id           String    @id @map("_id")
-  firstName    String
-  lastName     String
-  primaryEmail String    @unique
-  primaryPhone String?
-  listings     Listing[]
-  meadowIds    String[]  @db.ObjectId
-  meadows      Meadow[]  @relation(fields: [meadowIds], references: [id])
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id                 String    @id @map("_id")
+  firstName          String
+  lastName           String
+  primaryEmail       String    @unique
+  primaryPhone       String?
+  listings           Listing[] @relation("createdListings")
+  thankedListingsIds String[]  @db.ObjectId
+  thankedListings    Listing[] @relation("thankedListings", fields: [thankedListingsIds], references: [id])
+  meadowIds          String[]  @db.ObjectId
+  meadows            Meadow[]  @relation(fields: [meadowIds], references: [id])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model StillThere {
@@ -25,35 +27,37 @@ model StillThere {
   stillThere Boolean
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  listing    Listing  @relation(fields: [listingId], references: [id])
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId  String   @unique @db.ObjectId
 }
 
 model Listing {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  lat    Float
-  lng   Float
-  location    String
-  icon        String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  caption     String?
-  linkToPhoto String?
-  contact     String?
-  creator     User        @relation(fields: [creatorId], references: [id])
-  creatorId   String
-  stillThere  StillThere?
-  meadow      Meadow      @relation(fields: [meadowId], references: [id])
-  meadowId    String      @db.ObjectId
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  lat             Float
+  lng             Float
+  location        String
+  icon            String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  caption         String?
+  linkToPhoto     String?
+  contact         String?
+  creator         User        @relation("createdListings", fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId       String
+  stillThere      StillThere?
+  usersThankedIds String[]
+  usersThanked    User[]      @relation("thankedListings", fields: [usersThankedIds], references: [id])
+  meadow          Meadow      @relation(fields: [meadowId], references: [id], onDelete: Cascade)
+  meadowId        String      @db.ObjectId
 }
 
 model Meadow {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String    @unique
-  domain    String    @unique
-  lat  Float
-  lng Float
-  listings  Listing[]
-  userIds   String[]
-  users     User[]    @relation(fields: [userIds], references: [id])
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String    @unique
+  domain   String    @unique
+  lat      Float
+  lng      Float
+  listings Listing[]
+  userIds  String[]
+  users    User[]    @relation(fields: [userIds], references: [id])
 }
