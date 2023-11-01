@@ -13,10 +13,13 @@ export async function POST(req: Request) {
       return new Response(error.message, {
         status: 400,
       });
-    } else if (error instanceof ServerError) {
-      return new Response(error.message, {
+    } else {
+      const errorMessage =
+        (error as ServerError).message || (error as Error).toString();
+      return new Response(errorMessage, {
         status: 500,
       });
     }
   }
 }
+

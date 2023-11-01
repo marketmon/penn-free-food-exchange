@@ -1,7 +1,7 @@
 import { useCreateListing } from "@/context/CreateListingProvider";
 import { useRef } from "react";
 import { useMapEvents, useMap } from "react-leaflet";
-import ListingMarker from "@/components/Listings/ListingMarker";
+import Marker from "@/components/Listings/Marker";
 
 export default function CreateListingMarker() {
   const {
@@ -45,7 +45,7 @@ export default function CreateListingMarker() {
 
   return (
     (hasClickedMap || position) && (
-      <ListingMarker
+      <Marker
         draggable={true}
         position={position!}
         markerRef={markerRef}

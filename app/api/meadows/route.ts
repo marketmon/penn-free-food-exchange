@@ -1,4 +1,4 @@
-import { NotFoundError, ServerError } from "@/lib/errors";
+import { ServerError } from "@/lib/errors";
 import { getMeadowsService } from "@/server/service/meadow";
 
 export async function GET() {
@@ -8,14 +8,10 @@ export async function GET() {
       status: 200,
     });
   } catch (error) {
-    if (error instanceof NotFoundError) {
-      return new Response(error.message, {
-        status: 404,
-      });
-    } else if (error instanceof ServerError) {
-      return new Response(error.message, {
-        status: 500,
-      });
-    }
+    const errorMessage =
+      (error as ServerError).message || (error as Error).toString();
+    return new Response(errorMessage, {
+      status: 500,
+    });
   }
 }

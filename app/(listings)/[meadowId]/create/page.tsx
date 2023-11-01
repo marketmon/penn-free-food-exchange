@@ -4,15 +4,14 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { getCurrentUser } from "@/lib/apiCalls";
-import CreateListingSidebar from "@/components/Listings/Create/CreateListingSidebar";
-import CreateListingMap from "@/components/Listings/Create/CreateListingMap";
-import ListingDashboard from "@/components/Listings/ListingDashboard";
+import Dashboard from "@/components/Listings/Dashboard";
 
 export default async function Page({
   params,
 }: {
   params: { meadowId: string };
 }) {
+  const meadowId = params.meadowId;
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery({
     queryKey: ["currentUser"],
@@ -25,10 +24,7 @@ export default async function Page({
   } else {
     return (
       <HydrationBoundary state={dehydratedState}>
-        <ListingDashboard
-          mapcomponent={<CreateListingMap meadowId={params.meadowId} />}
-          sidebarComponent={<CreateListingSidebar meadowId={params.meadowId} />}
-        />
+        <Dashboard queryKey="currentUser" meadowId={meadowId} />
       </HydrationBoundary>
     );
   }

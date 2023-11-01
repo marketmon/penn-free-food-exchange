@@ -1,49 +1,29 @@
-"use client";
-
 import dynamic from "next/dynamic";
-import { useQuery } from "@tanstack/react-query";
-import { useUser } from "@clerk/nextjs";
-import { getCurrentUser } from "@/lib/apiCalls";
-import { Meadow } from "@/lib/types";
-import { MAP_ATTRIBUTION, MAP_URL } from "@/lib/constants";
-import "leaflet/dist/leaflet.css";
-
-const MapContainer = dynamic(
-  () => import("react-leaflet").then((module) => module.MapContainer),
-  { ssr: false }
-);
-
-const TileLayer = dynamic(
-  () => import("react-leaflet").then((module) => module.TileLayer),
-  { ssr: false }
-);
+import { Meadow, User } from "@/lib/types";
 
 const CreateListingMarker = dynamic(
   () => import("@/components/Listings/Create/CreateListingMarker"),
   { ssr: false }
 );
 
-export default function CreateListingMap({ meadowId }: { meadowId: string }) {
-  const { user } = useUser();
+const Map = dynamic(() => import("@/components/Listings/Map"), {
+  ssr: false,
+});
 
-  const { data } = useQuery({
-    queryKey: ["currentUser"],
-    queryFn: () => getCurrentUser(user?.id),
-  });
-
+export default function CreateListingMap({
+  meadowId,
+  data,
+}: {
+  meadowId: string;
+  data: User;
+}) {
   const currentMeadow = data.meadows.find(
     (meadow: Meadow) => meadow.id === meadowId
   );
 
   return (
-    <MapContainer
-      center={[currentMeadow.lat, currentMeadow.lng]}
-      zoom={17}
-      className="h-full"
-      style={{ cursor: "auto" }}
-    >
-      <TileLayer attribution={MAP_ATTRIBUTION} url={MAP_URL} />
+    <Map lat={currentMeadow!.lat} lng={currentMeadow!.lng}>
       <CreateListingMarker />
-    </MapContainer>
+    </Map>
   );
 }

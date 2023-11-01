@@ -1,20 +1,16 @@
 import { BadRequestError, ServerError } from "@/lib/errors";
 import { Listing } from "@/lib/types";
 import { isPhoneValid } from "@/lib/validations";
-import { createListing } from "@/server/repository/listings";
+import {
+  createListing,
+  toggleThank,
+  toggleStillThere,
+} from "@/server/repository/listings";
 
 export async function createListingService(payload: Listing) {
   try {
-    const {
-      lat,
-      lng,
-      location,
-      icon,
-      caption,
-      contact,
-      userId,
-      meadowId,
-    } = payload;
+    const { lat, lng, location, icon, caption, contact, userId, meadowId } =
+      payload;
     if (!location || location.length === 0) {
       throw new BadRequestError("Location is required");
     } else if (location.length > 30) {
@@ -26,7 +22,7 @@ export async function createListingService(payload: Listing) {
     } else if (!isPhoneValid(contact)) {
       throw new BadRequestError("Invalid phone number");
     }
-    
+
     const newListing = createListing(
       lat,
       lng,
@@ -38,6 +34,24 @@ export async function createListingService(payload: Listing) {
       meadowId
     );
     return newListing;
+  } catch (error) {
+    throw new ServerError("Server error");
+  }
+}
+
+export async function toggleThankService(userId: string, listingId: string) {
+  try {
+    const updatedListing = await toggleThank(userId, listingId);
+    return updatedListing;
+  } catch (error) {
+    throw new ServerError("Server error");
+  }
+}
+
+export async function toggleStillThereService(listingId: string) {
+  try {
+    const updatedListing = await toggleStillThere(listingId);
+    return updatedListing;
   } catch (error) {
     throw new ServerError("Server error");
   }

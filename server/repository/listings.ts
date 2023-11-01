@@ -48,3 +48,64 @@ export async function createListing(
   });
   return newListing;
 }
+
+export async function toggleThank(userId: string, listingId: string) {
+  const listingToBeUpdated = await prisma.listing.findUnique({
+    where: {
+      id: listingId,
+    },
+    include: {
+      usersThanked: true,
+    },
+  });
+  const userThanked = listingToBeUpdated!.usersThanked.find(
+    (user) => user.id === userId
+  );
+  await prisma.listing.update({
+    where: {
+      id: listingId,
+    },
+    data: {
+      usersThanked: userThanked
+        ? {
+            disconnect: {
+              id: userId,
+            },
+          }
+        : {
+            connect: {
+              id: userId,
+            },
+          },
+    },
+  });
+  const updatedListing = await prisma.listing.findUnique({
+    where: {
+      id: listingId,
+    },
+    include: {
+      usersThanked: true,
+    },
+  });
+  return updatedListing;
+}
+
+export async function toggleStillThere(listingId: string) {
+  const listingToBeUpdated = await prisma.listing.findUnique({
+    where: {
+      id: listingId,
+    },
+  });
+
+  const updatedListing = await prisma.listing.update({
+    where: {
+      id: listingId,
+    },
+    data: {
+      stillThere: !listingToBeUpdated!.stillThere,
+      stillThereUpdatedAt: new Date(),
+    },
+  });
+
+  return updatedListing;
+}

@@ -59,9 +59,17 @@ export async function updateUser(
 }
 
 export async function deleteUser(id: string): Promise<void> {
-  const userToBeDeleted = await prisma.user.findUnique({
+  await prisma.user.update({
     where: {
       id,
+    },
+    data: {
+      meadows: {
+        set: [],
+      },
+      thankedListings: {
+        set: [],
+      },
     },
   });
 
@@ -70,28 +78,6 @@ export async function deleteUser(id: string): Promise<void> {
       id,
     },
   });
-
-  const meadowsWithDeletedUser = userToBeDeleted!.meadowIds;
-  for (const meadowId of meadowsWithDeletedUser) {
-    const meadow = await prisma.meadow.findUnique({
-      where: {
-        id: meadowId,
-      },
-    });
-
-    const userIdsWithoutDeletedUser = meadow!.userIds.filter(
-      (userId) => userId !== id
-    );
-
-    await prisma.meadow.update({
-      where: {
-        id: meadowId,
-      },
-      data: {
-        userIds: userIdsWithoutDeletedUser,
-      },
-    });
-  }
 }
 
 export async function getUserById(id: string) {

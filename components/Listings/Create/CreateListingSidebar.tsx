@@ -1,16 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { z } from "zod";
+import { useMutateData } from "@/hooks/useMutateData";
 import { useCreateListing } from "@/context/CreateListingProvider";
-import { getCurrentUser } from "@/lib/apiCalls";
 import { listingFormSchema } from "@/lib/validations";
 import ListingForm from "@/components/Listings/ListingForm";
-
 
 export default function CreateListingSidebar({
   meadowId,
@@ -19,43 +16,35 @@ export default function CreateListingSidebar({
 }) {
   const router = useRouter();
 
-  const queryClient = useQueryClient();
-
-  const { user } = useUser();
-  
-  const userId = useQuery({
-    queryKey: ["currentUser"],
-    queryFn: () => getCurrentUser(user?.id),
-  }).data.id;
+  const userId = useUser().user?.id;
 
   const { position, setPosition, setIsPositionBasedOnUserLocation } =
     useCreateListing();
 
+  const queryClient = useQueryClient();
+
   const {
-    mutate,
+    mutate: createListing,
     isPending: isLoading,
     isSuccess,
-  } = useMutation({
-    mutationFn: async (values: z.infer<typeof listingFormSchema>) => {
-      const newListing = { ...values, ...position, userId, meadowId };
-      const response = await fetch("/api/listings", {
-        method: "POST",
-        body: JSON.stringify(newListing),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      return data;
+  } = useMutateData({
+    requestConfig: {
+      url: "/api/listings",
+      method: "POST",
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`meadow-${meadowId}`] });
-    },
+    queryKey: [`meadow-${meadowId}`],
+    queryClient: queryClient,
+    dataTransformer: (values: z.infer<typeof listingFormSchema>) => ({
+      ...values,
+      ...position,
+      userId,
+      meadowId,
+    }),
   });
 
-  function onSubmit(values: z.infer<typeof listingFormSchema>) {
-    mutate(values);
-  }
+  useEffect(() => {
+    if (isSuccess) router.push(`/${meadowId}`);
+  }, [isSuccess, meadowId, router]);
 
   function getCurrentLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -64,10 +53,6 @@ export default function CreateListingSidebar({
       setIsPositionBasedOnUserLocation(true);
     });
   }
-
-  useEffect(() => {
-    if (isSuccess) router.push(`/${meadowId}`);
-  }, [isSuccess, meadowId, router]);
 
   return (
     <div>
@@ -88,7 +73,7 @@ export default function CreateListingSidebar({
               contact: "",
               icon: "📍",
             }}
-            onSubmit={onSubmit}
+            onSubmit={createListing}
             isLoading={isLoading}
           />
         </>

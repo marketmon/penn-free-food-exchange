@@ -9,8 +9,17 @@ import {
   UserJSON,
 } from "@clerk/nextjs/server";
 
+export type RequestConfig = {
+  url: string;
+  method: string;
+};
+
+export type User = {
+  meadows: Meadow[];
+};
+
 export type Listing = {
-  id?: string;
+  id: string;
   lat: number;
   lng: number;
   location: string;
@@ -19,8 +28,10 @@ export type Listing = {
   icon: string;
   userId: string;
   meadowId: string;
-  updatedAt?: string;
-  usersThankedIds?: string[];
+  updatedAt: string;
+  stillThere: boolean;
+  stillThereUpdatedAt: string;
+  usersThankedIds: string[];
 };
 
 export type Domain = { id: string; domain: string };
@@ -31,7 +42,8 @@ export type Meadow = {
   name: string;
   lat: number;
   lng: number;
-  listings?: Listing[];
+  listings: Listing[];
+  userIds: string[];
 };
 
 export type FormInput = {

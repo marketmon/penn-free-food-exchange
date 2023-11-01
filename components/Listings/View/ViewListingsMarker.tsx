@@ -1,31 +1,32 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
+import { Listing } from "@/lib/types";
 import { useViewListings } from "@/context/ViewListingsProvider";
-import ListingMarker from "@/components/Listings/ListingMarker";
-import ListingPopup from "@/components/Listings/ListingPopup";
+import Marker from "@/components/Listings/Marker";
+import Popup from "@/components/Listings/Popup";
 
 type ViewListingsMarkerProps = {
-  lat: number;
-  lng: number;
-  icon: string;
+  listing: Listing;
   showPopup: boolean;
+  meadowId: string;
 };
 
-export default function ViewListingsMarker ({
-  lat,
-  lng,
-  icon,
+export default function ViewListingsMarker({
+  listing,
   showPopup,
+  meadowId,
 }: ViewListingsMarkerProps) {
-  const { setClickedListingCardPosition } = useViewListings();
-
   const map = useMap();
   const markerRef = useRef<L.Marker>(null);
 
+  const { setClickedListingCardPosition } = useViewListings();
+
+  const { lat, lng, icon } = listing;
+
   useEffect(() => {
     if (showPopup) {
-      markerRef.current?.openPopup();
       map.flyTo({ lat, lng }, 18);
+      markerRef.current!.openPopup();
       setClickedListingCardPosition(null);
     }
   }, [lat, lng, map, showPopup, setClickedListingCardPosition]);
@@ -37,14 +38,13 @@ export default function ViewListingsMarker ({
   };
 
   return (
-    <ListingMarker
+    <Marker
       position={{ lat, lng }}
       icon={icon}
       eventHandlers={onMarkerClick}
       markerRef={markerRef}
     >
-      <ListingPopup />
-    </ListingMarker>
+      <Popup listing={listing} meadowId={meadowId} />
+    </Marker>
   );
-};
-
+}

@@ -13,8 +13,10 @@ export async function GET(request: Request) {
       return new Response(error.message, {
         status: 404,
       });
-    } else if (error instanceof ServerError) {
-      return new Response(error.message, {
+    } else {
+      const errorMessage =
+        (error as ServerError).message || (error as Error).toString();
+      return new Response(errorMessage, {
         status: 500,
       });
     }

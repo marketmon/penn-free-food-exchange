@@ -1,9 +1,9 @@
 import { Position } from "@/lib/types";
 import { MutableRefObject } from "react";
-import { Marker } from "react-leaflet";
-import { DivIcon, Icon } from "leaflet";
+import { Marker as MarkerLeaflet } from "react-leaflet";
+import { DivIcon } from "leaflet";
 
-type ListingMarkerProps = {
+type MarkerProps = {
   children?: React.ReactNode;
   draggable?: boolean;
   position: Position;
@@ -12,14 +12,14 @@ type ListingMarkerProps = {
   eventHandlers?: any;
 };
 
-export default function ListingMarker({
+export default function Marker({
   children,
   draggable,
   position,
   markerRef,
   icon,
   eventHandlers,
-}: ListingMarkerProps) {
+}: MarkerProps) {
   const markerDivIcon = (emoji: string) =>
     new DivIcon({
       html: `<h1 style="font-size: 1.8rem">
@@ -30,7 +30,7 @@ export default function ListingMarker({
     });
 
   return (
-    <Marker
+    <MarkerLeaflet
       attribution='<a href="https://www.flaticon.com/free-icons/location" title="location icons">Location icons created by IconMarketPK - Flaticon</a>'
       draggable={draggable}
       eventHandlers={eventHandlers && eventHandlers}
@@ -39,6 +39,6 @@ export default function ListingMarker({
       icon={markerDivIcon(icon)}
     >
       {children}
-    </Marker>
+    </MarkerLeaflet>
   );
 }

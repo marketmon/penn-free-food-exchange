@@ -22,33 +22,25 @@ model User {
   updatedAt          DateTime  @updatedAt
 }
 
-model StillThere {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  stillThere Boolean
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  listingId  String   @unique @db.ObjectId
-}
-
 model Listing {
-  id              String      @id @default(auto()) @map("_id") @db.ObjectId
-  lat             Float
-  lng             Float
-  location        String
-  icon            String
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  caption         String?
-  linkToPhoto     String?
-  contact         String?
-  creator         User        @relation("createdListings", fields: [creatorId], references: [id], onDelete: Cascade)
-  creatorId       String
-  stillThere      StillThere?
-  usersThankedIds String[]
-  usersThanked    User[]      @relation("thankedListings", fields: [usersThankedIds], references: [id])
-  meadow          Meadow      @relation(fields: [meadowId], references: [id], onDelete: Cascade)
-  meadowId        String      @db.ObjectId
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  lat                 Float
+  lng                 Float
+  location            String
+  icon                String
+  caption             String?
+  linkToPhoto         String?
+  contact             String?
+  creator             User     @relation("createdListings", fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId           String
+  stillThere          Boolean  @default(true)
+  stillThereUpdatedAt DateTime @default(now())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  usersThankedIds     String[]
+  usersThanked        User[]   @relation("thankedListings", fields: [usersThankedIds], references: [id])
+  meadow              Meadow   @relation(fields: [meadowId], references: [id], onDelete: Cascade)
+  meadowId            String   @db.ObjectId
 }
 
 model Meadow {
