@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { getListOfMeadows } from "@/lib/apiCalls";
+import { getListOfMeadows } from "@/lib/queryFns";
 import { Meadow } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 

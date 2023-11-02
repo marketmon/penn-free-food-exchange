@@ -1,7 +1,6 @@
 "use client";
 
-import { getCurrentUser, getMeadowById } from "@/lib/apiCalls";
-import { useUser } from "@clerk/nextjs";
+import { getMeadowById } from "@/lib/queryFns";
 import { useQuery } from "@tanstack/react-query";
 import CreateListingSidebar from "@/components/Listings/Create/CreateListingSidebar";
 import CreateListingMap from "@/components/Listings/Create/CreateListingMap";
@@ -11,18 +10,17 @@ import ViewListingsMap from "@/components/Listings/View/ViewListingsMap";
 export default function Dashboard({
   queryKey,
   meadowId,
+  dashboardFor,
 }: {
   queryKey: string;
   meadowId: string;
+  dashboardFor: string;
 }) {
-  const userId = useUser().user?.id;
-
-  const isCreate = queryKey === "currentUser";
+  const isCreate = dashboardFor === "create";
 
   const { data, isPending } = useQuery({
     queryKey: [queryKey],
-    queryFn: () =>
-      isCreate ? userId && getCurrentUser(userId) : getMeadowById(meadowId),
+    queryFn: () => getMeadowById(meadowId),
   });
 
   if (isPending) {
@@ -44,7 +42,6 @@ export default function Dashboard({
           <ViewListingsSidebar
             meadowId={meadowId}
             data={data}
-            userId={userId!}
           />
         )}
       </div>

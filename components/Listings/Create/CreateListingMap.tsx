@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Meadow, User } from "@/lib/types";
+import { Meadow } from "@/lib/types";
 
 const CreateListingMarker = dynamic(
   () => import("@/components/Listings/Create/CreateListingMarker"),
@@ -15,14 +15,10 @@ export default function CreateListingMap({
   data,
 }: {
   meadowId: string;
-  data: User;
+  data: Meadow;
 }) {
-  const currentMeadow = data.meadows.find(
-    (meadow: Meadow) => meadow.id === meadowId
-  );
-
   return (
-    <Map lat={currentMeadow!.lat} lng={currentMeadow!.lng}>
+    <Map lat={data.lat} lng={data.lng}>
       <CreateListingMarker />
     </Map>
   );

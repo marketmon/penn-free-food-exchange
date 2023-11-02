@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
-import { getListOfMeadows } from "@/lib/apiCalls";
+import { getListOfMeadows } from "@/lib/queryFns";
 import AuthForm from "@/components/Auth/AuthForm";
 import AuthPrompt from "@/components/Auth/AuthPrompt";
 

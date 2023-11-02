@@ -3,7 +3,7 @@ import {
   dehydrate,
   HydrationBoundary,
 } from "@tanstack/react-query";
-import { getMeadowById } from "@/lib/apiCalls";
+import { getMeadowById } from "@/lib/queryFns";
 import Dashboard from "@/components/Listings/Dashboard";
 
 export default async function Page({
@@ -21,7 +21,11 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <Dashboard queryKey={`meadow-${meadowId}`} meadowId={meadowId} />
+      <Dashboard
+        queryKey={`meadow-${meadowId}`}
+        meadowId={meadowId}
+        dashboardFor="view"
+      />
     </HydrationBoundary>
   );
 }

@@ -3,28 +3,35 @@ import {
   dehydrate,
   HydrationBoundary,
 } from "@tanstack/react-query";
-import { getCurrentUser } from "@/lib/apiCalls";
+import { getMeadowById } from "@/lib/queryFns";
 import Dashboard from "@/components/Listings/Dashboard";
+import { getClerkCurrentUser } from "@/lib/utils";
 
 export default async function Page({
   params,
 }: {
   params: { meadowId: string };
 }) {
+  const user = await getClerkCurrentUser();
+
   const meadowId = params.meadowId;
   const queryClient = new QueryClient();
-  const user = await queryClient.fetchQuery({
-    queryKey: ["currentUser"],
-    queryFn: () => getCurrentUser(),
+  const meadow = await queryClient.fetchQuery({
+    queryKey: [`meadow-${meadowId}`],
+    queryFn: () => getMeadowById(meadowId),
   });
   const dehydratedState = dehydrate(queryClient);
 
-  if (!user.meadowIds.includes(params.meadowId)) {
+  if (!meadow.userIds.includes(user!.id)) {
     return <div>Access forbidden</div>;
   } else {
     return (
       <HydrationBoundary state={dehydratedState}>
-        <Dashboard queryKey="currentUser" meadowId={meadowId} />
+        <Dashboard
+          queryKey={`meadow-${meadowId}`}
+          meadowId={meadowId}
+          dashboardFor="create"
+        />
       </HydrationBoundary>
     );
   }
