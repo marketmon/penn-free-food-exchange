@@ -37,7 +37,7 @@ export async function createListingService(payload: Listing) {
   }
 
   const meadow = await getMeadowByIdService(meadowId);
-
+  
   const userHasWriteAccessToMeadow = meadow.userIds.includes(userId);
   if (!userHasWriteAccessToMeadow) {
     throw new ForbiddenError(
@@ -76,7 +76,6 @@ export async function updateListingService(payload: {
   } else if (userId && action === "toggleThank") {
     const listing = await getListingByIdService(listingId);
     const meadowWithListing = listing!.meadow;
-
     
     const userHasWriteAccessToMeadow =
       meadowWithListing.userIds.includes(userId);

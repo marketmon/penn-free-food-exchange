@@ -14,7 +14,7 @@ export default function Badge({
         stillThere
           ? "bg-green-500 hover:bg-green-500"
           : "bg-red-600 hover:bg-red-600"
-      } text-[10px] hover:bg-green-500`}
+      } text-[10px]`}
     >
       {stillThere ? "Still there" : "Not there"} &#40;
       {getLastUpdatedTimeAgo(stillThereUpdatedAt, "badge")}
