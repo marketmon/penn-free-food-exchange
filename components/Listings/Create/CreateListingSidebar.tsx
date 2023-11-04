@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
 import { z } from "zod";
 import { useMutateData } from "@/hooks/useMutateData";
 import { useCreateListing } from "@/context/CreateListingProvider";
@@ -16,8 +15,6 @@ export default function CreateListingSidebar({
 }) {
   const router = useRouter();
 
-  const userId = useUser().user?.id;
-
   const { position, setPosition, setIsPositionBasedOnUserLocation } =
     useCreateListing();
 
@@ -29,7 +26,7 @@ export default function CreateListingSidebar({
     isSuccess,
   } = useMutateData({
     requestConfig: {
-      url: "/api/listings",
+      url: `/api/${meadowId}/listings`,
       method: "POST",
     },
     queryKey: [`meadow-${meadowId}`],
@@ -37,8 +34,6 @@ export default function CreateListingSidebar({
     dataTransformer: (values: z.infer<typeof listingFormSchema>) => ({
       ...values,
       ...position,
-      userId,
-      meadowId,
     }),
   });
 

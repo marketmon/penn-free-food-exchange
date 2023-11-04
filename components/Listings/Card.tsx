@@ -65,7 +65,6 @@ export default function ListingCard({
     e.stopPropagation();
     updateThankCountsForListing({
       action: "toggleThank",
-      userId: userId,
     });
   }
 

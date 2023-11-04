@@ -1,5 +1,6 @@
-import { Meadow, RequestConfig } from "@/lib/types";
+import { useAuth } from "@clerk/nextjs";
 import { QueryClient, useMutation } from "@tanstack/react-query";
+import { Meadow, RequestConfig } from "@/lib/types";
 
 type useMutateDataType = {
   requestConfig: RequestConfig;
@@ -23,9 +24,14 @@ export function useMutateData({
   dataTransformer,
   updateDataOptimistically,
 }: useMutateDataType) {
+  const { getToken } = useAuth();
+
   async function mutateData(data?: { userId: string }) {
+    const token = await getToken();
     const headers: { [key: string]: string } = {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      mode: "cors",
     };
     if (!data) {
       headers["Content-Length"] = "0";

@@ -13,10 +13,17 @@ export default async function Page({
 }) {
   const meadowId = params.meadowId;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: [`meadow-${meadowId}`],
-    queryFn: () => getMeadowById(meadowId),
-  });
+  try {
+    await queryClient.fetchQuery({
+      queryKey: [`meadow-${meadowId}`],
+      queryFn: () => getMeadowById(meadowId),
+    });
+  } catch (error: any) {
+    const errorMessage =
+      "message" in error ? error.message : "Something went wrong";
+    return <div>{errorMessage}</div>;
+  }
+
   const dehydratedState = dehydrate(queryClient);
 
   return (

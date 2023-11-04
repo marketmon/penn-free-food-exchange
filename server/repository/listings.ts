@@ -1,6 +1,18 @@
 import { COUNTRY_CODES } from "@/lib/constants";
 import { prisma } from "@/lib/db";
 
+export async function getListingById(listingId: string) {
+  const listing = await prisma.listing.findUnique({
+    where: {
+      id: listingId,
+    },
+    include: {
+      meadow: true,
+    },
+  });
+  return listing;
+}
+
 export async function createListing(
   lat: number,
   lng: number,
