@@ -6,7 +6,11 @@ import { Listing } from "@/lib/types";
 import { getLastUpdatedTimeAgo } from "@/lib/utils";
 import ButtonToggleStillThere from "@/components/Listings/Button/ButtonToggleStillThere";
 
-export default function Popup({ listing }: { listing: Listing }) {
+type PopupProps = {
+  listing: Listing;
+};
+
+export default function Popup({ listing }: PopupProps) {
   const { meadowId } = useListings();
 
   const queryClient = useQueryClient();

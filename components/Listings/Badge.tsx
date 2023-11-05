@@ -1,13 +1,12 @@
 import { Badge as BadgeShadcn } from "@/components/ui/badge";
 import { getLastUpdatedTimeAgo } from "@/lib/utils";
 
-export default function Badge({
-  stillThere,
-  stillThereUpdatedAt,
-}: {
+type BadgeProps = {
   stillThere: boolean;
   stillThereUpdatedAt: string;
-}) {
+};
+
+export default function Badge({ stillThere, stillThereUpdatedAt }: BadgeProps) {
   return (
     <BadgeShadcn
       className={`${

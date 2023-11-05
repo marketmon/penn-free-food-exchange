@@ -1,11 +1,13 @@
 import { SignIn, SignUp } from "@/lib/types";
 import { useEffect, useState } from "react";
 
+type ResendVerificationCodeProps = {
+  authData: SignUp | SignIn;
+};
+
 export default function ResendVerificationCode({
   authData,
-}: {
-  authData: SignUp | SignIn;
-}) {
+}: ResendVerificationCodeProps) {
   const [timeRemaining, setTimeRemaining] = useState(30);
   const [isDisabled, setIsDisabled] = useState(true);
 

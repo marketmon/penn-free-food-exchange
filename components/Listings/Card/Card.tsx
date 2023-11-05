@@ -1,13 +1,17 @@
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
-import { Card } from "@/components/ui/card";
+import { Card as CardShadcn } from "@/components/ui/card";
 import Badge from "@/components/Listings/Badge";
 import CardTitle from "@/components/Listings/Card/CardTitle";
 import CardDescritpion from "@/components/Listings/Card/CardDescritpion";
 import CardAction from "@/components/Listings/Card/CardAction";
 import CardFooter from "@/components/Listings/Card/CardFooter";
 
-export default function ListingCard({ listing }: { listing: Listing }) {
+type CardProps = {
+  listing: Listing;
+};
+
+export default function Card({ listing }: CardProps) {
   const { setClickedListingCardPosition } = useListings();
 
   function onListingCardClicked() {
@@ -16,7 +20,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
 
   return (
     <div onClick={onListingCardClicked} className="mb-2">
-      <Card>
+      <CardShadcn>
         <div className="flex justify-between px-5 pt-6">
           <div className="space-y-3">
             <CardTitle icon={listing.icon} location={listing.location} />
@@ -36,7 +40,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
           numThanks={listing.usersThankedIds.length}
           contact={listing.contact}
         />
-      </Card>
+      </CardShadcn>
     </div>
   );
 }

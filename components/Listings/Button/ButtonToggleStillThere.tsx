@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-type ListingButton = {
+type ButtonToogleStillThereProps = {
   stillThere: boolean;
   onClick: (arg: undefined) => void;
 };
@@ -8,7 +8,7 @@ type ListingButton = {
 export default function ButtonToogleStillThere({
   stillThere,
   onClick,
-}: ListingButton) {
+}: ButtonToogleStillThereProps) {
   return (
     <Button
       variant="secondary"
