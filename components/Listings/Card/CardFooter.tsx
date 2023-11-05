@@ -21,7 +21,11 @@ export default function CardFooter({
         <HeartIcon className="mr-1 h-3 w-3" />
         {numThanks}
       </div>
-      {contact && <a href={`tel:${contact}`}>{contact}</a>}
+      {contact && (
+        <a href={`tel:${contact}`} onClick={(e) => e.stopPropagation()}>
+          {contact}
+        </a>
+      )}
     </div>
   );
 }
