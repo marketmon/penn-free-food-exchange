@@ -1,5 +1,5 @@
-import { COUNTRY_CODES } from "@/lib/constants";
 import { prisma } from "@/lib/db";
+import { COUNTRY_CODES } from "@/lib/constants";
 
 export async function getListingById(listingId: string) {
   const listing = await prisma.listing.findUnique({
@@ -70,10 +70,12 @@ export async function toggleThank(userId: string, listingId: string) {
       usersThanked: true,
     },
   });
+
   const userThanked = listingToBeUpdated!.usersThanked.find(
     (user) => user.id === userId
   );
-  await prisma.listing.update({
+
+  const updatedListing = await prisma.listing.update({
     where: {
       id: listingId,
     },
@@ -90,15 +92,11 @@ export async function toggleThank(userId: string, listingId: string) {
             },
           },
     },
-  });
-  const updatedListing = await prisma.listing.findUnique({
-    where: {
-      id: listingId,
-    },
     include: {
       usersThanked: true,
     },
   });
+
   return updatedListing;
 }
 
@@ -120,4 +118,33 @@ export async function toggleStillThere(listingId: string) {
   });
 
   return updatedListing;
+}
+
+export async function deleteListing(listingId: string, creatorId: string) {
+  await prisma.listing.update({
+    where: {
+      id: listingId,
+    },
+    data: {
+      usersThanked: {
+        disconnect: {
+          id: creatorId,
+        },
+      },
+    },
+  });
+  const deletedListing = await prisma.listing.delete({
+    where: {
+      id: listingId,
+    },
+    data: {
+      usersThanked: {
+        disconnect: {
+          id: creatorId,
+        },
+      },
+    },
+  });
+
+  return deletedListing;
 }

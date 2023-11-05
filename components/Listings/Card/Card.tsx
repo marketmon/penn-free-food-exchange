@@ -1,7 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useUser } from "@clerk/nextjs";
-import { useMutateData } from "@/hooks/useMutateData";
-import { HeartIcon } from "@radix-ui/react-icons";
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
 import { Card } from "@/components/ui/card";
@@ -12,47 +8,6 @@ import CardAction from "@/components/Listings/Card/CardAction";
 import CardFooter from "@/components/Listings/Card/CardFooter";
 
 export default function ListingCard({ listing }: { listing: Listing }) {
-  const { meadowId } = useListings();
-
-  const userId = useUser().user?.id;
-
-  const queryClient = useQueryClient();
-
-  const { mutate: updateThankCountsForListing } = useMutateData({
-    requestConfig: {
-      url: `/api/listings/${listing.id}`,
-      method: "PATCH",
-    },
-    queryKey: [`meadow-${meadowId}`],
-    queryClient: queryClient,
-    updateDataOptimistically: (prevListings: Listing[]) => {
-      const listingToUpdate = prevListings.find(
-        (listingFromQuery) => listingFromQuery.id === listing.id
-      );
-
-      const hasUserAlreadyThankedListing =
-        listingToUpdate!.usersThankedIds!.includes(userId!);
-
-      const updatedListOfUsersThanked = hasUserAlreadyThankedListing
-        ? listingToUpdate!.usersThankedIds!.filter((id) => id !== userId)
-        : [...listingToUpdate!.usersThankedIds!, userId];
-
-      const updatedListings = prevListings.map((listingFromQuery) =>
-        listingFromQuery.id === listing.id
-          ? {
-              ...listingFromQuery,
-              usersThankedIds: updatedListOfUsersThanked,
-            }
-          : listingFromQuery
-      );
-
-      return {
-        updatedDataKey: "listings",
-        updatedData: updatedListings,
-      };
-    },
-  });
-
   const { setClickedListingCardPosition } = useListings();
 
   function onListingCardClicked() {
@@ -72,9 +27,8 @@ export default function ListingCard({ listing }: { listing: Listing }) {
             <CardDescritpion caption={listing.location} />
           </div>
           <CardAction
-            updateThankCountsForListing={updateThankCountsForListing}
+            listingId={listing.id}
             usersThankedIds={listing.usersThankedIds}
-            userId={userId}
           />
         </div>
         <CardFooter

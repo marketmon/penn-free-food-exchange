@@ -12,6 +12,7 @@ import {
   createListing,
   toggleThank,
   toggleStillThere,
+  deleteListing,
   getListingById,
 } from "@/server/repository/listings";
 import { getMeadowByIdService } from "@/server/service/meadow";
@@ -37,7 +38,7 @@ export async function createListingService(payload: Listing) {
   }
 
   const meadow = await getMeadowByIdService(meadowId);
-  
+
   const userHasWriteAccessToMeadow = meadow.userIds.includes(creatorId);
   if (!userHasWriteAccessToMeadow) {
     throw new ForbiddenError(
@@ -65,7 +66,7 @@ export async function createListingService(payload: Listing) {
 export async function updateListingService(payload: {
   action: string;
   listingId: string;
-  creatorId: string;
+  creatorId: string | null;
 }) {
   const { action, listingId, creatorId } = payload;
 
@@ -73,33 +74,65 @@ export async function updateListingService(payload: {
     throw new UnauthorizedError(
       "Unauthorized: log in required to thank listing"
     );
-  } else if (creatorId && action === "toggleThank") {
+  }
+
+  const listing = await getListingByIdService(listingId);
+
+  if (creatorId && action === "toggleThank") {
+    const userHasEditAccessToListing =
+      listing.meadow.userIds.includes(creatorId);
+    if (!userHasEditAccessToListing) {
+      throw new ForbiddenError(
+        "Forbidden: permission required to thank listing"
+      );
+    }
+  }
+
+  try {
+    const updatedListing =
+      action === "toggleThank"
+        ? await toggleThank(creatorId!, listingId)
+        : await toggleStillThere(listingId);
+
+    return updatedListing;
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2023"
+    ) {
+      throw new NotFoundError("No listing found");
+    }
+    throw new ServerError("Server error");
+  }
+}
+
+export async function deleteListingService(payload: {
+  listingId: string;
+  creatorId: string | null;
+}) {
+  const { listingId, creatorId } = payload;
+
+  if (!creatorId) {
+    throw new UnauthorizedError(
+      "Unauthorized: log in required to thank listing"
+    );
+  } else {
     const listing = await getListingByIdService(listingId);
-    const meadowWithListing = listing!.meadow;
-    
-    const userHasWriteAccessToMeadow =
-      meadowWithListing.userIds.includes(creatorId);
-    if (!userHasWriteAccessToMeadow) {
+    if (listing.creatorId !== creatorId) {
       throw new ForbiddenError(
         "Forbidden: permission required to thank listing"
       );
     }
 
     try {
-      const updatedListing = await toggleThank(creatorId, listingId);
-      return updatedListing;
+      const deletedListing = await deleteListing(listingId, creatorId);
+      return deletedListing;
     } catch (error) {
-      throw new ServerError("Server error");
-    }
-  } else {
-    try {
-      const updatedListing = await toggleStillThere(listingId);
-      return updatedListing;
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === "P2023") {
-          throw new NotFoundError("No listing found");
-        }
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2023"
+      ) {
+        throw new NotFoundError("No listing found");
       }
       throw new ServerError("Server error");
     }
@@ -114,10 +147,11 @@ export async function getListingByIdService(listingId: string) {
     }
     return listing;
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2023") {
-        throw new NotFoundError("No listing found");
-      }
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2023"
+    ) {
+      throw new NotFoundError("No listing found");
     }
     throw new ServerError("Server error");
   }

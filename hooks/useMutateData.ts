@@ -1,6 +1,11 @@
 import { useAuth } from "@clerk/nextjs";
 import { QueryClient, useMutation } from "@tanstack/react-query";
-import { Meadow, RequestConfig } from "@/lib/types";
+import {
+  ToggleAction,
+  ListingFromFrom,
+  Meadow,
+  RequestConfig,
+} from "@/lib/types";
 
 type useMutateDataType = {
   requestConfig: RequestConfig;
@@ -8,13 +13,6 @@ type useMutateDataType = {
   queryClient: QueryClient;
   dataTransformer?: (data: any) => any;
   updateDataOptimistically?: (data: any) => any;
-};
-
-type MutationOptionsType = {
-  mutationFn: (data: any) => Promise<void>;
-  onSuccess: () => void;
-  onMutate?: () => void;
-  onError?: (error: Error, variables: any, context: any) => void;
 };
 
 export function useMutateData({
@@ -26,7 +24,7 @@ export function useMutateData({
 }: useMutateDataType) {
   const { getToken } = useAuth();
 
-  async function mutateData(data?: { userId: string }) {
+  async function mutateData(data?: ToggleAction | ListingFromFrom | null) {
     const token = await getToken();
     const headers: { [key: string]: string } = {
       "Content-Type": "application/json",
@@ -45,35 +43,32 @@ export function useMutateData({
     });
   }
 
-  const mutationOptions: MutationOptionsType = {
+  return useMutation({
     mutationFn: mutateData,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey });
-    },
-  };
-
-  if (updateDataOptimistically) {
-    mutationOptions.onMutate = async () => {
+    onMutate: async () => {
       await queryClient.cancelQueries({ queryKey });
 
       const previousData: Meadow | undefined =
         queryClient.getQueryData(queryKey);
 
-      const { updatedDataKey, updatedData } = updateDataOptimistically!(
-        previousData!.listings
-      );
+      if (updateDataOptimistically) {
+        const { updatedDataKey, updatedData } = updateDataOptimistically!(
+          previousData!.listings
+        );
 
-      queryClient.setQueryData(queryKey, (old: any) => ({
-        ...old,
-        [updatedDataKey]: updatedData,
-      }));
+        queryClient.setQueryData(queryKey, (old: any) => ({
+          ...old,
+          [updatedDataKey]: updatedData,
+        }));
+      }
 
       return { previousData };
-    };
-    mutationOptions.onError = (_err, _, context) => {
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey });
+    },
+    onError: (_error, _variables, context) => {
       queryClient.setQueryData(queryKey, context!.previousData);
-    };
-  }
-
-  return useMutation(mutationOptions);
+    },
+  });
 }

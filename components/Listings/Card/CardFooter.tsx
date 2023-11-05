@@ -17,15 +17,15 @@ export default function CardFooter({
   return (
     <div className="space-x-4 flex text-xs text-muted-foreground px-5 py-6">
       <div>{lastUpdatedTime}</div>
-      <div className="flex items-center">
-        <HeartIcon className="mr-1 h-3 w-3" />
-        {numThanks}
-      </div>
       {contact && (
         <a href={`tel:${contact}`} onClick={(e) => e.stopPropagation()}>
           {contact}
         </a>
       )}
+      <div className="flex items-center">
+        <HeartIcon className="mr-1 h-3 w-3" />
+        {numThanks}
+      </div>
     </div>
   );
 }

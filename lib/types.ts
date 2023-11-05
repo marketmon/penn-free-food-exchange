@@ -26,6 +26,17 @@ export type User = {
   meadows: Meadow[];
 };
 
+export type ToggleAction = {
+  action: "toggleThank" | "toggleStillThere";
+};
+
+export type ListingFromFrom = {
+  location: string;
+  caption: string;
+  contact: string;
+  icon: string;
+};
+
 export type Listing = {
   id: string;
   lat: number;
@@ -34,7 +45,7 @@ export type Listing = {
   caption: string;
   contact: string;
   icon: string;
-  creatorId: string;
+  creatorId: string | null;
   meadowId: string;
   updatedAt: string;
   stillThere: boolean;
