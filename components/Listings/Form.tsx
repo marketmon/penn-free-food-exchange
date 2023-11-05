@@ -1,9 +1,10 @@
-import { FormInput } from "@/lib/types";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { PhoneInput } from "react-international-phone";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodSchema, z } from "zod";
 import { useCreateListing } from "@/context/CreateListingProvider";
 import { ICON_LIST } from "@/lib/constants";
+import { FormInput } from "@/lib/types";
 import {
   Form,
   FormControl,
@@ -20,9 +21,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { PhoneInput } from "react-international-phone";
+import ButtonSubmit from "@/components/Listings/Button/ButtonSubmit";
 import "react-international-phone/style.css";
 
 type ListingFormProps = {
@@ -124,9 +124,7 @@ export default function ListingForm({
             )}
           />
         ))}
-        <Button type="submit" disabled={isLoading || disabled}>
-          Continue
-        </Button>
+        <ButtonSubmit isLoading={isLoading} disabled={disabled} />
       </form>
     </Form>
   );
