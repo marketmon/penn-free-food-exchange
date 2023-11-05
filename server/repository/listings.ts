@@ -137,13 +137,6 @@ export async function deleteListing(listingId: string, creatorId: string) {
     where: {
       id: listingId,
     },
-    data: {
-      usersThanked: {
-        disconnect: {
-          id: creatorId,
-        },
-      },
-    },
   });
 
   return deletedListing;
