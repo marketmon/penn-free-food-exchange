@@ -17,10 +17,10 @@ import {
 import { getMeadowByIdService } from "@/server/service/meadow";
 
 export async function createListingService(payload: Listing) {
-  const { lat, lng, location, icon, caption, contact, userId, meadowId } =
+  const { lat, lng, location, icon, caption, contact, creatorId, meadowId } =
     payload;
 
-  if (!userId) {
+  if (!creatorId) {
     throw new UnauthorizedError(
       "Unauthorized: log in required to create listing"
     );
@@ -38,7 +38,7 @@ export async function createListingService(payload: Listing) {
 
   const meadow = await getMeadowByIdService(meadowId);
   
-  const userHasWriteAccessToMeadow = meadow.userIds.includes(userId);
+  const userHasWriteAccessToMeadow = meadow.userIds.includes(creatorId);
   if (!userHasWriteAccessToMeadow) {
     throw new ForbiddenError(
       "Forbidden: permission required to create listing"
@@ -53,7 +53,7 @@ export async function createListingService(payload: Listing) {
       icon,
       caption,
       contact,
-      userId,
+      creatorId,
       meadowId
     );
     return newListing;
@@ -65,20 +65,20 @@ export async function createListingService(payload: Listing) {
 export async function updateListingService(payload: {
   action: string;
   listingId: string;
-  userId: string;
+  creatorId: string;
 }) {
-  const { action, listingId, userId } = payload;
+  const { action, listingId, creatorId } = payload;
 
-  if (!userId && action === "toggleThank") {
+  if (!creatorId && action === "toggleThank") {
     throw new UnauthorizedError(
       "Unauthorized: log in required to thank listing"
     );
-  } else if (userId && action === "toggleThank") {
+  } else if (creatorId && action === "toggleThank") {
     const listing = await getListingByIdService(listingId);
     const meadowWithListing = listing!.meadow;
     
     const userHasWriteAccessToMeadow =
-      meadowWithListing.userIds.includes(userId);
+      meadowWithListing.userIds.includes(creatorId);
     if (!userHasWriteAccessToMeadow) {
       throw new ForbiddenError(
         "Forbidden: permission required to thank listing"
@@ -86,7 +86,7 @@ export async function updateListingService(payload: {
     }
 
     try {
-      const updatedListing = await toggleThank(userId, listingId);
+      const updatedListing = await toggleThank(creatorId, listingId);
       return updatedListing;
     } catch (error) {
       throw new ServerError("Server error");

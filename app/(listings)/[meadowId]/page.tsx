@@ -31,7 +31,6 @@ export default async function Page({
       <Dashboard
         queryKey={`meadow-${meadowId}`}
         meadowId={meadowId}
-        dashboardFor="view"
       />
     </HydrationBoundary>
   );

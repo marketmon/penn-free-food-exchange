@@ -1,9 +1,9 @@
-import { useCreateListing } from "@/context/CreateListingProvider";
 import { useRef } from "react";
 import { useMapEvents, useMap } from "react-leaflet";
-import Marker from "@/components/Listings/Marker";
+import { useCreateListing } from "@/context/CreateListingProvider";
+import Marker from "@/components/Listings/Marker/Marker";
 
-export default function CreateListingMarker() {
+export default function EditableMarker() {
   const {
     position,
     setPosition,

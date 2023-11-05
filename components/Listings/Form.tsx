@@ -32,6 +32,7 @@ type ListingFormProps = {
   };
   onSubmit: (values: z.infer<ZodSchema<any>>) => Promise<void> | void;
   isLoading: boolean;
+  disabled: boolean;
 };
 
 const LISTING_FORM_INPUTS = [
@@ -62,6 +63,7 @@ export default function ListingForm({
   defaultValues,
   onSubmit,
   isLoading,
+  disabled,
 }: ListingFormProps) {
   const { setIcon } = useCreateListing();
 
@@ -89,6 +91,7 @@ export default function ListingForm({
                         setIcon(value);
                       }}
                       defaultValue={field.value}
+                      disabled={disabled}
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -102,7 +105,7 @@ export default function ListingForm({
                       </SelectContent>
                     </Select>
                   ) : input.type === "textarea" ? (
-                    <Textarea {...field} />
+                    <Textarea {...field} disabled={disabled} />
                   ) : input.type === "tel" ? (
                     <PhoneInput
                       defaultCountry="us"
@@ -110,9 +113,10 @@ export default function ListingForm({
                       onChange={(phone) => {
                         field.onChange(phone);
                       }}
+                      disabled={disabled}
                     />
                   ) : (
-                    <Input {...field} type={input.type} />
+                    <Input {...field} type={input.type} disabled={disabled} />
                   )}
                 </FormControl>
                 <FormMessage />
@@ -120,7 +124,7 @@ export default function ListingForm({
             )}
           />
         ))}
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading || disabled}>
           Continue
         </Button>
       </form>

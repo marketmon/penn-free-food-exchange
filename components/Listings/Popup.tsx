@@ -1,17 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Popup as PopupLeaflet } from "react-leaflet";
 import { useMutateData } from "@/hooks/useMutateData";
+import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
 import { getLastUpdatedTimeAgo } from "@/lib/utils";
 import ButtonToggleStillThere from "@/components/Listings/Button/ButtonToggleStillThere";
 
-export default function Popup({
-  listing,
-  meadowId,
-}: {
-  listing: Listing;
-  meadowId: string;
-}) {
+export default function Popup({ listing }: { listing: Listing }) {
+  const { meadowId } = useListings();
+
   const queryClient = useQueryClient();
 
   const { mutate: updateStillThereForListing } = useMutateData({

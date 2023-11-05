@@ -15,7 +15,7 @@ export async function PATCH(
     const updatedListing = await updateListingService({
       ...payload,
       listingId,
-      userId,
+      creatorId: userId,
     });
 
     return new Response(JSON.stringify(updatedListing), {

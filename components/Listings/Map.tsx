@@ -1,16 +1,17 @@
-import { MAP_ATTRIBUTION, MAP_URL } from "@/lib/constants";
 import { MapContainer, TileLayer } from "react-leaflet";
+import { Listing } from "@/lib/types";
+import { MAP_ATTRIBUTION, MAP_URL } from "@/lib/constants";
+import EditableMarker from "@/components/Listings/Marker/EditableMarker";
+import MarkerList from "@/components/Listings/Marker/MarkerList";
 import "leaflet/dist/leaflet.css";
 
-export default function Map({
-  lat,
-  lng,
-  children,
-}: {
+type MapProps = {
   lat: number;
   lng: number;
-  children: React.ReactNode;
-}) {
+  listingsToShow: Listing[] | null;
+};
+
+export default function Map({ lat, lng, listingsToShow }: MapProps) {
   return (
     <MapContainer
       center={[lat, lng]}
@@ -19,7 +20,11 @@ export default function Map({
       style={{ cursor: "auto" }}
     >
       <TileLayer attribution={MAP_ATTRIBUTION} url={MAP_URL} />
-      {children}
+      {listingsToShow ? (
+        <MarkerList listingsToShow={listingsToShow} />
+      ) : (
+        <EditableMarker />
+      )}
     </MapContainer>
   );
 }

@@ -1,25 +1,23 @@
 import { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 import { Listing } from "@/lib/types";
-import { useViewListings } from "@/context/ViewListingsProvider";
-import Marker from "@/components/Listings/Marker";
+import { useListings } from "@/context/ListingsProvider";
+import Marker from "@/components/Listings/Marker/Marker";
 import Popup from "@/components/Listings/Popup";
 
-type ViewListingsMarkerProps = {
+type ViewOnlyMarkerProps = {
   listing: Listing;
   showPopup: boolean;
-  meadowId: string;
 };
 
-export default function ViewListingsMarker({
+export default function ViewOnlyMarker({
   listing,
   showPopup,
-  meadowId,
-}: ViewListingsMarkerProps) {
+}: ViewOnlyMarkerProps) {
   const map = useMap();
   const markerRef = useRef<L.Marker>(null);
 
-  const { setClickedListingCardPosition } = useViewListings();
+  const { setClickedListingCardPosition } = useListings();
 
   const { lat, lng, icon } = listing;
 
@@ -44,7 +42,7 @@ export default function ViewListingsMarker({
       eventHandlers={onMarkerClick}
       markerRef={markerRef}
     >
-      <Popup listing={listing} meadowId={meadowId} />
+      <Popup listing={listing} />
     </Marker>
   );
 }

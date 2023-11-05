@@ -1,7 +1,7 @@
-import { Position } from "@/lib/types";
 import { MutableRefObject } from "react";
 import { Marker as MarkerLeaflet } from "react-leaflet";
 import { DivIcon } from "leaflet";
+import { Position } from "@/lib/types";
 
 type MarkerProps = {
   children?: React.ReactNode;

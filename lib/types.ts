@@ -14,6 +14,14 @@ export type RequestConfig = {
   method: string;
 };
 
+export type DashboardFor = "view" | "manage" | "create" | "edit";
+
+export type ListingNavigationButton = {
+  id: number;
+  action: string;
+  text: string;
+};
+
 export type User = {
   meadows: Meadow[];
 };
@@ -26,7 +34,7 @@ export type Listing = {
   caption: string;
   contact: string;
   icon: string;
-  userId: string;
+  creatorId: string;
   meadowId: string;
   updatedAt: string;
   stillThere: boolean;

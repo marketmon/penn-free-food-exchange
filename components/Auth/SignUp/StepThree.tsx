@@ -6,7 +6,7 @@ import AuthForm from "@/components/Auth/AuthForm";
 import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepThree() {
-  const { signUp, meadowInfo, setActive } = useSignUpContext();
+  const { signUp, setActive } = useSignUpContext();
 
   const router = useRouter();
 

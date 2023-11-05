@@ -20,7 +20,7 @@ export async function POST(
     
     const newListing = await createListingService({
       ...payload,
-      userId,
+      creatorId: userId,
       meadowId,
     });
 
