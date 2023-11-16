@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { logInSchema } from "@/lib/validations";
 import { useSignInContext } from "@/context/AuthProvider";
-import AuthForm from "@/components/Auth/AuthForm";
+import Form from "@/components/Auth/Form";
 import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function Page() {
@@ -25,21 +25,24 @@ export default function Page() {
     return <div>Loading...</div>;
   }
   return (
-    <>
-      <AuthForm
-        title="Sign in"
-        schema={logInSchema}
-        defaultValues={{
-          email: "",
-          password: "",
-        }}
-        inputs={[
-          { name: "email", label: "Email address", type: "text" },
-          { name: "password", label: "Password", type: "password" },
-        ]}
-        handleInputs={handleSubmit}
-      />
-      <AuthPrompt promptTo="Sign up" />
-    </>
+    <div className="flex flex-col items-center w-[350px]">
+      <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
+      <div className="w-full">
+        <Form
+          title="Sign in"
+          schema={logInSchema}
+          defaultValues={{
+            email: "",
+            password: "",
+          }}
+          inputs={[
+            { name: "email", label: "Email address", type: "text" },
+            { name: "password", label: "Password", type: "password" },
+          ]}
+          handleInputs={handleSubmit}
+        />
+        <AuthPrompt promptTo="Sign up" />
+      </div>
+    </div>
   );
 }

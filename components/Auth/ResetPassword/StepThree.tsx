@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { resetPasswordSchema } from "@/lib/validations";
 import { useSignInContext } from "@/context/AuthProvider";
-import AuthForm from "@/components/Auth/AuthForm";
+import Form from "@/components/Auth/Form";
 
 export default function StepThree() {
   const { signIn, setActive } = useSignInContext();
@@ -18,7 +18,7 @@ export default function StepThree() {
   }
 
   return (
-    <AuthForm
+    <Form
       title="Enter your email"
       schema={resetPasswordSchema}
       defaultValues={{

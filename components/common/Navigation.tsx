@@ -1,6 +1,7 @@
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function Navigation() {
   return (
@@ -10,7 +11,7 @@ export default function Navigation() {
           src="/logo.png"
           width={100}
           height={27}
-          priority 
+          priority
           alt="Picture of the author"
         />
       </Link>
@@ -28,10 +29,9 @@ export default function Navigation() {
         />
       </SignedIn>
       <SignedOut>
-        <div>
-          <Link href="/signin">Sign In</Link>
-          <Link href="/signup">Sign Up</Link>
-        </div>
+        <Button className="h-[32px]">
+          <Link href="/signin">Get Started</Link>
+        </Button>
       </SignedOut>
     </div>
   );

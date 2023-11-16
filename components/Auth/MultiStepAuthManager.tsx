@@ -13,10 +13,10 @@ export default function MultiStepAuthManager({
     return <div>Loading...</div>;
   }
   return (
-    <>
+    <div className="w-full">
       {step === 1 && stepComponents[0]}
       {step === 2 && stepComponents[1]}
       {step === 3 && stepComponents[2]}
-    </>
+    </div>
   );
 }

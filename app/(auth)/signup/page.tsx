@@ -10,14 +10,19 @@ export default function Page() {
   const { isLoaded, step } = useSignUpContext();
 
   return (
-    <MultiStepAuthManager
-      isLoaded={isLoaded}
-      step={step}
-      stepComponents={[
-        <StepOne key="step-one" />,
-        <StepTwo key="step-two" />,
-        <StepThree key="step-three" />,
-      ]}
-    />
+    <div className="flex flex-col items-center w-[350px]">
+      <h1 className="text-3xl font-bold tracking-tight">
+        Create an account
+      </h1>
+      <MultiStepAuthManager
+        isLoaded={isLoaded}
+        step={step}
+        stepComponents={[
+          <StepOne key="step-one" />,
+          <StepTwo key="step-two" />,
+          <StepThree key="step-three" />,
+        ]}
+      />
+    </div>
   );
 }

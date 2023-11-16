@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
-import AuthForm from "@/components/Auth/AuthForm";
+import Form from "@/components/Auth/Form";
 import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepThree() {
@@ -20,7 +20,7 @@ export default function StepThree() {
 
   return (
     <>
-      <AuthForm
+      <Form
         title="Verify email"
         schema={verificationCodeSchema}
         defaultValues={{

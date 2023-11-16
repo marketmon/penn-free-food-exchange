@@ -4,7 +4,7 @@ import { ZodSchema, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import {
-  Form,
+  Form as FormShadcn,
   FormControl,
   FormField,
   FormItem,
@@ -35,7 +35,7 @@ type AuthFormProps = {
   meadows?: Meadow[];
 };
 
-export default function AuthForm({
+export default function Form({
   title,
   schema,
   defaultValues,
@@ -63,11 +63,10 @@ export default function AuthForm({
   };
 
   return (
-    <>
-      <h1>{title}</h1>
-      <h3>to continue to Panbo</h3>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <div className="mb-8">
+      <h1 className="text-center mt-2 mb-6">{title} to continue to Panbo</h1>
+      <FormShadcn {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           {inputs.map((input: FormInput) => (
             <FormField
               key={input.name}
@@ -75,7 +74,6 @@ export default function AuthForm({
               name={input.name}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{input.label}</FormLabel>
                   {meadowsLoading ? (
                     <div>Loading</div>
                   ) : (
@@ -103,7 +101,7 @@ export default function AuthForm({
                           </SelectContent>
                         </Select>
                       ) : (
-                        <Input {...field} type={input.type} />
+                        <Input {...field} type={input.type} placeholder={input.label} />
                       )}
                     </FormControl>
                   )}
@@ -113,13 +111,13 @@ export default function AuthForm({
             />
           ))}
           {title === "Sign in" && <AuthPrompt promptTo="Forgot password" />}
-          <Button type="submit" disabled={isLoading}>
+          <Button className="w-full" type="submit" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Continue
           </Button>
         </form>
         {serverError && <div>{serverError}</div>}
-      </Form>
-    </>
+      </FormShadcn>
+    </div>
   );
 }

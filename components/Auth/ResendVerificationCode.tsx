@@ -9,7 +9,7 @@ export default function ResendVerificationCode({
   authData,
 }: ResendVerificationCodeProps) {
   const [timeRemaining, setTimeRemaining] = useState(30);
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     if (timeRemaining > 0) {
@@ -18,7 +18,7 @@ export default function ResendVerificationCode({
       }, 1000);
       return () => clearTimeout(timerId);
     } else {
-      setIsDisabled(false);
+      setDisabled(false);
     }
   }, [timeRemaining]);
 
@@ -38,12 +38,16 @@ export default function ResendVerificationCode({
       // TODO: show this on UI later
       console.log(error.errors);
     }
-    setIsDisabled(true);
+    setDisabled(true);
     setTimeRemaining(30);
   };
 
   return (
-    <button onClick={handleResend} disabled={isDisabled}>
+    <button
+      onClick={handleResend}
+      disabled={disabled}
+      className={`${disabled && "text-neutral-500"}`}
+    >
       Resend ({timeRemaining})
     </button>
   );

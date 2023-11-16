@@ -1,7 +1,8 @@
 import { ZodSchema, z } from "zod";
 import { useSignInContext } from "@/context/AuthProvider";
 import { emailSchema } from "@/lib/validations";
-import AuthForm from "@/components/Auth/AuthForm";
+import Form from "@/components/Auth/Form";
+import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepOne() {
   const { signIn, setStep } = useSignInContext();
@@ -15,14 +16,17 @@ export default function StepOne() {
   }
 
   return (
-    <AuthForm
-      title="Enter your email"
-      schema={emailSchema}
-      defaultValues={{
-        email: "",
-      }}
-      inputs={[{ name: "email", label: "Email address", type: "text" }]}
-      handleInputs={handleSubmit}
-    />
+    <>
+      <Form
+        title="Enter your email"
+        schema={emailSchema}
+        defaultValues={{
+          email: "",
+        }}
+        inputs={[{ name: "email", label: "Email address", type: "text" }]}
+        handleInputs={handleSubmit}
+      />
+      <AuthPrompt promptTo="Sign in from reset password" />
+    </>
   );
 }

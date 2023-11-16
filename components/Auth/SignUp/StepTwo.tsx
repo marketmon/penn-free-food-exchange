@@ -1,7 +1,7 @@
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { SignUpSchema } from "@/lib/validations";
-import AuthForm from "@/components/Auth/AuthForm";
+import Form from "@/components/Auth/Form";
 import AuthPrompt from "@/components/Auth/AuthPrompt";
 
 export default function StepTwo() {
@@ -24,7 +24,7 @@ export default function StepTwo() {
 
   return (
     <>
-      <AuthForm
+      <Form
         title="Sign up"
         schema={SignUpSchema(meadowInfo!.domain)}
         defaultValues={{
@@ -41,7 +41,7 @@ export default function StepTwo() {
         ]}
         handleInputs={handleSubmit}
       />
-      <AuthPrompt promptTo="Sign in" />
+      <AuthPrompt promptTo="Sign in from sign up" />
     </>
   );
 }
