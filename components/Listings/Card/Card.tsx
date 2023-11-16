@@ -26,14 +26,11 @@ export default function Card({ listing }: CardProps) {
             <CardTitle icon={listing.icon} location={listing.location} />
             <Badge
               stillThere={listing.stillThere}
-              stillThereUpdatedAt={listing.stillThereUpdatedAt}
+              updatedAt={listing.updatedAt}
             />
-            <CardDescritpion caption={listing.location} />
+            <CardDescritpion caption={listing.caption} />
           </div>
-          <CardAction
-            listingId={listing.id}
-            usersThankedIds={listing.usersThankedIds}
-          />
+          <CardAction listing={listing} />
         </div>
         <CardFooter
           updatedAt={listing.updatedAt}

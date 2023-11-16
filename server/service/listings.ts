@@ -10,6 +10,7 @@ import { Listing } from "@/lib/types";
 import { isPhoneValid } from "@/lib/validations";
 import {
   createListing,
+  updateListing,
   toggleThank,
   toggleStillThere,
   deleteListing,
@@ -17,9 +18,9 @@ import {
 } from "@/server/repository/listings";
 import { getMeadowByIdService } from "@/server/service/meadow";
 
-export async function createListingService(payload: Listing) {
+export async function createListingService(payload: { listing: Listing }) {
   const { lat, lng, location, icon, caption, contact, creatorId, meadowId } =
-    payload;
+    payload.listing;
 
   if (!creatorId) {
     throw new UnauthorizedError(
@@ -65,34 +66,35 @@ export async function createListingService(payload: Listing) {
 
 export async function updateListingService(payload: {
   action: string;
-  listingId: string;
-  creatorId: string | null;
+  userId: string | null;
+  listing: Listing;
 }) {
-  const { action, listingId, creatorId } = payload;
+  const { action, userId, listing } = payload;
+  const { id } = listing;
 
-  if (!creatorId && action === "toggleThank") {
-    throw new UnauthorizedError(
-      "Unauthorized: log in required to thank listing"
-    );
+  // unauthenticated user can't thank or edit listing
+  if (!userId && (action === "toggleThank" || action === "edit")) {
+    throw new UnauthorizedError("Unauthorized: log in required");
   }
 
-  const listing = await getListingByIdService(listingId);
+  const listingFromDB = await getListingByIdService(id);
 
-  if (creatorId && action === "toggleThank") {
+  // unauthorized user can't thank or edit listing
+  if (userId && (action === "toggleThank" || action === "edit")) {
     const userHasEditAccessToListing =
-      listing.meadow.userIds.includes(creatorId);
+      listingFromDB.meadow.userIds.includes(userId);
     if (!userHasEditAccessToListing) {
-      throw new ForbiddenError(
-        "Forbidden: permission required to thank listing"
-      );
+      throw new ForbiddenError("Forbidden: permission required");
     }
   }
 
   try {
     const updatedListing =
-      action === "toggleThank"
-        ? await toggleThank(creatorId!, listingId)
-        : await toggleStillThere(listingId);
+      action === "edit"
+        ? await updateListing(listing)
+        : action === "toggleThank"
+        ? await toggleThank(userId!, id)
+        : await toggleStillThere(id);
 
     return updatedListing;
   } catch (error) {

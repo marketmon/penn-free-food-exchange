@@ -17,11 +17,13 @@ export async function POST(
   try {
     const payload = await req.json();
     const meadowId = params.meadowId;
-    
+
     const newListing = await createListingService({
-      ...payload,
-      creatorId: userId,
-      meadowId,
+      listing: {
+        ...payload.listing,
+        creatorId: userId,
+        meadowId,
+      },
     });
 
     return new Response(JSON.stringify(newListing), {

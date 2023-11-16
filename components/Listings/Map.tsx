@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import { Listing } from "@/lib/types";
 import { MAP_ATTRIBUTION, MAP_URL } from "@/lib/constants";
-import EditableMarker from "@/components/Listings/Marker/EditableMarker";
+import DraggableMarker from "@/components/Listings/Marker/DraggableMarker";
 import MarkerList from "@/components/Listings/Marker/MarkerList";
 import "leaflet/dist/leaflet.css";
 
@@ -23,7 +23,7 @@ export default function Map({ lat, lng, listingsToShow }: MapProps) {
       {listingsToShow ? (
         <MarkerList listingsToShow={listingsToShow} />
       ) : (
-        <EditableMarker />
+        <DraggableMarker />
       )}
     </MapContainer>
   );

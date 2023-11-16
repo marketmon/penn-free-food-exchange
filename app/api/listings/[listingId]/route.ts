@@ -21,14 +21,14 @@ export async function PATCH(
     const listingId = params.listingId;
 
     const updatedListing = await updateListingService({
-      ...payload,
-      listingId,
-      creatorId: userId,
+      action: payload.action || "edit",
+      userId: userId,
+      listing: { ...payload.listing, id: listingId },
     });
 
     return new Response(JSON.stringify(updatedListing), {
       status: 200,
-    });  
+    });
   } catch (error) {
     if (error instanceof UnauthorizedError) {
       return new Response(error.message, {

@@ -3,10 +3,10 @@ import { getLastUpdatedTimeAgo } from "@/lib/utils";
 
 type BadgeProps = {
   stillThere: boolean;
-  stillThereUpdatedAt: string;
+  updatedAt: string;
 };
 
-export default function Badge({ stillThere, stillThereUpdatedAt }: BadgeProps) {
+export default function Badge({ stillThere, updatedAt }: BadgeProps) {
   return (
     <BadgeShadcn
       className={`${
@@ -16,7 +16,7 @@ export default function Badge({ stillThere, stillThereUpdatedAt }: BadgeProps) {
       } text-[10px]`}
     >
       {stillThere ? "Still there" : "Not there"} &#40;
-      {getLastUpdatedTimeAgo(stillThereUpdatedAt, "badge")}
+      {getLastUpdatedTimeAgo(updatedAt, "badge")}
       &#41;
     </BadgeShadcn>
   );

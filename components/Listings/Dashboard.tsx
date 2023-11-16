@@ -1,4 +1,5 @@
 "use client";
+
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -42,11 +43,11 @@ export default function Dashboard({ queryKey, meadowId }: DashboardProps) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex h-full">
-      <div className="w-2/3">
+    <div className="flex flex-col h-full lg:flex-row">
+      <div className="h-1/2 lg:w-2/3 lg:h-full">
         <Map lat={data.lat} lng={data.lng} listingsToShow={listingsToShow} />
       </div>
-      <div className="w-1/3">
+      <div className="h-1/2 lg:w-1/3 lg:h-full pt-2">
         <Sidebar
           meadowUsers={data.userIds}
           userId={user?.id}

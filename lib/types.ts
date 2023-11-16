@@ -16,6 +16,14 @@ export type RequestConfig = {
 
 export type DashboardFor = "view" | "manage" | "create" | "edit";
 
+export type CurrentListing = {
+  id: string;
+  location: string;
+  caption: string;
+  contact: string;
+  icon: string;
+} | null;
+
 export type ListingNavigationButton = {
   id: number;
   action: string;

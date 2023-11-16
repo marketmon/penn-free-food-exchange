@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useMapEvents, useMap } from "react-leaflet";
-import { useCreateListing } from "@/context/CreateListingProvider";
+import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import Marker from "@/components/Listings/Marker/Marker";
 
-export default function EditableMarker() {
+export default function DraggableMarker() {
   const {
     position,
     setPosition,
@@ -12,7 +12,7 @@ export default function EditableMarker() {
     isPositionBasedOnUserLocation,
     setIsPositionBasedOnUserLocation,
     icon,
-  } = useCreateListing();
+  } = useDraggableMarker();
 
   const map = useMap();
 

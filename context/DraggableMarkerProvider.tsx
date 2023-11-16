@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { Position } from "@/lib/types";
 
-type CreateListingContextType = {
+type DraggableMarkerContextType = {
   position: Position;
   setPosition: Dispatch<SetStateAction<Position>>;
   hasClickedMap: boolean;
@@ -20,11 +20,11 @@ type CreateListingContextType = {
   setIcon: Dispatch<SetStateAction<string>>;
 };
 
-const CreateListingContext = createContext<
-  CreateListingContextType | undefined
+const DraggableMarkerContext = createContext<
+  DraggableMarkerContextType | undefined
 >(undefined);
 
-export function CreateListingProvider({
+export function DraggableMarkerProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -36,7 +36,7 @@ export function CreateListingProvider({
   const [icon, setIcon] = useState("📍");
 
   return (
-    <CreateListingContext.Provider
+    <DraggableMarkerContext.Provider
       value={{
         position,
         setPosition,
@@ -49,16 +49,16 @@ export function CreateListingProvider({
       }}
     >
       {children}
-    </CreateListingContext.Provider>
+    </DraggableMarkerContext.Provider>
   );
 }
 
-export function useCreateListing() {
-  const context = useContext(CreateListingContext);
+export function useDraggableMarker() {
+  const context = useContext(DraggableMarkerContext);
 
   if (context === undefined) {
     throw new Error(
-      "useCreateListing must be used within a CreateListingProvider"
+      "useDraggableMarker must be used within a DraggableMarkerContext"
     );
   }
 

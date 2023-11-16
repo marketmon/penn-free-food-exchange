@@ -1,10 +1,11 @@
-import { SignedIn } from "@clerk/nextjs";
-import { Listing } from "@/lib/types";
+import { useState } from "react";
 import { useListings } from "@/context/ListingsProvider";
+import { Listing } from "@/lib/types";
+import { filterListings } from "@/lib/utils";
 import Navigation from "@/components/Listings/Navigation";
 import Filter from "@/components/Listings/Filter";
-import CreateListingSidebar from "@/components/Listings/CreateListingSidebar";
 import CardList from "@/components/Listings/Card/CardList";
+import CreateOrEditListing from "@/components/Listings/CreateOrEditListing";
 
 type SidebarProps = {
   meadowUsers: string[];
@@ -19,23 +20,26 @@ export default function Sidebar({
 }: SidebarProps) {
   const { dashboardFor } = useListings();
 
+  const [currFilter, setCurrFilter] = useState("new");
+
+  const userHasWriteAccess = userId && meadowUsers.includes(userId);
+
+  const showFilter =
+    listingsToShow && listingsToShow.length > 0 && dashboardFor === "view";
+
   return (
     <div className="h-full overflow-y-hidden px-3">
       <div className="flex justify-between sticky top-0">
-        {userId && meadowUsers.includes(userId) && (
-          <SignedIn>
-            <Navigation />
-          </SignedIn>
-        )}
-        {listingsToShow && listingsToShow.length > 0 && <Filter />}
+        {userHasWriteAccess && <Navigation />}
+        {showFilter && <Filter setCurrFilter={setCurrFilter} />}
       </div>
       <div className="h-[calc(100%-48px)] overflow-y-auto">
         {listingsToShow ? (
-          <CardList listingsToShow={listingsToShow} />
-        ) : dashboardFor === "create" ? (
-          <CreateListingSidebar />
+          <CardList
+            listingsToShow={filterListings(currFilter, listingsToShow)}
+          />
         ) : (
-          <></>
+          <CreateOrEditListing />
         )}
       </div>
     </div>

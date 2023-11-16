@@ -1,5 +1,5 @@
 import { useListings } from "@/context/ListingsProvider";
-import { useCreateListing } from "@/context/CreateListingProvider";
+import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { DashboardFor, ListingNavigationButton } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +17,7 @@ const BUTTON_GROUP = {
     { id: 2, action: "getLocation", text: "Find My Location" },
   ],
   edit: [
-    { id: 1, action: "view", text: "Back" },
+    { id: 1, action: "manage", text: "Back" },
     { id: 2, action: "getLocation", text: "Find My Location" },
   ],
 };
@@ -25,7 +25,12 @@ const BUTTON_GROUP = {
 export default function Navigation() {
   const { dashboardFor, setDashboardFor } = useListings();
 
-  const { setPosition, setIsPositionBasedOnUserLocation } = useCreateListing();
+  const {
+    setPosition,
+    setIsPositionBasedOnUserLocation,
+    hasClickedMap,
+    setHasClickedMap,
+  } = useDraggableMarker();
 
   function getCurrentLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -40,6 +45,10 @@ export default function Navigation() {
       getCurrentLocation();
     } else {
       setDashboardFor(action);
+      if (hasClickedMap) {
+        setPosition(null);
+        setHasClickedMap(false);
+      }
     }
   }
 

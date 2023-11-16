@@ -19,6 +19,7 @@ export async function createUser(
       firstName,
       lastName,
       primaryEmail,
+      primaryPhone: null,
       meadows: {
         connect: {
           id: meadow!.id,
@@ -39,16 +40,13 @@ export async function updateUser(
     firstName: string;
     lastName: string;
     primaryEmail: string;
-    primaryPhone?: string;
+    primaryPhone: string | null;
   } = {
     firstName,
     lastName,
     primaryEmail,
+    primaryPhone: primaryPhone ? primaryPhone : null,
   };
-
-  if (primaryPhone) {
-    data.primaryPhone = primaryPhone;
-  }
 
   await prisma.user.update({
     where: {

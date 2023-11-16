@@ -34,7 +34,6 @@ model Listing {
   creator             User     @relation("createdListings", fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId           String
   stillThere          Boolean  @default(true)
-  stillThereUpdatedAt DateTime @default(now())
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   usersThankedIds     String[]

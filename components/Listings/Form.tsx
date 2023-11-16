@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import { PhoneInput } from "react-international-phone";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodSchema, z } from "zod";
-import { useCreateListing } from "@/context/CreateListingProvider";
+import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { ICON_LIST } from "@/lib/constants";
 import { FormInput } from "@/lib/types";
 import {
-  Form,
+  Form as FormShadcn,
   FormControl,
   FormField,
   FormItem,
@@ -58,14 +58,14 @@ const LISTING_FORM_INPUTS = [
   },
 ];
 
-export default function ListingForm({
+export default function Form({
   schema,
   defaultValues,
   onSubmit,
   isLoading,
   disabled,
 }: ListingFormProps) {
-  const { setIcon } = useCreateListing();
+  const { setIcon } = useDraggableMarker();
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -73,7 +73,7 @@ export default function ListingForm({
   });
 
   return (
-    <Form {...form}>
+    <FormShadcn {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {LISTING_FORM_INPUTS.map((input: FormInput) => (
           <FormField
@@ -126,6 +126,6 @@ export default function ListingForm({
         ))}
         <ButtonSubmit isLoading={isLoading} disabled={disabled} />
       </form>
-    </Form>
+    </FormShadcn>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ZodSchema, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -113,6 +114,7 @@ export default function AuthForm({
           ))}
           {title === "Sign in" && <AuthPrompt promptTo="Forgot password" />}
           <Button type="submit" disabled={isLoading}>
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Continue
           </Button>
         </form>

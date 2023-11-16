@@ -28,20 +28,16 @@ export async function createListing(
     lng: number;
     location: string;
     icon: string;
-    caption?: string;
-    contact?: string;
+    caption: string | null;
+    contact: string | null;
   } = {
     lat,
     lng,
     location,
     icon,
+    caption: caption.length > 0 ? caption : null,
+    contact: !COUNTRY_CODES.includes(contact) ? contact : null,
   };
-  if (caption.length > 0) {
-    data.caption = caption;
-  }
-  if (!COUNTRY_CODES.includes(contact)) {
-    data.contact = contact;
-  }
 
   const newListing = await prisma.listing.create({
     data: {
@@ -59,6 +55,37 @@ export async function createListing(
     },
   });
   return newListing;
+}
+
+export async function updateListing(listing: any) {
+  const { id, lat, lng, location, icon, caption, contact } = listing;
+
+  const data: {
+    lat: number;
+    lng: number;
+    location: string;
+    icon: string;
+    caption: string | null;
+    contact: string | null;
+  } = {
+    lat,
+    lng,
+    location,
+    icon,
+    caption: caption.length > 0 ? caption : null,
+    contact: !COUNTRY_CODES.includes(contact) ? contact : null,
+  };
+
+  const updatedListing = await prisma.listing.update({
+    where: {
+      id
+    },
+    data: {
+      ...data,
+    },
+  });
+
+  return updatedListing;
 }
 
 export async function toggleThank(userId: string, listingId: string) {
@@ -92,9 +119,6 @@ export async function toggleThank(userId: string, listingId: string) {
             },
           },
     },
-    include: {
-      usersThanked: true,
-    },
   });
 
   return updatedListing;
@@ -113,7 +137,6 @@ export async function toggleStillThere(listingId: string) {
     },
     data: {
       stillThere: !listingToBeUpdated!.stillThere,
-      stillThereUpdatedAt: new Date(),
     },
   });
 
