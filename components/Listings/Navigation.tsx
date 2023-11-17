@@ -28,6 +28,7 @@ export default function Navigation() {
   const {
     setPosition,
     setIsPositionBasedOnUserLocation,
+    setIcon,
     hasClickedMap,
     setHasClickedMap,
   } = useDraggableMarker();
@@ -40,7 +41,7 @@ export default function Navigation() {
     });
   }
 
-  function onClick(action: string) {
+  function onClick(action: string, text: string) {
     if (action === "getLocation") {
       getCurrentLocation();
     } else {
@@ -48,6 +49,9 @@ export default function Navigation() {
       if (hasClickedMap) {
         setPosition(null);
         setHasClickedMap(false);
+      }
+      if (text === "Back") {
+        setIcon("📍");
       }
     }
   }
@@ -58,7 +62,7 @@ export default function Navigation() {
         (button: ListingNavigationButton) => (
           <Button
             key={button.id}
-            onClick={() => onClick(button.action)}
+            onClick={() => onClick(button.action, button.text)}
             variant={`${button.id === 1 ? "default" : "outline"}`}
             className={`${button.id === 1 && "mr-2"} px-3 shadow-none`}
           >

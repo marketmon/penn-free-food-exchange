@@ -1,5 +1,4 @@
 import { useListings } from "@/context/ListingsProvider";
-import { SignedIn } from "@clerk/nextjs";
 import { Listing } from "@/lib/types";
 import ButtonThank from "@/components/Listings/Button/ButtonThank";
 import ButtonEdit from "@/components/Listings/Button/ButtonEdit";
@@ -14,12 +13,10 @@ export default function CardAction({ listing }: CardActionProps) {
 
   return dashboardFor === "view" ? (
     <div className="h-10">
-      <SignedIn>
-        <ButtonThank
-          listingId={listing.id}
-          usersThankedIds={listing.usersThankedIds}
-        />
-      </SignedIn>
+      <ButtonThank
+        listingId={listing.id}
+        usersThankedIds={listing.usersThankedIds}
+      />
     </div>
   ) : (
     <div className="space-x-2">

@@ -1,3 +1,4 @@
+import { SignedIn } from "@clerk/nextjs";
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
 import { Card as CardShadcn } from "@/components/ui/card";
@@ -22,7 +23,7 @@ export default function Card({ listing }: CardProps) {
     <div onClick={onListingCardClicked} className="mb-2">
       <CardShadcn>
         <div className="flex justify-between px-5 pt-6">
-          <div className="space-y-3">
+          <div className="space-y-3 w-[calc(100%-135px)]">
             <CardTitle icon={listing.icon} location={listing.location} />
             <Badge
               stillThere={listing.stillThere}
@@ -30,7 +31,9 @@ export default function Card({ listing }: CardProps) {
             />
             <CardDescritpion caption={listing.caption} />
           </div>
-          <CardAction listing={listing} />
+          <SignedIn>
+            <CardAction listing={listing} />
+          </SignedIn>
         </div>
         <CardFooter
           updatedAt={listing.updatedAt}

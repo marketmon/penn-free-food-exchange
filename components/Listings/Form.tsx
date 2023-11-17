@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import {
   Select,
+  SelectGroup,
   SelectContent,
   SelectItem,
   SelectTrigger,
@@ -96,12 +97,14 @@ export default function Form({
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
-                        {ICON_LIST!.map((icon) => (
-                          <SelectItem key={icon.id} value={icon.icon}>
-                            {icon.icon}
-                          </SelectItem>
-                        ))}
+                      <SelectContent className="overflow-y-auto max-h-[7.5rem]">
+                        <SelectGroup>
+                          {ICON_LIST!.map((icon) => (
+                            <SelectItem key={icon.id} value={icon.icon}>
+                              {icon.icon}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
                       </SelectContent>
                     </Select>
                   ) : input.type === "textarea" ? (

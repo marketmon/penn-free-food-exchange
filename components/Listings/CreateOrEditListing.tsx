@@ -11,7 +11,8 @@ import Form from "@/components/Listings/Form";
 export default function CreateOrEditListing() {
   const { meadowId, setDashboardFor } = useListings();
 
-  const { position, setPosition, setHasClickedMap } = useDraggableMarker();
+  const { position, setPosition, setIcon, setHasClickedMap } =
+    useDraggableMarker();
 
   const { currentListing, setCurrentListing } = useEditListing();
 
@@ -45,6 +46,7 @@ export default function CreateOrEditListing() {
       setDashboardFor(isCreateMode ? "view" : "manage");
       setPosition(null);
       setHasClickedMap(false);
+      setIcon("📍");
       if (!isCreateMode) {
         setCurrentListing(null);
       }
@@ -53,6 +55,7 @@ export default function CreateOrEditListing() {
     isSuccess,
     setDashboardFor,
     setPosition,
+    setIcon,
     setHasClickedMap,
     setCurrentListing,
     isCreateMode,
