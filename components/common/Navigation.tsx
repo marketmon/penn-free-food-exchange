@@ -29,9 +29,9 @@ export default function Navigation() {
         />
       </SignedIn>
       <SignedOut>
-        <Button className="h-[32px]">
-          <Link href="/signin">Get Started</Link>
-        </Button>
+        <Link href="/signin">
+          <Button className="h-[32px]">Get Started</Button>
+        </Link>
       </SignedOut>
     </div>
   );

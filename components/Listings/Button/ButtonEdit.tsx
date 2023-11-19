@@ -11,7 +11,7 @@ type ButtonEditProps = {
 export default function ButtonEdit({ listing }: ButtonEditProps) {
   const { setDashboardFor } = useListings();
 
-  const { setPosition, setIcon, setHasClickedMap } = useDraggableMarker();
+  const { setPosition, setIcon } = useDraggableMarker();
 
   const { setCurrentListing } = useEditListing();
 
@@ -19,7 +19,6 @@ export default function ButtonEdit({ listing }: ButtonEditProps) {
     e.stopPropagation();
     setDashboardFor("edit");
     setPosition({ lat: listing.lat, lng: listing.lng });
-    setHasClickedMap(true);
     setIcon(listing.icon);
     setCurrentListing({
       id: listing.id,

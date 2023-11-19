@@ -39,8 +39,10 @@ export function getLastUpdatedTimeAgo(updatedTime: string, displayFor: string) {
       return `${days} day${days > 1 ? "s" : ""} ago`;
     } else if (hours > 0) {
       return `${hours} hr ago`;
-    } else if (minutes >= 0) {
+    } else if (minutes > 0) {
       return `${minutes} min ago`;
+    } else {
+      return "just now";
     }
   } else {
     if (days > 0) {

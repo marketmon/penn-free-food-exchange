@@ -1,14 +1,15 @@
 import { useRef } from "react";
 import { useMapEvents, useMap } from "react-leaflet";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
+import { useListings } from "@/context/ListingsProvider";
 import Marker from "@/components/Listings/Marker/Marker";
 
 export default function DraggableMarker() {
+  const { dashboardFor } = useListings();
+
   const {
     position,
     setPosition,
-    hasClickedMap,
-    setHasClickedMap,
     isPositionBasedOnUserLocation,
     setIsPositionBasedOnUserLocation,
     icon,
@@ -32,19 +33,18 @@ export default function DraggableMarker() {
 
   useMapEvents({
     click(e) {
-      if (!hasClickedMap) {
+      if (!position) {
         setPosition(e.latlng);
-        setHasClickedMap(true);
       }
     },
   });
 
-  if (isPositionBasedOnUserLocation) {
-    map.flyTo(position!, map.getZoom());
+  if (isPositionBasedOnUserLocation || dashboardFor === "edit") {
+    map.flyTo(position!, 18);
   }
 
   return (
-    (hasClickedMap || position) && (
+    position && (
       <Marker
         draggable={true}
         position={position!}

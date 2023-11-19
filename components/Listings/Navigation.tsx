@@ -1,5 +1,6 @@
 import { useListings } from "@/context/ListingsProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
+import { useEditListing } from "@/context/EditListingProvider";
 import { DashboardFor, ListingNavigationButton } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
@@ -25,12 +26,14 @@ const BUTTON_GROUP = {
 export default function Navigation() {
   const { dashboardFor, setDashboardFor } = useListings();
 
+  const { currentListing, setCurrentListing } = useEditListing();
+
   const {
     setPosition,
     setIsPositionBasedOnUserLocation,
     setIcon,
-    hasClickedMap,
-    setHasClickedMap,
+    position,
+    isPositionBasedOnUserLocation,
   } = useDraggableMarker();
 
   function getCurrentLocation() {
@@ -46,12 +49,17 @@ export default function Navigation() {
       getCurrentLocation();
     } else {
       setDashboardFor(action);
-      if (hasClickedMap) {
-        setPosition(null);
-        setHasClickedMap(false);
-      }
       if (text === "Back") {
         setIcon("📍");
+        if (position) {
+          setPosition(null);
+        }
+        if (isPositionBasedOnUserLocation) {
+          setIsPositionBasedOnUserLocation(false);
+        }
+        if (currentListing) {
+          setCurrentListing(null);
+        }
       }
     }
   }

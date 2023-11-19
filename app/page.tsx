@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { getListOfMeadows } from "@/lib/queryFns";
-import SelectMeadow from "@/components/Home/SelectMeadow";
+import SectionContainer from "@/components/Home/SectionContainer";
 
 export default async function Page() {
   const queryClient = new QueryClient();
@@ -23,7 +23,7 @@ export default async function Page() {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <SelectMeadow />
+      <SectionContainer />
     </HydrationBoundary>
   );
 }

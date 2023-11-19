@@ -1,4 +1,4 @@
-import { SignedIn } from "@clerk/nextjs";
+import { SignedIn, useUser } from "@clerk/nextjs";
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
 import { Card as CardShadcn } from "@/components/ui/card";
@@ -13,6 +13,8 @@ type CardProps = {
 };
 
 export default function Card({ listing }: CardProps) {
+  const { user } = useUser();
+
   const { setClickedListingCardPosition } = useListings();
 
   function onListingCardClicked() {
@@ -23,7 +25,7 @@ export default function Card({ listing }: CardProps) {
     <div onClick={onListingCardClicked} className="mb-2">
       <CardShadcn>
         <div className="flex justify-between px-5 pt-6">
-          <div className="space-y-3 w-[calc(100%-135px)]">
+          <div className={`space-y-3 ${user && "w-[calc(100%-135px)]"}`}>
             <CardTitle icon={listing.icon} location={listing.location} />
             <Badge
               stillThere={listing.stillThere}

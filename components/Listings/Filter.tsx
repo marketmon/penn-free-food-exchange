@@ -20,13 +20,13 @@ export default function Filter({ setCurrFilter }: FilterProps) {
           setCurrFilter(value);
         }}
       >
-        <SelectTrigger className="w-[45px] tablet:w-[170px] lg:w-[45px] desktop:w-[170px]">
-          <FilterLucideReact className="tablet:hidden lg:block desktop:hidden" />
-          <div className="hidden tablet:block lg:hidden desktop:block">
+        <SelectTrigger className="w-[45px] tablet:w-[170px] laptop:w-[45px] desktop:w-[170px]">
+          <FilterLucideReact className="tablet:hidden laptop:block desktop:hidden" />
+          <div className="hidden tablet:block laptop:hidden desktop:block">
             <SelectValue placeholder="Filter by" />
           </div>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent onClick={(e) => e.stopPropagation()}>
           <SelectGroup>
             <SelectItem value="new">New</SelectItem>
             <SelectItem value="old">Old</SelectItem>

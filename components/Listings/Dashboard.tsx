@@ -43,11 +43,11 @@ export default function Dashboard({ queryKey, meadowId }: DashboardProps) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex flex-col h-full lg:flex-row">
-      <div className="h-1/2 lg:w-2/3 lg:h-full">
+    <div className="flex flex-col h-full laptop:flex-row">
+      <div className="h-1/2 laptop:w-2/3 laptop:h-full">
         <Map lat={data.lat} lng={data.lng} listingsToShow={listingsToShow} />
       </div>
-      <div className="h-1/2 lg:w-1/3 lg:h-full pt-2">
+      <div className="h-1/2 laptop:w-1/3 laptop:h-full pt-2">
         <Sidebar
           meadowUsers={data.userIds}
           userId={user?.id}
