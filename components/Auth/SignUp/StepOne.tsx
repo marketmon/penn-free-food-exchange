@@ -4,7 +4,7 @@ import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
 import { getListOfMeadows } from "@/lib/queryFns";
 import Form from "@/components/Auth/Form";
-import AuthPrompt from "@/components/Auth/AuthPrompt";
+import Prompt from "@/components/Auth/Prompt";
 
 export default function StepOne() {
   const { isLoading, data } = useQuery({
@@ -37,7 +37,7 @@ export default function StepOne() {
         meadowsLoading={isLoading}
         meadows={data}
       />
-      <AuthPrompt promptTo="Sign in from sign up" />
+      <Prompt promptTo="Sign in from sign up" />
     </>
   );
 }

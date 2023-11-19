@@ -8,16 +8,11 @@ import SectionContainer from "@/components/Home/SectionContainer";
 
 export default async function Page() {
   const queryClient = new QueryClient();
-  try {
-    await queryClient.fetchQuery({
-      queryKey: ["meadows"],
-      queryFn: () => getListOfMeadows(),
-    });
-  } catch (error: any) {
-    const errorMessage =
-      "message" in error ? error.message : "Something went wrong";
-    return <div>{errorMessage}</div>;
-  }
+  
+  await queryClient.fetchQuery({
+    queryKey: ["meadows"],
+    queryFn: () => getListOfMeadows(),
+  });
 
   const dehydratedState = dehydrate(queryClient);
 

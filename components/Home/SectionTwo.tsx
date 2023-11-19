@@ -5,19 +5,19 @@ import { Users, Expand, SmilePlus } from "lucide-react";
 const GOALS = [
   {
     id: 1,
-    text: "EMPOWER",
+    goal: "EMPOWER",
     description: "communites with cooperative data ownership",
     icon: <Users />,
   },
   {
     id: 2,
-    text: "EXPAND",
+    goal: "EXPAND",
     description: "data accessibility and understanding",
     icon: <Expand />,
   },
   {
     id: 3,
-    text: "RETURN",
+    goal: "RETURN",
     description: "value back to communities",
     icon: <SmilePlus />,
   },
@@ -58,7 +58,7 @@ export default function SectionTwo({ sectionRef }: SectionTwoProps) {
               <div className="inline-flex items-center">
                 {goal.icon}
                 <div className="text-lg font-bold ml-2 tablet:text-2xl laptop:text-3xl">
-                  {goal.text}
+                  {goal.goal}
                 </div>
               </div>
               <div className="text-base tablet:text-xl laptop:text-2xl">

@@ -1,17 +1,12 @@
 type MultiStepAuthManagerProps = {
-  isLoaded: boolean;
   step: number;
   stepComponents: React.ReactNode[];
 };
 
 export default function MultiStepAuthManager({
-  isLoaded,
   step,
-  stepComponents
+  stepComponents,
 }: MultiStepAuthManagerProps) {
-  if (!isLoaded) {
-    return <div>Loading...</div>;
-  }
   return (
     <div className="w-full">
       {step === 1 && stepComponents[0]}

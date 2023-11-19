@@ -1,20 +1,3 @@
-// export const MEADOWS = [
-//   {
-//     id: "6533d94f24987278f18ad88d",
-//     name: "University of Pennsylvania",
-//     latitude: 39.95295329909881,
-//     longitude: -75.1935820978563,
-//     domain: "gmail.com",
-//   },
-//   {
-//     id: "6533d9a024987278f18ad88e",
-//     name: "University of Florida",
-//     latitude: 29.64653229434124,
-//     longitude: -82.35326826910915,
-//     domain: "outlook.com",
-//   },
-// ];
-
 export const BASE_URL =
   "https://friendly-eureka-x6jxvj44qgcvwwx-3000.app.github.dev";
   

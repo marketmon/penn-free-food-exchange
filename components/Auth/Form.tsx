@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ZodSchema, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import {
   Form as FormShadcn,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -19,9 +17,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { FormInput, Meadow } from "@/lib/types";
-import AuthPrompt from "@/components/Auth/AuthPrompt";
+import Prompt from "@/components/Auth/Prompt";
+import ErrorMessage from "@/components/common/ErrorMessage";
+import ButtonContinue from "@/components/Auth/ButtonContinue";
 
 type AuthFormProps = {
   title: string;
@@ -50,14 +49,14 @@ export default function Form({
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState(null);
+  const [error, setError] = useState(null);
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
     setIsLoading(true);
     try {
       await handleInputs(values);
     } catch (error: any) {
-      setServerError(error.errors[0].longMessage);
+      setError(error.errors[0].longMessage);
     }
     setIsLoading(false);
   };
@@ -66,7 +65,7 @@ export default function Form({
     <div className="mb-8">
       <h1 className="text-center mt-2 mb-6">{title} to continue to Panbo</h1>
       <FormShadcn {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 mb-2">
           {inputs.map((input: FormInput) => (
             <FormField
               key={input.name}
@@ -101,7 +100,11 @@ export default function Form({
                           </SelectContent>
                         </Select>
                       ) : (
-                        <Input {...field} type={input.type} placeholder={input.label} />
+                        <Input
+                          {...field}
+                          type={input.type}
+                          placeholder={input.label}
+                        />
                       )}
                     </FormControl>
                   )}
@@ -110,13 +113,10 @@ export default function Form({
               )}
             />
           ))}
-          {title === "Sign in" && <AuthPrompt promptTo="Forgot password" />}
-          <Button className="w-full" type="submit" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Continue
-          </Button>
+          {title === "Sign in" && <Prompt promptTo="Forgot password" />}
+          <ButtonContinue isLoading={isLoading} />
         </form>
-        {serverError && <div>{serverError}</div>}
+        {error && <ErrorMessage error={error} />}
       </FormShadcn>
     </div>
   );

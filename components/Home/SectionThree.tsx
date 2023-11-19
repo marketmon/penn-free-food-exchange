@@ -2,20 +2,20 @@ import Image from "next/image";
 import { MutableRefObject } from "react";
 import { CheckCircle } from "lucide-react";
 
-const GOALS = [
+const STEPS = [
   {
     id: 1,
-    text: "Step 1",
+    step: "Step 1",
     description: "Build avenues to unite community members",
   },
   {
     id: 2,
-    text: "Step 2",
+    step: "Step 2",
     description: "Gather individual insights",
   },
   {
     id: 3,
-    text: "Step 3",
+    step: "Step 3",
     description: "Combine insights and collect the full value",
   },
 ];
@@ -45,16 +45,16 @@ export default function SectionThree({ sectionRef }: SectionThreeProps) {
           className="my-2 hidden hide-image-mobile:hidden show-image-mobile:block hide-image-tablet:hidden show-image-tablet:block hide-image-laptop:hidden show-image-laptop:block"
         />
         <ul className="space-y-4 tablet:space-y-8">
-          {GOALS.map((goal) => (
-            <li key={goal.id}>
+          {STEPS.map((step) => (
+            <li key={step.id}>
               <div className="inline-flex items-center">
                 <CheckCircle />
                 <div className="text-lg font-bold ml-2 tablet:text-2xl laptop:text-3xl">
-                  {goal.text}
+                  {step.step}
                 </div>
               </div>
               <div className="text-base tablet:text-xl laptop:text-2xl">
-                {goal.description}
+                {step.description}
               </div>
             </li>
           ))}

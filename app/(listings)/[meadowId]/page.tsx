@@ -21,17 +21,18 @@ export default async function Page({
   } catch (error: any) {
     const errorMessage =
       "message" in error ? error.message : "Something went wrong";
-    return <div>{errorMessage}</div>;
+    return (
+      <div className="h-full flex flex-col justify-center items-center">
+        {errorMessage}
+      </div>
+    );
   }
 
   const dehydratedState = dehydrate(queryClient);
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <Dashboard
-        queryKey={`meadow-${meadowId}`}
-        meadowId={meadowId}
-      />
+      <Dashboard queryKey={`meadow-${meadowId}`} meadowId={meadowId} />
     </HydrationBoundary>
   );
 }

@@ -16,7 +16,7 @@ export default function Disclaimer() {
     storedOpenState ? JSON.parse(storedOpenState) : true
   );
 
-  function onClick() {
+  function handleCloseDisclaimer() {
     localStorage.setItem("disclaimerOpen", JSON.stringify(false));
     setOpen(false);
   }
@@ -38,7 +38,6 @@ export default function Disclaimer() {
               helpful but also safe. Please take a moment to review the
               following safety guidelines and precautions:
             </p>
-
             <br />
             <h5 className="font-extrabold">Food Sharing Assurance</h5>
             <ul className="list-disc pl-8">
@@ -52,7 +51,6 @@ export default function Disclaimer() {
                 preventing contamination.
               </li>
             </ul>
-
             <br />
             <h5 className="font-extrabold">
               The Bill Emerson Good Samaritan Act:
@@ -76,7 +74,6 @@ export default function Disclaimer() {
                 instincts when accepting shared food items.
               </li>
             </ul>
-
             <br />
             <h5 className="font-extrabold">Embrace Personal Safety</h5>
             <ul className="list-disc pl-8">
@@ -90,7 +87,6 @@ export default function Disclaimer() {
                 unfamiliar.
               </li>
             </ul>
-
             <br />
             <h5 className="font-extrabold">
               Reporting Negative Experiences and Concerns
@@ -106,7 +102,6 @@ export default function Disclaimer() {
                 suspicious activities.
               </li>
             </ul>
-
             <br />
             <h5 className="font-extrabold">Encouraging Responsible Conduct</h5>
             <ul className="list-disc pl-8">
@@ -119,7 +114,6 @@ export default function Disclaimer() {
                 a safe and supportive environment for everyone.
               </li>
             </ul>
-
             <br />
             <p>
               By joining Panbo, you affirm that you have read, understood, and
@@ -128,19 +122,17 @@ export default function Disclaimer() {
               community. We encourage you to check back periodically to stay
               informed of any changes.
             </p>
-
             <br />
             <p>
               Remember, your safety and well-being are paramount. Embrace the
               joy of sharing on Panbo while practicing safety and spreading
               positivity to create a better world, one meal at a time.
             </p>
-
             <br />
             <p>Last updated: 9/26/23</p>
           </CardContent>
           <CardFooter>
-            <Button onClick={onClick}>Close</Button>
+            <Button onClick={handleCloseDisclaimer}>Close</Button>
           </CardFooter>
         </Card>
       </div>

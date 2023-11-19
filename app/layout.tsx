@@ -7,7 +7,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/context/QueryProvider";
 import Navigation from "@/components/common/Navigation";
 
-const Disclaimer = dynamic(() => import("@/components/Home/Disclaimer"), { ssr: false });
+const Disclaimer = dynamic(() => import("@/components/Home/Disclaimer"), {
+  ssr: false,
+});
 
 const nunito = Nunito({ subsets: ["latin"] });
 

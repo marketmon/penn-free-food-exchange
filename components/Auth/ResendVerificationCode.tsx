@@ -35,7 +35,6 @@ export default function ResendVerificationCode({
         });
       }
     } catch (error: any) {
-      // TODO: show this on UI later
       console.log(error.errors);
     }
     setDisabled(true);

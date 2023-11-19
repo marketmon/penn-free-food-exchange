@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MutableRefObject } from "react";
 import { Meadow } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import ButtonHome from "@/components/Home/ButtonHome";
 
 type SectionOneProps = {
   data: Meadow[];
@@ -36,9 +36,7 @@ export default function SectionOne({ data, sectionRef }: SectionOneProps) {
       <div className="space-y-2 flex flex-col">
         {data.map((meadow: Meadow) => (
           <Link key={meadow.id} href={`/${meadow.id}`}>
-            <Button className="w-[210px]" variant="home">
-              {meadow.name}
-            </Button>
+            <ButtonHome text={meadow.name} />
           </Link>
         ))}
       </div>

@@ -2,7 +2,7 @@ import { ZodSchema, z } from "zod";
 import { useSignInContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import Form from "@/components/Auth/Form";
-import AuthPrompt from "@/components/Auth/AuthPrompt";
+import Prompt from "@/components/Auth/Prompt";
 
 export default function StepTwo() {
   const { signIn, setStep } = useSignInContext();
@@ -32,7 +32,7 @@ export default function StepTwo() {
         ]}
         handleInputs={handleSubmit}
       />
-      <AuthPrompt promptTo="Resend code" authData={signIn} />
+      <Prompt promptTo="Resend code" authData={signIn} />
     </>
   );
 }

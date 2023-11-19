@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { MutableRefObject } from "react";
-import { Button } from "@/components/ui/button";
+import ButtonHome from "@/components/Home/ButtonHome";
 
 type SectionFourProps = {
   sectionRef: MutableRefObject<any>;
@@ -22,9 +22,7 @@ export default function SectionFour({ sectionRef }: SectionFourProps) {
       />
       <h2 className="text-3xl font-bold mb-4">Have questions?</h2>
       <a href="mailto: etmar@wharton.upenn.edu">
-        <Button className="w-[210px]" variant="home">
-          Contact us
-        </Button>
+        <ButtonHome text="Contact us" />
       </a>
     </div>
   );

@@ -3,7 +3,7 @@ import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import Form from "@/components/Auth/Form";
-import AuthPrompt from "@/components/Auth/AuthPrompt";
+import Prompt from "@/components/Auth/Prompt";
 
 export default function StepThree() {
   const { signUp, setActive } = useSignUpContext();
@@ -35,7 +35,7 @@ export default function StepThree() {
         ]}
         handleInputs={handleSubmit}
       />
-      <AuthPrompt promptTo="Resend code" authData={signUp} />
+      <Prompt promptTo="Resend code" authData={signUp} />
     </>
   );
 }

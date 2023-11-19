@@ -16,7 +16,7 @@ export function mapMeadowToDomain(meadow: string) {
     "University of Florida": "ufl.edu",
     // Add more college mappings as needed
   };
-  return "gmail.com";
+
   return meadowDomainMappings[meadow];
 }
 

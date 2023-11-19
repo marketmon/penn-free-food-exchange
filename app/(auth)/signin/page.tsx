@@ -5,7 +5,8 @@ import { ZodSchema, z } from "zod";
 import { logInSchema } from "@/lib/validations";
 import { useSignInContext } from "@/context/AuthProvider";
 import Form from "@/components/Auth/Form";
-import AuthPrompt from "@/components/Auth/AuthPrompt";
+import Prompt from "@/components/Auth/Prompt";
+import Loading from "@/components/common/Loading";
 
 export default function Page() {
   const { isLoaded, signIn, setActive } = useSignInContext();
@@ -22,8 +23,9 @@ export default function Page() {
   }
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
+  
   return (
     <div className="flex flex-col items-center w-[350px]">
       <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
@@ -41,7 +43,7 @@ export default function Page() {
           ]}
           handleInputs={handleSubmit}
         />
-        <AuthPrompt promptTo="Sign up" />
+        <Prompt promptTo="Sign up" />
       </div>
     </div>
   );
