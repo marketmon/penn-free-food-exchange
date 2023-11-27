@@ -8,7 +8,9 @@ import Prompt from "@/components/Auth/Prompt";
 export default function StepTwo() {
   const { signUp, meadowInfo, setStep } = useSignUpContext();
 
-  async function handleSubmit(values: z.infer<ZodSchema<any>>) {
+  async function createAccountAndSendEmailVerification(
+    values: z.infer<ZodSchema<any>>
+  ) {
     await signUp!.create({
       firstName: values.firstName,
       lastName: values.lastName,
@@ -25,7 +27,7 @@ export default function StepTwo() {
 
   return (
     <>
-     <FormTitle title="Sign up" />
+      <FormTitle title="Sign up" />
       <Form
         schema={signUpSchema(meadowInfo!.domain)}
         defaultValues={{
@@ -40,7 +42,7 @@ export default function StepTwo() {
           { name: "email", label: "Email address", type: "text" },
           { name: "password", label: "Password", type: "password" },
         ]}
-        handleInputs={handleSubmit}
+        handleInputs={createAccountAndSendEmailVerification}
       />
       <Prompt promptTo="Sign in from sign up" />
     </>

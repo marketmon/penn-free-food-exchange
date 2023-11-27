@@ -10,7 +10,7 @@ export default function StepThree() {
 
   const router = useRouter();
 
-  async function handleSubmit(values: z.infer<ZodSchema<any>>) {
+  async function resetPassword(values: z.infer<ZodSchema<any>>) {
     const result = await signIn?.resetPassword({
       password: values.newPassword,
     });
@@ -39,7 +39,7 @@ export default function StepThree() {
             type: "password",
           },
         ]}
-        handleInputs={handleSubmit}
+        handleInputs={resetPassword}
       />
     </>
   );

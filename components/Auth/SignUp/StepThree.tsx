@@ -11,7 +11,9 @@ export default function StepThree() {
 
   const router = useRouter();
 
-  async function handleSubmit(values: z.infer<ZodSchema<any>>) {
+  async function verifyEmailAndFinishCreatingAccount(
+    values: z.infer<ZodSchema<any>>
+  ) {
     const result = await signUp!.attemptEmailAddressVerification({
       code: values.verificationCode,
     });
@@ -34,7 +36,7 @@ export default function StepThree() {
             type: "text",
           },
         ]}
-        handleInputs={handleSubmit}
+        handleInputs={verifyEmailAndFinishCreatingAccount}
       />
       <Prompt promptTo="Resend code" authData={signUp} />
     </>

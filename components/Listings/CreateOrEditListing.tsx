@@ -21,7 +21,7 @@ export default function CreateOrEditListing() {
   const isCreateMode = !currentListing;
 
   const {
-    mutate: mutateListing,
+    mutate: createOrEditListing,
     isPending: isLoading,
     isSuccess,
   } = useMutateData({
@@ -78,7 +78,7 @@ export default function CreateOrEditListing() {
           contact: isCreateMode ? "" : currentListing.contact || "",
           icon: isCreateMode ? "📍" : currentListing.icon,
         }}
-        onSubmit={mutateListing}
+        onSubmit={createOrEditListing}
         isLoading={isLoading}
         disabled={!position}
       />

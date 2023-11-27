@@ -6,7 +6,7 @@ import Form from "@/components/Auth/Form/Form";
 export default function EditProfile() {
   const { user } = useUser();
 
-  async function handleSubmit(values: z.infer<typeof editProfileSchema>) {
+  async function updateProfile(values: z.infer<typeof editProfileSchema>) {
     await user!.update({
       firstName: values.firstName,
       lastName: values.lastName,
@@ -33,7 +33,7 @@ export default function EditProfile() {
         { name: "firstName", label: "First Name", type: "text" },
         { name: "lastName", label: "Last Name", type: "text" },
       ]}
-      handleInputs={handleSubmit}
+      handleInputs={updateProfile}
       showLabel={true}
       btnText="Save"
       showSuccessMessage={true}

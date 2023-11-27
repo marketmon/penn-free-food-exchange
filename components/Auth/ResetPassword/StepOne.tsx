@@ -8,7 +8,7 @@ import Prompt from "@/components/Auth/Prompt";
 export default function StepOne() {
   const { signIn, setStep } = useSignInContext();
 
-  async function handleSubmit(values: z.infer<ZodSchema<any>>) {
+  async function sendEmailVerification(values: z.infer<ZodSchema<any>>) {
     await signIn!.create({
       strategy: "reset_password_email_code",
       identifier: values.email,
@@ -25,7 +25,7 @@ export default function StepOne() {
           email: "",
         }}
         inputs={[{ name: "email", label: "Email address", type: "text" }]}
-        handleInputs={handleSubmit}
+        handleInputs={sendEmailVerification}
       />
       <Prompt promptTo="Sign in from reset password" />
     </>

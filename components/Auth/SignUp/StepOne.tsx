@@ -16,7 +16,7 @@ export default function StepOne() {
 
   const { setMeadowInfo, setStep } = useSignUpContext();
 
-  function handleSubmit(values: z.infer<ZodSchema<any>>) {
+  function selectMeadow(values: z.infer<ZodSchema<any>>) {
     const meadowInfo = JSON.parse(values.meadowInfo);
     setMeadowInfo!({
       id: meadowInfo.id,
@@ -34,7 +34,7 @@ export default function StepOne() {
           meadowInfo: "",
         }}
         inputs={[{ name: "meadowInfo", label: "Meadow", type: "select" }]}
-        handleInputs={handleSubmit}
+        handleInputs={selectMeadow}
         meadowsLoading={isLoading}
         meadows={data}
       />

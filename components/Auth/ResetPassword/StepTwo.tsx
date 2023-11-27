@@ -8,7 +8,7 @@ import Prompt from "@/components/Auth/Prompt";
 export default function StepTwo() {
   const { signIn, setStep } = useSignInContext();
 
-  async function handleSubmit(values: z.infer<ZodSchema<any>>) {
+  async function verifyEmail(values: z.infer<ZodSchema<any>>) {
     await signIn?.attemptFirstFactor({
       strategy: "reset_password_email_code",
       code: values.verificationCode,
@@ -31,7 +31,7 @@ export default function StepTwo() {
             type: "text",
           },
         ]}
-        handleInputs={handleSubmit}
+        handleInputs={verifyEmail}
       />
       <Prompt promptTo="Resend code" authData={signIn} />
     </>

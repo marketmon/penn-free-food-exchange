@@ -6,7 +6,7 @@ import Form from "@/components/Auth/Form/Form";
 export default function Security() {
   const { user } = useUser();
 
-  async function handleSubmit(values: z.infer<typeof changePasswordSchema>) {
+  async function updatePassword(values: z.infer<typeof changePasswordSchema>) {
     await user!.updatePassword({
       currentPassword: values.currentPassword,
       newPassword: values.newPassword,
@@ -38,7 +38,7 @@ export default function Security() {
           type: "password",
         },
       ]}
-      handleInputs={handleSubmit}
+      handleInputs={updatePassword}
       showLabel={true}
       btnText="Save"
       showSuccessMessage={true}
