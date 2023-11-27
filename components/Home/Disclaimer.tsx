@@ -12,6 +12,7 @@ import {
 
 export default function Disclaimer() {
   const storedOpenState = localStorage.getItem("disclaimerOpen");
+  
   const [open, setOpen] = useState(
     storedOpenState ? JSON.parse(storedOpenState) : true
   );

@@ -1,8 +1,9 @@
+import { PhoneNumberResource } from "@clerk/types";
 import { SignIn, SignUp } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 type ResendVerificationCodeProps = {
-  authData: SignUp | SignIn;
+  authData: SignUp | SignIn | PhoneNumberResource;
 };
 
 export default function ResendVerificationCode({
@@ -33,6 +34,8 @@ export default function ResendVerificationCode({
           strategy: "reset_password_email_code",
           identifier: authData.identifier as string,
         });
+      } else if ("prepareVerification" in authData) {
+        await authData.prepareVerification();
       }
     } catch (error: any) {
       console.log(error.errors);

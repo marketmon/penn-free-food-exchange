@@ -2,7 +2,7 @@ import { useAuth } from "@clerk/nextjs";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import {
   ToggleAction,
-  ListingFromFrom,
+  ListingFromForm,
   Meadow,
   RequestConfig,
 } from "@/lib/types";
@@ -24,7 +24,7 @@ export function useMutateData({
 }: useMutateDataType) {
   const { getToken } = useAuth();
 
-  async function mutateData(data?: ToggleAction | ListingFromFrom | null) {
+  async function mutateData(data?: ToggleAction | ListingFromForm | null) {
     const token = await getToken();
     const headers: { [key: string]: string } = {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export function useMutateData({
     if (!data) {
       headers["Content-Length"] = "0";
     }
-
+    
     await fetch(requestConfig.url, {
       method: requestConfig.method,
       body:

@@ -1,7 +1,8 @@
 import { ZodSchema, z } from "zod";
 import { useSignInContext } from "@/context/AuthProvider";
 import { emailSchema } from "@/lib/validations";
-import Form from "@/components/Auth/Form";
+import Form from "@/components/Auth/Form/Form";
+import FormTitle from "@/components/Auth/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepOne() {
@@ -17,8 +18,8 @@ export default function StepOne() {
 
   return (
     <>
+      <FormTitle title="Enter your email" />
       <Form
-        title="Enter your email"
         schema={emailSchema}
         defaultValues={{
           email: "",

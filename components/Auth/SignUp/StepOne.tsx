@@ -3,7 +3,8 @@ import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
 import { getListOfMeadows } from "@/lib/queryFns";
-import Form from "@/components/Auth/Form";
+import Form from "@/components/Auth/Form/Form";
+import FormTitle from "@/components/Auth/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepOne() {
@@ -26,8 +27,8 @@ export default function StepOne() {
 
   return (
     <>
+      <FormTitle title="Choose your meadow" />
       <Form
-        title="Choose your meadow"
         schema={selectMeadowSchema(data)}
         defaultValues={{
           meadowInfo: "",

@@ -2,7 +2,8 @@ import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { resetPasswordSchema } from "@/lib/validations";
 import { useSignInContext } from "@/context/AuthProvider";
-import Form from "@/components/Auth/Form";
+import Form from "@/components/Auth/Form/Form";
+import FormTitle from "@/components/Auth/Form/FormTitle";
 
 export default function StepThree() {
   const { signIn, setActive } = useSignInContext();
@@ -18,26 +19,28 @@ export default function StepThree() {
   }
 
   return (
-    <Form
-      title="Enter your email"
-      schema={resetPasswordSchema}
-      defaultValues={{
-        newPassword: "",
-        verifyPassword: "",
-      }}
-      inputs={[
-        {
-          name: "newPassword",
-          label: "New password",
-          type: "password",
-        },
-        {
-          name: "verifyPassword",
-          label: "Verify password",
-          type: "password",
-        },
-      ]}
-      handleInputs={handleSubmit}
-    />
+    <>
+      <FormTitle title="Reset your password" />
+      <Form
+        schema={resetPasswordSchema}
+        defaultValues={{
+          newPassword: "",
+          verifyPassword: "",
+        }}
+        inputs={[
+          {
+            name: "newPassword",
+            label: "New password",
+            type: "password",
+          },
+          {
+            name: "verifyPassword",
+            label: "Verify password",
+            type: "password",
+          },
+        ]}
+        handleInputs={handleSubmit}
+      />
+    </>
   );
 }

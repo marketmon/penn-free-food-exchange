@@ -21,7 +21,7 @@ export const selectMeadowSchema = (meadows: Meadow[]) =>
     ),
   });
 
-export const SignUpSchema = (domain: string) =>
+export const signUpSchema = (domain: string) =>
   z.object({
     firstName: z.string().min(1, { message: "First name is required" }),
     lastName: z.string().min(1, { message: "Last name is required" }),
@@ -47,6 +47,25 @@ export const SignUpSchema = (domain: string) =>
       }),
   });
 
+export const editProfileSchema = z.object({
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
+  email: z.string().min(1, { message: "Email is required" }).email({
+    message: "Invalid email",
+  }),
+});
+
+export const phoneSchema = z.object({
+  phone: z
+    .string()
+    .refine((phone) => !COUNTRY_CODES.includes(phone), {
+      message: "Please enter your phone number",
+    })
+    .refine(isPhoneValid, {
+      message: "Invalid phone number",
+    }),
+});
+
 export const verificationCodeSchema = z.object({
   verificationCode: z
     .string()
@@ -69,13 +88,34 @@ export const emailSchema = z.object({
   }),
 });
 
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z
+      .string()
+      .min(1, { message: "Current password is required" }),
+    newPassword: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .refine((password) => password.length >= 8, {
+        message: "Password must be at least 8 characters long",
+      })
+      .refine((password) => /[A-Z]/.test(password) && /[0-9]/.test(password), {
+        message: "Password must have at least one uppercase and one number",
+      }),
+    verifyPassword: z
+      .string()
+      .min(1, { message: "Please verify the password" }),
+  })
+  .refine((data) => data.newPassword === data.verifyPassword, {
+    message: "Passwords don't match",
+    path: ["verifyPassword"],
+  });
+
 export const resetPasswordSchema = z
   .object({
     newPassword: z
       .string()
-      .refine((password) => password.length > 0, {
-        message: "Password is required",
-      })
+      .min(1, { message: "Password is required" })
       .refine((password) => password.length >= 8, {
         message: "Password must be at least 8 characters long",
       })
@@ -114,10 +154,8 @@ export const listingFormSchema = z.object({
   caption: z
     .string()
     .max(300, { message: "Caption must be less than 300 characters" }),
-  contact: z
-    .string()
-    .refine(isPhoneValid, {
-      message: "Invalid phone number",
-    }),
+  contact: z.string().refine(isPhoneValid, {
+    message: "Invalid phone number",
+  }),
   icon: z.string().min(1, { message: "Icon is required" }),
 });

@@ -38,7 +38,7 @@ export type ToggleAction = {
   action: "toggleThank" | "toggleStillThere";
 };
 
-export type ListingFromFrom = {
+export type ListingFromForm = {
   location: string;
   caption: string;
   contact: string;
@@ -77,6 +77,7 @@ export type FormInput = {
   name: string;
   label: string;
   type: string;
+  disabled?: boolean;
 };
 
 export type Position = {

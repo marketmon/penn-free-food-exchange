@@ -1,13 +1,14 @@
 import Link from "next/link";
-import ResendVerificationCode from "@/components/Auth/ResendVerificationCode";
+import { PhoneNumberResource } from "@clerk/types";
 import { SignIn, SignUp } from "@/lib/types";
+import ResendVerificationCode from "@/components/Auth/ResendVerificationCode";
 
-type AuthPromptProps = {
+type PromptProps = {
   promptTo: string;
-  authData?: SignUp | SignIn;
+  authData?: SignUp | SignIn | PhoneNumberResource;
 };
 
-export default function AuthPrompt({ promptTo, authData }: AuthPromptProps) {
+export default function Prompt({ promptTo, authData }: PromptProps) {
   if (promptTo === "Sign in from sign up") {
     return (
       <div className="text-center text-sm">
@@ -38,8 +39,13 @@ export default function AuthPrompt({ promptTo, authData }: AuthPromptProps) {
   }
   if (promptTo === "Resend code") {
     return (
-      <div className="text-center text-sm">
-        Didn&apos;t receive a verification code? <ResendVerificationCode authData={authData!} /> 
+      <div
+        className={`${
+          "prepareVerification" in authData! ? "text-left" : "text-center"
+        } text-sm `}
+      >
+        Didn&apos;t receive a code?{" "}
+        <ResendVerificationCode authData={authData!} />
       </div>
     );
   }

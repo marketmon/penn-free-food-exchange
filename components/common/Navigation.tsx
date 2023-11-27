@@ -18,6 +18,8 @@ export default function Navigation() {
       <SignedIn>
         <UserButton
           afterSignOutUrl="/"
+          userProfileMode="navigation"
+          userProfileUrl="/account"
           appearance={{
             elements: {
               avatarBox: "h-9 w-9",

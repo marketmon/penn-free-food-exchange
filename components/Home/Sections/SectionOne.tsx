@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MutableRefObject } from "react";
 import { Meadow } from "@/lib/types";
-import ButtonHome from "@/components/Home/ButtonHome";
+import ButtonHome from "@/components/common/Button/ButtonHome";
 
 type SectionOneProps = {
   data: Meadow[];

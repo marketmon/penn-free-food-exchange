@@ -1,6 +1,9 @@
 import { WebhookRequest } from "@/lib/types";
-import { createUser, deleteUser, getUserById, updateUser } from "@/server/repository/user";
-import { NotFoundError, ServerError } from "@/lib/errors";
+import {
+  createUser,
+  deleteUser,
+  updateUser,
+} from "@/server/repository/users";
 
 export async function createUserService(data: WebhookRequest) {
   const {
@@ -58,16 +61,4 @@ export async function updateUserService(data: WebhookRequest) {
 export async function deleteUserService(data: WebhookRequest) {
   const { id } = data;
   await deleteUser(id!);
-}
-
-export async function getUserByIdService(userId: string) {
-  try {
-    const user = await getUserById(userId);
-    if (!user) {
-      throw new NotFoundError("No user found");
-    }
-    return user;
-  } catch (error) {
-    throw new ServerError("ServerError");
-  }
 }

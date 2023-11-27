@@ -1,7 +1,8 @@
 import { ZodSchema, z } from "zod";
 import { useSignInContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
-import Form from "@/components/Auth/Form";
+import Form from "@/components/Auth/Form/Form";
+import FormTitle from "@/components/Auth/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepTwo() {
@@ -17,8 +18,8 @@ export default function StepTwo() {
 
   return (
     <>
+      <FormTitle title="Verify email" />
       <Form
-        title="Verify email"
         schema={verificationCodeSchema}
         defaultValues={{
           verificationCode: "",

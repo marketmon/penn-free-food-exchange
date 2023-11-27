@@ -8,7 +8,7 @@ export default authMiddleware({
     "/signin",
     "/signin/reset-password",
     "/signup",
-    /^\/[^/]+$/,
+    /^\/(?!account$)[^/]+$/,
     /^\/api\/.*$/,
   ],
   afterAuth(auth, req, _evt) {

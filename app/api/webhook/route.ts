@@ -1,7 +1,11 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createUserService, deleteUserService, updateUserService } from "@/server/service/user";
+import {
+  createUserService,
+  deleteUserService,
+  updateUserService,
+} from "@/server/service/users";
 import { WebhookRequest } from "@/lib/types";
 
 export async function POST(req: Request) {
@@ -54,6 +58,6 @@ export async function POST(req: Request) {
   } else if (eventType === "user.deleted") {
     deleteUserService(dataTyped);
   }
-  
+
   return new Response("", { status: 201 });
 }

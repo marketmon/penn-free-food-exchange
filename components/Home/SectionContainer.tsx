@@ -4,10 +4,10 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { getListOfMeadows } from "@/lib/queryFns";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDown } from "lucide-react";
-import SectionOne from "@/components/Home/SectionOne";
-import SectionTwo from "@/components/Home/SectionTwo";
-import SectionFour from "@/components/Home/SectionFour";
-import SectionThree from "@/components/Home/SectionThree";
+import SectionOne from "@/components/Home/Sections/SectionOne";
+import SectionTwo from "@/components/Home/Sections/SectionTwo";
+import SectionThree from "@/components/Home/Sections/SectionThree";
+import SectionFour from "@/components/Home/Sections/SectionFour";
 
 export default function SectionContainer() {
   const { data } = useQuery({

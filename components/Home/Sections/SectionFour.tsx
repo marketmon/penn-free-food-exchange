@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { MutableRefObject } from "react";
-import ButtonHome from "@/components/Home/ButtonHome";
+import ButtonHome from "@/components/common/Button/ButtonHome";
 
 type SectionFourProps = {
   sectionRef: MutableRefObject<any>;

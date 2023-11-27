@@ -77,16 +77,3 @@ export async function deleteUser(id: string): Promise<void> {
     },
   });
 }
-
-export async function getUserById(id: string) {
-  const user = await prisma.user.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      meadows: true,
-      thankedListings: true,
-    },
-  });
-  return user;
-}
