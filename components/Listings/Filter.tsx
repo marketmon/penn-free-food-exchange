@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Filter as FilterLucideReact } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 
 type FilterProps = {
   setCurrFilter: React.Dispatch<React.SetStateAction<string>>;
@@ -20,8 +20,11 @@ export default function Filter({ setCurrFilter }: FilterProps) {
           setCurrFilter(value);
         }}
       >
-        <SelectTrigger className="w-[45px] tablet:w-[170px] laptop:w-[45px] desktop:w-[170px]">
-          <FilterLucideReact className="tablet:hidden laptop:block desktop:hidden" />
+        <SelectTrigger
+          className="w-[45px] tablet:w-[170px] laptop:w-[45px] desktop:w-[170px]"
+          hideArrowOnSmallSize={true}
+        >
+          <SlidersHorizontal className="tablet:hidden laptop:block desktop:hidden" />
           <div className="hidden tablet:block laptop:hidden desktop:block">
             <SelectValue placeholder="Filter by" />
           </div>
