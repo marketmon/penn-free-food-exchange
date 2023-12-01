@@ -3,7 +3,7 @@ import { z } from "zod";
 import { useAddPhone } from "@/context/AddPhoneProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import Form from "@/components/Auth/Form/Form";
+import Form from "@/components/common/Form/Form";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepTwo() {
@@ -30,9 +30,9 @@ export default function StepTwo() {
 
     await user!.reload();
 
-    setStep(1);
-
     document.getElementById("closeDialog")?.click();
+
+    setStep(1);
   }
 
   return (
@@ -54,12 +54,14 @@ export default function StepTwo() {
             type: "text",
           },
         ]}
-        handleInputs={verifyPhone}
-        showLabel={true}
+        handleSubmit={verifyPhone}
         btnText="Verify"
+        btnLoadingText="Verifying"
+        showLabel={true}
         additionalPrompt={
           <Prompt promptTo="Resend code" authData={user!.phoneNumbers[0]} />
         }
+        formStyles="space-y-2"
       />
     </>
   );

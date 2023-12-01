@@ -6,13 +6,12 @@ import { useListings } from "@/context/ListingsProvider";
 import { useEditListing } from "@/context/EditListingProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { listingFormSchema } from "@/lib/validations";
-import Form from "@/components/Listings/Form";
+import Form from "@/components/common/Form/Form";
 
 export default function CreateOrEditListing() {
   const { meadowId, setDashboardFor } = useListings();
 
-  const { position, setPosition, setIcon } =
-    useDraggableMarker();
+  const { position, setPosition, setIcon } = useDraggableMarker();
 
   const { currentListing, setCurrentListing } = useEditListing();
 
@@ -78,9 +77,39 @@ export default function CreateOrEditListing() {
           contact: isCreateMode ? "" : currentListing.contact || "",
           icon: isCreateMode ? "📍" : currentListing.icon,
         }}
-        onSubmit={createOrEditListing}
-        isLoading={isLoading}
-        disabled={!position}
+        inputs={[
+          {
+            name: "icon",
+            label: "Marker Icon",
+            type: "select",
+            disabled: !position,
+          },
+          {
+            name: "location",
+            label: "Location",
+            type: "text",
+            disabled: !position,
+          },
+          {
+            name: "caption",
+            label: "Caption (Optional)",
+            type: "textarea",
+            disabled: !position,
+          },
+          {
+            name: "contact",
+            label: "Contact (optional)",
+            type: "phone",
+            disabled: !position,
+          },
+        ]}
+        handleSubmit={createOrEditListing}
+        isLoadingFromMutateFunction={isLoading}
+        btnText="Save"
+        btnDisabled={!position}
+        showLabel={true}
+        formStyles="space-y-8 mb-2"
+        setIcon={setIcon}
       />
     </div>
   );

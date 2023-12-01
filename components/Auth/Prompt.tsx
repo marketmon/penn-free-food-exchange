@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { PhoneNumberResource } from "@clerk/types";
-import { SignIn, SignUp } from "@/lib/types";
+import {
+  PhoneNumberResource,
+  SignInResource,
+  SignUpResource,
+} from "@clerk/types";
 import ResendVerificationCode from "@/components/Auth/ResendVerificationCode";
 
 type PromptProps = {
   promptTo: string;
-  authData?: SignUp | SignIn | PhoneNumberResource;
+  authData?: SignUpResource | SignInResource | PhoneNumberResource;
 };
 
 export default function Prompt({ promptTo, authData }: PromptProps) {
@@ -41,7 +44,7 @@ export default function Prompt({ promptTo, authData }: PromptProps) {
     return (
       <div
         className={`${
-          "prepareVerification" in authData! ? "text-left" : "text-center"
+          "validatePassword" in authData! ? "text-center" : "text-left"
         } text-sm `}
       >
         Didn&apos;t receive a code?{" "}

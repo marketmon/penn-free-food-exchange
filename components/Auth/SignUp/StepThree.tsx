@@ -2,8 +2,8 @@ import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { verificationCodeSchema } from "@/lib/validations";
-import Form from "@/components/Auth/Form/Form";
-import FormTitle from "@/components/Auth/Form/FormTitle";
+import Form from "@/components/common/Form/Form";
+import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepThree() {
@@ -32,11 +32,13 @@ export default function StepThree() {
         inputs={[
           {
             name: "verificationCode",
-            label: "Verification Code",
+            label: "Verification code",
             type: "text",
+            placeholder: "Verification code",
           },
         ]}
-        handleInputs={verifyEmailAndFinishCreatingAccount}
+        handleSubmit={verifyEmailAndFinishCreatingAccount}
+        formStyles="space-y-2 mb-2"
       />
       <Prompt promptTo="Resend code" authData={signUp} />
     </>

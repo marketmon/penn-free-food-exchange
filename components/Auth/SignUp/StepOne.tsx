@@ -3,8 +3,8 @@ import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { selectMeadowSchema } from "@/lib/validations";
 import { getListOfMeadows } from "@/lib/queryFns";
-import Form from "@/components/Auth/Form/Form";
-import FormTitle from "@/components/Auth/Form/FormTitle";
+import Form from "@/components/common/Form/Form";
+import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepOne() {
@@ -33,10 +33,18 @@ export default function StepOne() {
         defaultValues={{
           meadowInfo: "",
         }}
-        inputs={[{ name: "meadowInfo", label: "Meadow", type: "select" }]}
-        handleInputs={selectMeadow}
+        inputs={[
+          {
+            name: "meadowInfo",
+            label: "Meadow",
+            type: "select",
+            placeholder: "Select your meadow",
+          },
+        ]}
+        handleSubmit={selectMeadow}
         meadowsLoading={isLoading}
         meadows={data}
+        formStyles="space-y-2 mb-2"
       />
       <Prompt promptTo="Sign in from sign up" />
     </>

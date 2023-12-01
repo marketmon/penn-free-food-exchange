@@ -1,9 +1,8 @@
-import { PhoneNumberResource } from "@clerk/types";
-import { SignIn, SignUp } from "@/lib/types";
+import { PhoneNumberResource, SignInResource, SignUpResource } from "@clerk/types";
 import { useEffect, useState } from "react";
 
 type ResendVerificationCodeProps = {
-  authData: SignUp | SignIn | PhoneNumberResource;
+  authData: SignUpResource | SignInResource | PhoneNumberResource;
 };
 
 export default function ResendVerificationCode({
@@ -46,9 +45,10 @@ export default function ResendVerificationCode({
 
   return (
     <button
+      type="button"
       onClick={handleResend}
       disabled={disabled}
-      className={`${disabled && "text-neutral-500"}`}
+      className={`${disabled && "text-neutral-400"}`}
     >
       Resend ({timeRemaining})
     </button>

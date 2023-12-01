@@ -1,8 +1,8 @@
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
 import { signUpSchema } from "@/lib/validations";
-import Form from "@/components/Auth/Form/Form";
-import FormTitle from "@/components/Auth/Form/FormTitle";
+import Form from "@/components/common/Form/Form";
+import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepTwo() {
@@ -37,12 +37,33 @@ export default function StepTwo() {
           password: "",
         }}
         inputs={[
-          { name: "firstName", label: "First name", type: "text" },
-          { name: "lastName", label: "Last name", type: "text" },
-          { name: "email", label: "Email address", type: "text" },
-          { name: "password", label: "Password", type: "password" },
+          {
+            name: "firstName",
+            label: "First name",
+            type: "text",
+            placeholder: "First name",
+          },
+          {
+            name: "lastName",
+            label: "Last name",
+            type: "text",
+            placeholder: "Last name",
+          },
+          {
+            name: "email",
+            label: "Email address",
+            type: "text",
+            placeholder: "Email address",
+          },
+          {
+            name: "password",
+            label: "Password",
+            type: "password",
+            placeholder: "Password",
+          },
         ]}
-        handleInputs={createAccountAndSendEmailVerification}
+        handleSubmit={createAccountAndSendEmailVerification}
+        formStyles="space-y-2 mb-2"
       />
       <Prompt promptTo="Sign in from sign up" />
     </>

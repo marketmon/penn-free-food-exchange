@@ -16,7 +16,7 @@ export default function Map({ lat, lng, listingsToShow }: MapProps) {
     <MapContainer
       center={[lat, lng]}
       zoom={15}
-      className="h-full"
+      className="h-full z-10"
       style={{ cursor: "auto" }}
     >
       <TileLayer attribution={MAP_ATTRIBUTION} url={MAP_URL} />

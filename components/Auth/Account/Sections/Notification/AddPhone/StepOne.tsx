@@ -3,7 +3,7 @@ import { z } from "zod";
 import { useAddPhone } from "@/context/AddPhoneProvider";
 import { phoneSchema } from "@/lib/validations";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import Form from "@/components/Auth/Form/Form";
+import Form from "@/components/common/Form/Form";
 
 export default function StepOne() {
   const { user } = useUser();
@@ -51,9 +51,11 @@ export default function StepOne() {
             type: "phone",
           },
         ]}
-        handleInputs={sendTextVerification}
-        showLabel={true}
+        handleSubmit={sendTextVerification}
         btnText="Send code"
+        btnLoadingText="Sending"
+        showLabel={true}
+        formStyles="space-y-2"
       />
     </>
   );

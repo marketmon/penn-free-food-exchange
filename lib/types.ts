@@ -8,6 +8,7 @@ import {
   SessionJSON,
   UserJSON,
 } from "@clerk/nextjs/server";
+import { SignInResource, SignUpResource } from "@clerk/types";
 
 export type RequestConfig = {
   url: string;
@@ -61,6 +62,8 @@ export type Listing = {
   usersThankedIds: string[];
 };
 
+export type Icon = { id: string; icon: string };
+
 export type Domain = { id: string; domain: string };
 
 export type Meadow = {
@@ -77,6 +80,7 @@ export type FormInput = {
   name: string;
   label: string;
   type: string;
+  placeholder?: string;
   disabled?: boolean;
 };
 
@@ -87,36 +91,9 @@ export type Position = {
 
 export type Auth = {
   isLoaded: boolean;
-  signIn?: SignIn;
-  signUp?: SignUp;
-  setActive: ((config: { session: string }) => Promise<void>) | undefined;
-};
-
-export type SignUp = {
-  create: (credentials: {
-    firstName: string;
-    lastName: string;
-    emailAddress: string;
-    password: string;
-    unsafeMetadata: { [key: string]: string };
-  }) => Promise<any>;
-  prepareEmailAddressVerification: (config: {
-    strategy: "email_code";
-  }) => Promise<any>;
-  attemptEmailAddressVerification: (config: { code: string }) => Promise<any>;
-};
-
-export type SignIn = {
-  create: (credentials: {
-    identifier: string;
-    strategy?: "reset_password_email_code";
-    password?: string;
-  }) => Promise<any>;
-  attemptFirstFactor: (credentials: {
-    strategy: "reset_password_email_code";
-    code: string;
-  }) => Promise<any>;
-  resetPassword: (credentials: { password: string }) => Promise<any>;
+  signIn?: SignInResource | undefined;
+  signUp?: SignUpResource | undefined;
+  setActive: ((config: { session: string | null }) => Promise<void>) | undefined;
 };
 
 type PhoneVerification = {

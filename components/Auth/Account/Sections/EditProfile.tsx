@@ -1,7 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import { z } from "zod";
 import { editProfileSchema } from "@/lib/validations";
-import Form from "@/components/Auth/Form/Form";
+import Form from "@/components/common/Form/Form";
 
 export default function EditProfile() {
   const { user } = useUser();
@@ -28,15 +28,27 @@ export default function EditProfile() {
           name: "email",
           label: "Email address",
           type: "text",
+          placeholder: "Email address",
           disabled: true,
         },
-        { name: "firstName", label: "First Name", type: "text" },
-        { name: "lastName", label: "Last Name", type: "text" },
+        {
+          name: "firstName",
+          label: "First Name",
+          type: "text",
+          placeholder: "First Name",
+        },
+        {
+          name: "lastName",
+          label: "Last Name",
+          type: "text",
+          placeholder: "Last name",
+        },
       ]}
-      handleInputs={updateProfile}
-      showLabel={true}
+      handleSubmit={updateProfile}
       btnText="Save"
+      showLabel={true}
       showSuccessMessage={true}
+      formStyles="space-y-2"
     />
   );
 }
