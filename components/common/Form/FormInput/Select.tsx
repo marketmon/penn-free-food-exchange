@@ -15,7 +15,7 @@ type SelectProps = {
   onChange: (...event: any[]) => void;
   input: FormInput;
   meadows?: Meadow[];
-  setIcon?: Dispatch<SetStateAction<string>>; 
+  setIcon?: Dispatch<SetStateAction<string>>;
 };
 
 export default function Select({
@@ -36,7 +36,7 @@ export default function Select({
       defaultValue={value}
       disabled={input.disabled}
     >
-      <SelectTrigger>
+      <SelectTrigger hideArrowOnSmallSize={false}>
         <SelectValue placeholder={input.placeholder} />
       </SelectTrigger>
       <SelectContent>
