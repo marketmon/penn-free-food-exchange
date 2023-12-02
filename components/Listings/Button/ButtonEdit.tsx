@@ -15,7 +15,7 @@ export default function ButtonEdit({ listing }: ButtonEditProps) {
 
   const { setCurrentListing } = useEditListing();
 
-  function onClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function onEditListing(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
     setDashboardFor("edit");
     setPosition({ lat: listing.lat, lng: listing.lng });
@@ -30,7 +30,11 @@ export default function ButtonEdit({ listing }: ButtonEditProps) {
   }
 
   return (
-    <Button variant="secondary" className="px-3 shadow-none" onClick={onClick}>
+    <Button
+      variant="secondary"
+      className="px-3 shadow-none"
+      onClick={onEditListing}
+    >
       Edit
     </Button>
   );

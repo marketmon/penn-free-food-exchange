@@ -17,12 +17,12 @@ export default function Card({ listing }: CardProps) {
 
   const { setClickedListingCardPosition } = useListings();
 
-  function onListingCardClicked() {
+  function onClickListingCard() {
     setClickedListingCardPosition({ lat: listing.lat, lng: listing.lng });
   }
 
   return (
-    <div onClick={onListingCardClicked} className="mb-2">
+    <div onClick={onClickListingCard} className="mb-2">
       <CardShadcn>
         <div className="flex justify-between px-5 pt-6">
           <div className={`space-y-3 ${user && "w-[calc(100%-135px)]"}`}>

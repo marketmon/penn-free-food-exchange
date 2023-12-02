@@ -10,7 +10,7 @@ export default function PhoneNumber() {
 
   const { setStep } = useAddPhone();
 
-  async function deletePhone() {
+  async function onDeletePhone() {
     const phoneListFromDb = user!.phoneNumbers;
     if (phoneListFromDb.length > 0) {
       await Promise.all(
@@ -41,7 +41,7 @@ export default function PhoneNumber() {
               </DialogTrigger>
               <div
                 className="flex w-fit text-red-500 items-center cursor-pointer"
-                onClick={deletePhone}
+                onClick={onDeletePhone}
               >
                 <Trash className="h-4 w-4 mr-1" />
                 Delete

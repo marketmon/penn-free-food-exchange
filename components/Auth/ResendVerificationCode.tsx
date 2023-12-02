@@ -1,4 +1,8 @@
-import { PhoneNumberResource, SignInResource, SignUpResource } from "@clerk/types";
+import {
+  PhoneNumberResource,
+  SignInResource,
+  SignUpResource,
+} from "@clerk/types";
 import { useEffect, useState } from "react";
 
 type ResendVerificationCodeProps = {
@@ -22,7 +26,7 @@ export default function ResendVerificationCode({
     }
   }, [timeRemaining]);
 
-  const handleResend = async () => {
+  async function onResendVerificationCode() {
     try {
       if ("prepareEmailAddressVerification" in authData) {
         await authData.prepareEmailAddressVerification({
@@ -41,12 +45,12 @@ export default function ResendVerificationCode({
     }
     setDisabled(true);
     setTimeRemaining(30);
-  };
+  }
 
   return (
     <button
       type="button"
-      onClick={handleResend}
+      onClick={onResendVerificationCode}
       disabled={disabled}
       className={`${disabled && "text-neutral-400"}`}
     >

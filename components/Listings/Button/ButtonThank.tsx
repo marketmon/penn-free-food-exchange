@@ -21,7 +21,7 @@ export default function ButtonThank({
 
   const queryClient = useQueryClient();
 
-  const { mutate: updateThankCountsForListing } = useMutateData({
+  const { mutate: thankListing } = useMutateData({
     requestConfig: {
       url: `/api/listings/${listingId}`,
       method: "PATCH",
@@ -58,9 +58,9 @@ export default function ButtonThank({
 
   const currentUserLikedListing = usersThankedIds.includes(userId!);
 
-  function onClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function onThankListing(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    updateThankCountsForListing({
+    thankListing({
       action: "toggleThank",
     });
   }
@@ -69,7 +69,7 @@ export default function ButtonThank({
     <Button
       variant="secondary"
       className="px-3 shadow-none"
-      onClick={onClick}
+      onClick={onThankListing}
     >
       {currentUserLikedListing ? (
         <HeartFilledIcon className="mr-2 h-4 w-4" />

@@ -17,7 +17,7 @@ export default function Danger() {
 
   const { user } = useUser();
 
-  async function deleteAccount() {
+  async function onDeleteAccount() {
     await user!.delete();
     router.push("/");
   }
@@ -50,7 +50,7 @@ export default function Danger() {
                 Close
               </Button>
             </DialogClose>
-            <Button type="button" variant="destructive" onClick={deleteAccount}>
+            <Button type="button" variant="destructive" onClick={onDeleteAccount}>
               Delete account
             </Button>
           </DialogFooter>

@@ -17,7 +17,7 @@ export default function ButtonToogleStillThere({
 
   const queryClient = useQueryClient();
 
-  const { mutate: updateStillThereForListing } = useMutateData({
+  const { mutate: toggleStillThereForListing } = useMutateData({
     requestConfig: {
       url: `/api/listings/${listingId}`,
       method: "PATCH",
@@ -46,10 +46,10 @@ export default function ButtonToogleStillThere({
     },
   });
 
-  function onClick() {
-    updateStillThereForListing({
+  function onToggleStillThereListing() {
+    toggleStillThereForListing({
       action: "toggleStillThere",
-    })
+    });
   }
 
   return (
@@ -60,7 +60,7 @@ export default function ButtonToogleStillThere({
           ? "border-red-500 text-red-500"
           : "border-green-500 text-green-500"
       } border bg-transparent text-[10px] h-6 py-0"`}
-      onClick={onClick}
+      onClick={onToggleStillThereListing}
     >
       {stillThere ? "Not there?" : "Still there?"}
     </Button>

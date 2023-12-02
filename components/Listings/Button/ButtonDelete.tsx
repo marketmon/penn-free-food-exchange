@@ -32,7 +32,7 @@ export default function ButtonDelete({ listingId }: ButtonDeleteProps) {
     },
   });
 
-  function onClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function onDeleteListing(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
     deleteListing(null);
   }
@@ -41,7 +41,7 @@ export default function ButtonDelete({ listingId }: ButtonDeleteProps) {
     <Button
       variant="destructive"
       className="px-3 shadow-none"
-      onClick={onClick}
+      onClick={onDeleteListing}
     >
       Delete
     </Button>

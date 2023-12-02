@@ -44,7 +44,7 @@ export default function Navigation() {
     });
   }
 
-  function onClick(action: string, text: string) {
+  function onNavigationButtonClick(action: string, text: string) {
     if (action === "getLocation") {
       getCurrentLocation();
     } else {
@@ -70,7 +70,7 @@ export default function Navigation() {
         (button: ListingNavigationButton) => (
           <Button
             key={button.id}
-            onClick={() => onClick(button.action, button.text)}
+            onClick={() => onNavigationButtonClick(button.action, button.text)}
             variant={`${button.id === 1 ? "default" : "outline"}`}
             className={`${button.id === 1 && "mr-2"} px-3 shadow-none`}
           >

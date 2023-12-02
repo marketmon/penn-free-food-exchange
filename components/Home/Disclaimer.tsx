@@ -17,7 +17,7 @@ export default function Disclaimer() {
     storedOpenState ? JSON.parse(storedOpenState) : true
   );
 
-  function handleCloseDisclaimer() {
+  function onCloseDisclaimer() {
     localStorage.setItem("disclaimerOpen", JSON.stringify(false));
     setOpen(false);
   }
@@ -133,7 +133,7 @@ export default function Disclaimer() {
             <p>Last updated: 9/26/23</p>
           </CardContent>
           <CardFooter>
-            <Button onClick={handleCloseDisclaimer}>Close</Button>
+            <Button onClick={onCloseDisclaimer}>Close</Button>
           </CardFooter>
         </Card>
       </div>
