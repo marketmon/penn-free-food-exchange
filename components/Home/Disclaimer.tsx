@@ -133,7 +133,9 @@ export default function Disclaimer() {
             <p>Last updated: 9/26/23</p>
           </CardContent>
           <CardFooter>
-            <ButtonSecondary btnText="Close" onClick={onCloseDisclaimer} />
+            <div className="w-full flex justify-end">
+              <ButtonSecondary btnText="Close" onClick={onCloseDisclaimer} />
+            </div>
           </CardFooter>
         </Card>
       </div>

@@ -17,16 +17,18 @@ export default function Page({ params }: { params: { meadowId: string } }) {
 
   const { user } = useUser();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [`meadow-${meadowId}`],
     queryFn: () => getMeadowById(meadowId),
     staleTime: 0,
+    retry: false,
   });
 
   const { dashboardFor, setMeadowId } = useListings();
 
   const listingsToShow =
     !isLoading &&
+    !error &&
     (dashboardFor === "view"
       ? data.listings
       : dashboardFor === "manage"
@@ -43,6 +45,13 @@ export default function Page({ params }: { params: { meadowId: string } }) {
     return (
       <div className="h-full flex justify-center items-center">
         <Loading />
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="h-full flex justify-center items-center">
+        {error.message}
       </div>
     );
   }

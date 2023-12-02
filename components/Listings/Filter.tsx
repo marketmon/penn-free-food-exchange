@@ -14,7 +14,7 @@ type FilterProps = {
 
 export default function Filter({ setCurrFilter }: FilterProps) {
   return (
-    <div className="mb-2">
+    <div className="mb-2 ml-auto">
       <Select
         onValueChange={(value) => {
           setCurrFilter(value);

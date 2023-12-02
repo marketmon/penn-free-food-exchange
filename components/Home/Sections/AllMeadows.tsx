@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { MutableRefObject } from "react";
-import { Meadow } from "@/lib/types";;
+import { Meadow } from "@/lib/types";
 import ButtonNavigation from "@/components/common/Button/ButtonNavigation";
 
 type AllMeadowsProps = {
@@ -36,7 +36,7 @@ export default function AllMeadows({ data, sectionRef }: AllMeadowsProps) {
         {data.map((meadow: Meadow) => (
           <ButtonNavigation
             key={meadow.id}
-            href={`/${meadow.id}`}
+            href={`/meadows/${meadow.id}`}
             variant="home"
             btnText={meadow.name}
             btnStyles="w-[210px]"
