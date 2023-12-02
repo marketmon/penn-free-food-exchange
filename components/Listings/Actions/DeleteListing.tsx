@@ -2,13 +2,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useListings } from "@/context/ListingsProvider";
 import { useMutateData } from "@/hooks/useMutateData";
 import { Listing } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import ButtonDelete from "@/components/common/Button/ButtonDelete";
 
-type ButtonDeleteProps = {
+type DeleteListingProps = {
   listingId: string;
 };
 
-export default function ButtonDelete({ listingId }: ButtonDeleteProps) {
+export default function DeleteListing({ listingId }: DeleteListingProps) {
   const { meadowId } = useListings();
 
   const queryClient = useQueryClient();
@@ -37,13 +37,5 @@ export default function ButtonDelete({ listingId }: ButtonDeleteProps) {
     deleteListing(null);
   }
 
-  return (
-    <Button
-      variant="destructive"
-      className="px-3 shadow-none"
-      onClick={onDeleteListing}
-    >
-      Delete
-    </Button>
-  );
+  return <ButtonDelete btnText="Delete" onClick={onDeleteListing} />;
 }

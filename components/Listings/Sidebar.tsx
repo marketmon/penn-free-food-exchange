@@ -5,7 +5,7 @@ import { filterListings } from "@/lib/utils";
 import Navigation from "@/components/Listings/Navigation";
 import Filter from "@/components/Listings/Filter";
 import CardList from "@/components/Listings/Card/CardList";
-import CreateOrEditListing from "@/components/Listings/CreateOrEditListing";
+import CreateOrEditListing from "@/components/Listings/Actions/CreateOrEditListing";
 
 type SidebarProps = {
   meadowUsers: string[];

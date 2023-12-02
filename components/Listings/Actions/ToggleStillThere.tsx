@@ -2,17 +2,17 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useListings } from "@/context/ListingsProvider";
 import { useMutateData } from "@/hooks/useMutateData";
 import { Listing } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
 
-type ButtonToggleStillThereProps = {
+type ToggleStillThereProps = {
   stillThere: boolean;
   listingId: string;
 };
 
-export default function ButtonToogleStillThere({
+export default function ToggleStillThere({
   stillThere,
   listingId,
-}: ButtonToggleStillThereProps) {
+}: ToggleStillThereProps) {
   const { meadowId } = useListings();
 
   const queryClient = useQueryClient();
@@ -53,16 +53,14 @@ export default function ButtonToogleStillThere({
   }
 
   return (
-    <Button
-      variant="secondary"
-      className={`${
+    <ButtonSecondary
+      btnText={stillThere ? "Not there?" : "Still there?"}
+      btnStyles={`${
         stillThere
           ? "border-red-500 text-red-500"
           : "border-green-500 text-green-500"
       } border bg-transparent text-[10px] h-6 py-0"`}
       onClick={onToggleStillThereListing}
-    >
-      {stillThere ? "Not there?" : "Still there?"}
-    </Button>
+    />
   );
 }

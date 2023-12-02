@@ -7,7 +7,7 @@ import Form from "@/components/common/Form/Form";
 import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
-export default function StepOne() {
+export default function SelectMeadow() {
   const { data, isLoading } = useQuery({
     queryKey: ["meadows"],
     queryFn: getListOfMeadows,

@@ -1,14 +1,16 @@
-import { Button } from "@/components/ui/button";
 import { useEditListing } from "@/context/EditListingProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
+import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
 
-type ButtonEditProps = {
+type ShowEditListingFormProps = {
   listing: Listing;
 };
 
-export default function ButtonEdit({ listing }: ButtonEditProps) {
+export default function ShowEditListingForm({
+  listing,
+}: ShowEditListingFormProps) {
   const { setDashboardFor } = useListings();
 
   const { setPosition, setIcon } = useDraggableMarker();
@@ -29,13 +31,5 @@ export default function ButtonEdit({ listing }: ButtonEditProps) {
     });
   }
 
-  return (
-    <Button
-      variant="secondary"
-      className="px-3 shadow-none"
-      onClick={onEditListing}
-    >
-      Edit
-    </Button>
-  );
+  return <ButtonSecondary btnText="Edit" onClick={onEditListing} />;
 }

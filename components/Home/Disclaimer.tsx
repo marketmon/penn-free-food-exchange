@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,10 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ButtonSecondary from "../common/Button/ButtonSecodary";
 
 export default function Disclaimer() {
   const storedOpenState = localStorage.getItem("disclaimerOpen");
-  
+
   const [open, setOpen] = useState(
     storedOpenState ? JSON.parse(storedOpenState) : true
   );
@@ -133,7 +133,7 @@ export default function Disclaimer() {
             <p>Last updated: 9/26/23</p>
           </CardContent>
           <CardFooter>
-            <Button onClick={onCloseDisclaimer}>Close</Button>
+            <ButtonSecondary btnText="Close" onClick={onCloseDisclaimer} />
           </CardFooter>
         </Card>
       </div>

@@ -3,18 +3,18 @@ import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { useListings } from "@/context/ListingsProvider";
 import { useMutateData } from "@/hooks/useMutateData";
-import { Button } from "@/components/ui/button";
 import { Listing } from "@/lib/types";
+import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
 
-type ButtonThankProps = {
+type ThankListingProps = {
   listingId: string;
   usersThankedIds: string[];
 };
 
-export default function ButtonThank({
+export default function ThankListing({
   listingId,
   usersThankedIds,
-}: ButtonThankProps) {
+}: ThankListingProps) {
   const { meadowId } = useListings();
 
   const userId = useUser().user?.id;
@@ -66,17 +66,16 @@ export default function ButtonThank({
   }
 
   return (
-    <Button
-      variant="secondary"
-      className="px-3 shadow-none"
+    <ButtonSecondary
+      btnText="thank"
+      btnIcon={
+        currentUserLikedListing ? (
+          <HeartFilledIcon className="mr-2 h-4 w-4" />
+        ) : (
+          <HeartIcon className="mr-2 h-4 w-4" />
+        )
+      }
       onClick={onThankListing}
-    >
-      {currentUserLikedListing ? (
-        <HeartFilledIcon className="mr-2 h-4 w-4" />
-      ) : (
-        <HeartIcon className="mr-2 h-4 w-4" />
-      )}
-      thank
-    </Button>
+    />
   );
 }

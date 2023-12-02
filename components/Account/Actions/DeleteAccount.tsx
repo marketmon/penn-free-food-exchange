@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogTrigger,
@@ -11,6 +10,8 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
+import ButtonDelete from "@/components/common/Button/ButtonDelete";
+import ButtonSecondary from "../../common/Button/ButtonSecodary";
 
 export default function Danger() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Danger() {
           <span>Delete your account and all its associated data</span>
           <div className="pt-4">
             <DialogTrigger asChild>
-              <Button variant="destructive">Delete account</Button>
+              <ButtonDelete btnText="Delete account" />
             </DialogTrigger>
           </div>
         </div>
@@ -46,13 +47,9 @@ export default function Danger() {
           </DialogDescription>
           <DialogFooter>
             <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
+              <ButtonSecondary btnText="Close" />
             </DialogClose>
-            <Button type="button" variant="destructive" onClick={onDeleteAccount}>
-              Delete account
-            </Button>
+            <ButtonDelete btnText="Confirm" onClick={onDeleteAccount} />
           </DialogFooter>
         </DialogHeader>
       </DialogContent>

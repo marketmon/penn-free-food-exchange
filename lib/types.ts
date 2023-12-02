@@ -93,7 +93,9 @@ export type Auth = {
   isLoaded: boolean;
   signIn?: SignInResource | undefined;
   signUp?: SignUpResource | undefined;
-  setActive: ((config: { session: string | null }) => Promise<void>) | undefined;
+  setActive:
+    | ((config: { session: string | null }) => Promise<void>)
+    | undefined;
 };
 
 type PhoneVerification = {
@@ -125,3 +127,12 @@ export type WebhookRequest = (
   | OrganizationInvitationJSON
 ) &
   ClerkRequestData;
+
+export type BtnVariants =
+  | "link"
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "home";

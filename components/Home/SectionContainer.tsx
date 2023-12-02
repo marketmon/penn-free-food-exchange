@@ -4,10 +4,10 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { getListOfMeadows } from "@/lib/queryFns";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDown } from "lucide-react";
-import SectionOne from "@/components/Home/Sections/SectionOne";
-import SectionTwo from "@/components/Home/Sections/SectionTwo";
-import SectionThree from "@/components/Home/Sections/SectionThree";
-import SectionFour from "@/components/Home/Sections/SectionFour";
+import AllMeadows from "@/components/Home/Sections/AllMeadows";
+import Goals from "@/components/Home/Sections/Goals";
+import Steps from "@/components/Home/Sections/Steps";
+import Contact from "@/components/Home/Sections/Contact";
 
 export default function SectionContainer() {
   const { data } = useQuery({
@@ -16,14 +16,14 @@ export default function SectionContainer() {
     staleTime: Infinity,
   });
 
-  const section1 = useRef<HTMLDivElement>();
-  const section2 = useRef<HTMLDivElement>();
-  const section3 = useRef<HTMLDivElement>();
-  const section4 = useRef<HTMLDivElement>();
+  const allMeadows = useRef<HTMLDivElement>();
+  const goals = useRef<HTMLDivElement>();
+  const steps = useRef<HTMLDivElement>();
+  const contact = useRef<HTMLDivElement>();
 
   const [nextSection, setNextSection] = useState<MutableRefObject<
     HTMLDivElement | undefined
-  > | null>(section1);
+  > | null>(allMeadows);
 
   function onSectionScroll(
     section: MutableRefObject<HTMLDivElement | undefined>
@@ -32,7 +32,7 @@ export default function SectionContainer() {
   }
 
   useEffect(() => {
-    const sections = [section1, section2, section3, section4];
+    const sections = [allMeadows, goals, steps, contact];
     const observerOptions = {
       root: null,
       rootMargin: "0px",
@@ -70,10 +70,10 @@ export default function SectionContainer() {
 
   return (
     <div className="h-full overflow-y-auto overscroll-y-contain snap-y snap-mandatory">
-      <SectionOne data={data} sectionRef={section1} />
-      <SectionTwo sectionRef={section2} />
-      <SectionThree sectionRef={section3} />
-      <SectionFour sectionRef={section4} />
+      <AllMeadows data={data} sectionRef={allMeadows} />
+      <Goals sectionRef={goals} />
+      <Steps sectionRef={steps} />
+      <Contact sectionRef={contact} />
       {nextSection && (
         <ChevronDown
           className="absolute bottom-0 left-0 right-0 m-auto cursor-pointer w-[35px] h-[35px] z-20 bg-no-repeat"

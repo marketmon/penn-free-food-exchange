@@ -18,7 +18,7 @@ export default function ButtonSubmit({
     <Button
       type="submit"
       disabled={isLoading || disabled}
-      className={`${btnText === "Continue" && "w-full"}`}
+      className={`px-3 shadow-none ${btnText === "Continue" && "w-full"}`}
     >
       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {isLoading ? <span>{btnLoadingText}</span> : <span>{btnText}</span>}

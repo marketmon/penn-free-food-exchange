@@ -2,7 +2,8 @@ import { useListings } from "@/context/ListingsProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { useEditListing } from "@/context/EditListingProvider";
 import { DashboardFor, ListingNavigationButton } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import ButtonPrimary from "../common/Button/ButtonPrimary";
+import ButtonSecondary from "../common/Button/ButtonSecodary";
 
 const BUTTON_GROUP = {
   view: [
@@ -65,18 +66,26 @@ export default function Navigation() {
   }
 
   return (
-    <div className="mb-2">
+    <div className="mb-2 space-x-2">
       {BUTTON_GROUP[dashboardFor as DashboardFor].map(
-        (button: ListingNavigationButton) => (
-          <Button
-            key={button.id}
-            onClick={() => onNavigationButtonClick(button.action, button.text)}
-            variant={`${button.id === 1 ? "default" : "outline"}`}
-            className={`${button.id === 1 && "mr-2"} px-3 shadow-none`}
-          >
-            {button.text}
-          </Button>
-        )
+        (button: ListingNavigationButton) =>
+          button.id === 1 ? (
+            <ButtonPrimary
+              key={button.id}
+              btnText={button.text}
+              onClick={() =>
+                onNavigationButtonClick(button.action, button.text)
+              }
+            />
+          ) : (
+            <ButtonSecondary
+              key={button.id}
+              btnText={button.text}
+              onClick={() =>
+                onNavigationButtonClick(button.action, button.text)
+              }
+            />
+          )
       )}
     </div>
   );

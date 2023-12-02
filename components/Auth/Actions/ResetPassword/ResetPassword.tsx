@@ -5,7 +5,7 @@ import { useSignInContext } from "@/context/AuthProvider";
 import Form from "@/components/common/Form/Form";
 import FormTitle from "@/components/common/Form/FormTitle";
 
-export default function StepThree() {
+export default function ResetPassword() {
   const { signIn, setActive } = useSignInContext();
 
   const router = useRouter();

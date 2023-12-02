@@ -1,15 +1,14 @@
-import Link from "next/link";
 import Image from "next/image";
 import { MutableRefObject } from "react";
-import { Meadow } from "@/lib/types";
-import ButtonHome from "@/components/common/Button/ButtonHome";
+import { Meadow } from "@/lib/types";;
+import ButtonNavigation from "@/components/common/Button/ButtonNavigation";
 
-type SectionOneProps = {
+type AllMeadowsProps = {
   data: Meadow[];
   sectionRef: MutableRefObject<any>;
 };
 
-export default function SectionOne({ data, sectionRef }: SectionOneProps) {
+export default function AllMeadows({ data, sectionRef }: AllMeadowsProps) {
   return (
     <div
       className="h-full flex flex-col justify-center items-center snap-always snap-center"
@@ -35,9 +34,13 @@ export default function SectionOne({ data, sectionRef }: SectionOneProps) {
       </h2>
       <div className="space-y-2 flex flex-col">
         {data.map((meadow: Meadow) => (
-          <Link key={meadow.id} href={`/${meadow.id}`}>
-            <ButtonHome text={meadow.name} />
-          </Link>
+          <ButtonNavigation
+            key={meadow.id}
+            href={`/${meadow.id}`}
+            variant="home"
+            btnText={meadow.name}
+            btnStyles="w-[210px]"
+          />
         ))}
       </div>
     </div>

@@ -1,43 +1,51 @@
 import Image from "next/image";
 import { MutableRefObject } from "react";
-import { CheckCircle } from "lucide-react";
+import { Users, Expand, SmilePlus } from "lucide-react";
 
-const STEPS = [
+const GOALS = [
   {
     id: 1,
-    step: "Step 1",
-    description: "Build avenues to unite community members",
+    goal: "EMPOWER",
+    description: "communites with cooperative data ownership",
+    icon: <Users />,
   },
   {
     id: 2,
-    step: "Step 2",
-    description: "Gather individual insights",
+    goal: "EXPAND",
+    description: "data accessibility and understanding",
+    icon: <Expand />,
   },
   {
     id: 3,
-    step: "Step 3",
-    description: "Combine insights and collect the full value",
+    goal: "RETURN",
+    description: "value back to communities",
+    icon: <SmilePlus />,
   },
 ];
 
-type SectionThreeProps = {
+type GoalsProps = {
   sectionRef: MutableRefObject<any>;
 };
 
-export default function SectionThree({ sectionRef }: SectionThreeProps) {
+export default function Goals({ sectionRef }: GoalsProps) {
   return (
     <div
       className="h-full flex flex-col justify-center px-2 snap-always snap-center tablet:flex-row tablet:items-center tablet:space-x-20 tablet:pt-0 tablet:px-0"
       ref={sectionRef}
     >
       <h1 className="tablet:pl-8 text-center">
+        <div className="text-lg font-medium tablet:text-2xl laptop:text-4xl">
+          Inspired by the Native Americans who use
+        </div>
         <div className="text-3xl font-bold tablet:text-4xl laptop:text-6xl">
-          Deliver <span className="text-green-400">COLLECTIVE</span> benefits
+          all <span className="text-green-400">PAN</span> of the bison{" "}
+          <span className="text-green-400">BO</span>
         </div>
       </h1>
+
       <div className="tablet:pr-8 tablet:flex tablet:flex-col tablet:space-y-8">
         <Image
-          src="/panbo-2.png"
+          src="/panbo-1.png"
           width={610}
           height={370}
           priority
@@ -45,16 +53,16 @@ export default function SectionThree({ sectionRef }: SectionThreeProps) {
           className="my-2 hidden hide-image-mobile:hidden show-image-mobile:block hide-image-tablet:hidden show-image-tablet:block hide-image-laptop:hidden show-image-laptop:block"
         />
         <ul className="space-y-4 tablet:space-y-8">
-          {STEPS.map((step) => (
-            <li key={step.id}>
+          {GOALS.map((goal) => (
+            <li key={goal.id}>
               <div className="inline-flex items-center">
-                <CheckCircle />
+                {goal.icon}
                 <div className="text-lg font-bold ml-2 tablet:text-2xl laptop:text-3xl">
-                  {step.step}
+                  {goal.goal}
                 </div>
               </div>
               <div className="text-base tablet:text-xl laptop:text-2xl">
-                {step.description}
+                {goal.description}
               </div>
             </li>
           ))}

@@ -5,7 +5,7 @@ import Form from "@/components/common/Form/Form";
 import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
-export default function StepOne() {
+export default function EnterEmail() {
   const { signIn, setStep } = useSignInContext();
 
   async function sendEmailVerification(values: z.infer<ZodSchema<any>>) {

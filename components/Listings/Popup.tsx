@@ -1,7 +1,7 @@
 import { Popup as PopupLeaflet } from "react-leaflet";
 import { Listing } from "@/lib/types";
 import { getLastUpdatedTimeAgo } from "@/lib/utils";
-import ButtonToggleStillThere from "@/components/Listings/Button/ButtonToggleStillThere";
+import ToggleStillThere from "@/components/Listings/Actions/ToggleStillThere";
 
 type PopupProps = {
   listing: Listing;
@@ -15,7 +15,7 @@ export default function Popup({ listing }: PopupProps) {
         <div className="space-y-1">
           <h4 className="text-sm font-semibold">@{listing.location}</h4>
           {listing.caption && <p className="text-sm">{listing.caption}</p>}
-          <ButtonToggleStillThere
+          <ToggleStillThere
             stillThere={listing.stillThere}
             listingId={listing.id}
           />

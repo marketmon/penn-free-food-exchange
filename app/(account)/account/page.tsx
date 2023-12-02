@@ -4,10 +4,10 @@ import { useUser } from "@clerk/nextjs";
 import { useManageAccount } from "@/context/ManageAccountProvider";
 import { Separator } from "@/components/ui/separator";
 import Loading from "@/components/common/Loading";
-import EditProfile from "@/components/Auth/Account/Sections/EditProfile";
-import Notification from "@/components/Auth/Account/Sections/Notification/Notification";
-import Security from "@/components/Auth/Account/Sections/Security";
-import Danger from "@/components/Auth/Account/Sections/Danger";
+import EditProfile from "@/components/Account/Actions/EditProfile";
+import Notification from "@/components/Account/Actions/Notification/Notification";
+import ChangePassword from "@/components/Account/Actions/ChangePassword";
+import DeleteAccount from "@/components/Account/Actions/DeleteAccount";
 
 export default function Page() {
   const { currSection } = useManageAccount();
@@ -39,9 +39,9 @@ export default function Page() {
         ) : currSection.value === "notification" ? (
           <Notification />
         ) : currSection.value === "security" ? (
-          <Security />
+          <ChangePassword />
         ) : (
-          <Danger />
+          <DeleteAccount />
         )}
       </div>
     </div>

@@ -1,9 +1,9 @@
 "use client";
 
 import { useSignInContext } from "@/context/AuthProvider";
-import StepOne from "@/components/Auth/ResetPassword/StepOne";
-import StepTwo from "@/components/Auth/ResetPassword/StepTwo";
-import StepThree from "@/components/Auth/ResetPassword/StepThree";
+import EnterEmail from "@/components/Auth/Actions/ResetPassword/EnterEmail";
+import VerifyEmail from "@/components/Auth/Actions/ResetPassword/VerifyEmail";
+import ResetPassword from "@/components/Auth/Actions/ResetPassword/ResetPassword";
 import MultiStepAuthManager from "@/components/Auth/MultiStepAuthManager";
 import Loading from "@/components/common/Loading";
 
@@ -20,9 +20,9 @@ export default function Page() {
       <MultiStepAuthManager
         step={step}
         stepComponents={[
-          <StepOne key="step-one" />,
-          <StepTwo key="step-two" />,
-          <StepThree key="step-three" />,
+          <EnterEmail key="enter-email" />,
+          <VerifyEmail key="verify-email" />,
+          <ResetPassword key="reset-password" />,
         ]}
       />
     </div>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
+import ButtonNavigation from "@/components/common/Button/ButtonNavigation";
 
 export default function Navigation() {
   return (
@@ -31,9 +31,12 @@ export default function Navigation() {
         />
       </SignedIn>
       <SignedOut>
-        <Link href="/signin">
-          <Button className="h-[32px]">Get Started</Button>
-        </Link>
+        <ButtonNavigation
+          href="/signin"
+          variant="default"
+          btnText="Get Started"
+          btnStyles="h-[32px]"
+        />
       </SignedOut>
     </div>
   );
