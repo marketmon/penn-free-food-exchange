@@ -106,6 +106,7 @@ export default function CreateOrEditListing() {
         handleSubmit={createOrEditListing}
         isLoadingFromMutateFunction={isLoading}
         btnText="Save"
+        btnLoadingText="Saving"
         btnDisabled={!position}
         showLabel={true}
         formStyles="space-y-8 mb-2"
