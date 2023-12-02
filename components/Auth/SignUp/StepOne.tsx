@@ -8,7 +8,7 @@ import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepOne() {
-  const { isLoading, data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["meadows"],
     queryFn: getListOfMeadows,
     staleTime: Infinity,
