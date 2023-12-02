@@ -1,5 +1,5 @@
 export const BASE_URL =
-  "https://friendly-eureka-x6jxvj44qgcvwwx-3000.app.github.dev";
+  "https://vigilant-spoon-r57x9qv9g7wcx7p4-3000.app.github.dev";
   
 export const ICON_LIST = [
   { id: 1, icon: "📍" },

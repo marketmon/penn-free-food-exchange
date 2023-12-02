@@ -12,14 +12,15 @@ const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
 
+interface SelectTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {
+  hideArrowOnSmallSize?: boolean;
+}
+
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
-    hideArrowOnSmallSize: boolean;
-  }
->(({ className, children, ...props }, ref) => {
-  const { hideArrowOnSmallSize } = props;
-  
+  SelectTriggerProps
+>(({ className, children, hideArrowOnSmallSize, ...props }, ref) => {
   return (
     <SelectPrimitive.Trigger
       ref={ref}
