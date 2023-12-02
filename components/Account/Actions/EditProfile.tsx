@@ -46,6 +46,7 @@ export default function EditProfile() {
       ]}
       handleSubmit={updateProfile}
       btnText="Save"
+      btnLoadingText="Saving"
       showLabel={true}
       showSuccessMessage={true}
       formStyles="space-y-2"

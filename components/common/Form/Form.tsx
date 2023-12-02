@@ -47,7 +47,7 @@ export default function Form({
   showLabel,
   additionalPrompt,
   btnText = "Continue",
-  btnLoadingText = "Saving",
+  btnLoadingText = "Continuing",
   showSuccessMessage,
   meadowsLoading,
   meadows,

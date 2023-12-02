@@ -43,6 +43,7 @@ export default function Security() {
       ]}
       handleSubmit={updatePassword}
       btnText="Save"
+      btnLoadingText="Saving"
       showLabel={true}
       showSuccessMessage={true}
       formStyles="space-y-2"
