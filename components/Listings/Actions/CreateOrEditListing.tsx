@@ -23,6 +23,7 @@ export default function CreateOrEditListing() {
     mutate: createOrEditListing,
     isPending: isLoading,
     isSuccess,
+    error,
   } = useMutateData({
     requestConfig: {
       url: isCreateMode
@@ -109,8 +110,9 @@ export default function CreateOrEditListing() {
         btnLoadingText="Saving"
         btnDisabled={!position}
         showLabel={true}
-        formStyles="space-y-8 mb-2"
         setIcon={setIcon}
+        error={error}
+        formStyles="space-y-8 mb-2"
       />
     </div>
   );

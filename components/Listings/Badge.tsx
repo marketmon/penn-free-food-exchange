@@ -1,5 +1,5 @@
 import { Badge as BadgeShadcn } from "@/components/ui/badge";
-import { getLastUpdatedTimeAgo } from "@/lib/utils";
+import { getLastUpdatedTimeAgo } from "@/lib/helpers";
 
 type BadgeProps = {
   stillThere: boolean;

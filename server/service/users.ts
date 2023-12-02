@@ -1,9 +1,5 @@
 import { WebhookRequest } from "@/lib/types";
-import {
-  createUser,
-  deleteUser,
-  updateUser,
-} from "@/server/repository/users";
+import { createUser, deleteUser, updateUser } from "@/server/repository/users";
 
 export async function createUserService(data: WebhookRequest) {
   const {
@@ -22,7 +18,7 @@ export async function createUserService(data: WebhookRequest) {
     (email) => (email.id = primary_email_address_id)
   )!.email_address;
 
-  await createUser(id!, firstName, lastName, meadowId, primaryEmail);
+  return await createUser(id!, firstName, lastName, meadowId, primaryEmail);
 }
 
 export async function updateUserService(data: WebhookRequest) {
@@ -33,7 +29,6 @@ export async function updateUserService(data: WebhookRequest) {
     email_addresses,
     primary_email_address_id,
     phone_numbers,
-    primary_phone_number_id,
   } = data;
 
   const firstName = first_name;
@@ -42,23 +37,26 @@ export async function updateUserService(data: WebhookRequest) {
     (email) => email.id === primary_email_address_id
   )!.email_address;
 
-  let primaryPhone = phone_numbers.find(
-    (phone) => phone.id === primary_phone_number_id
-  )?.phone_number;
+  let primaryPhone;
 
-  // edge case where primary_phone_number_id is undefined but there is a verified primary phone number
   if (
-    !primaryPhone &&
-    phone_numbers.length > 0 &&
+    phone_numbers.length === 1 &&
     phone_numbers[0].verification?.status === "verified"
   ) {
     primaryPhone = phone_numbers[0].phone_number;
   }
 
-  await updateUser(id!, firstName, lastName, primaryEmail, primaryPhone);
+  if (
+    phone_numbers.length === 2 &&
+    phone_numbers[1].verification?.status === "verified"
+  ) {
+    primaryPhone = phone_numbers[1].phone_number;
+  }
+
+  return await updateUser(id!, firstName, lastName, primaryEmail, primaryPhone);
 }
 
 export async function deleteUserService(data: WebhookRequest) {
   const { id } = data;
-  await deleteUser(id!);
+  return await deleteUser(id!);
 }

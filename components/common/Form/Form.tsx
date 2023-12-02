@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ZodSchema, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +34,7 @@ type FormProps = {
   meadowsLoading?: boolean;
   meadows?: Meadow[];
   setIcon?: Dispatch<SetStateAction<string>>;
+  error?: Error | null;
   formStyles: string;
 };
 
@@ -52,6 +53,7 @@ export default function Form({
   meadowsLoading,
   meadows,
   setIcon,
+  error,
   formStyles,
 }: FormProps) {
   const form = useForm<z.infer<typeof schema>>({
@@ -85,6 +87,15 @@ export default function Form({
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    if (error) {
+      setStatus({
+        error: error?.message,
+        success: null,
+      });
+    }
+  }, [error]);
 
   return (
     <FormShadcn {...form}>

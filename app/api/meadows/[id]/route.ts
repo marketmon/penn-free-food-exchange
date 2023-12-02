@@ -10,13 +10,13 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     if (error instanceof NotFoundError) {
-      return new Response(error.message, {
+      return new Response(JSON.stringify(error.message), {
         status: 404,
       });
     } else {
       const errorMessage =
         (error as ServerError).message || (error as Error).toString();
-      return new Response(errorMessage, {
+      return new Response(JSON.stringify(errorMessage), {
         status: 500,
       });
     }

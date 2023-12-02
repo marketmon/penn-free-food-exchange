@@ -1,4 +1,4 @@
-import { getLastUpdatedTimeAgo } from "@/lib/utils";
+import { getLastUpdatedTimeAgo } from "@/lib/helpers";
 import { HeartIcon } from "@radix-ui/react-icons";
 
 type CardFooterProps = {

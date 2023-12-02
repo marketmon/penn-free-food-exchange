@@ -88,6 +88,22 @@ export async function updateListingService(payload: {
     }
   }
 
+  if (action === "edit") {
+    const { location, caption, contact, icon } = listing;
+
+    if (!location || location.length === 0) {
+      throw new BadRequestError("Location is required");
+    } else if (location.length > 30) {
+      throw new BadRequestError("Location must be less than 30 characters");
+    } else if (caption.length > 300) {
+      throw new BadRequestError("Caption must be less than 300 characters");
+    } else if (!icon) {
+      throw new BadRequestError("Icon is required");
+    } else if (!isPhoneValid(contact)) {
+      throw new BadRequestError("Invalid phone number");
+    }
+  }
+
   try {
     const updatedListing =
       action === "edit"

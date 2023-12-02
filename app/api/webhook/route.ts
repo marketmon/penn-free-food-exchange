@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
-    return new Response("Error occured -- no svix headers", {
+    return new Response("Error occured - no svix headers", {
       status: 400,
     });
   }
@@ -51,13 +51,16 @@ export async function POST(req: Request) {
   const data = evt.data;
   const dataTyped = data as WebhookRequest;
 
+  let user;
   if (eventType === "user.created") {
-    createUserService(dataTyped);
+    user = createUserService(dataTyped);
   } else if (eventType === "user.updated") {
-    updateUserService(dataTyped);
+    user = updateUserService(dataTyped);
   } else if (eventType === "user.deleted") {
-    deleteUserService(dataTyped);
+    user = deleteUserService(dataTyped);
   }
 
-  return new Response("", { status: 201 });
+  return new Response(JSON.stringify(user), {
+    status: eventType === "user.created" ? 201 : 200,
+  });
 }

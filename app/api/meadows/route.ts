@@ -10,7 +10,7 @@ export async function GET() {
   } catch (error) {
     const errorMessage =
       (error as ServerError).message || (error as Error).toString();
-    return new Response(errorMessage, {
+    return new Response(JSON.stringify(errorMessage), {
       status: 500,
     });
   }

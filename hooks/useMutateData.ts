@@ -34,13 +34,17 @@ export function useMutateData({
     if (!data) {
       headers["Content-Length"] = "0";
     }
-    
-    await fetch(requestConfig.url, {
+
+    const res = await fetch(requestConfig.url, {
       method: requestConfig.method,
       body:
         data && JSON.stringify(dataTransformer ? dataTransformer(data) : data),
       headers: headers,
     });
+    if (res.status !== 200 && res.status !== 201) {
+      const error = await res.json();
+      throw new Error(error);
+    }
   }
 
   return useMutation({

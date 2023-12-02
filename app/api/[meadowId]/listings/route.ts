@@ -31,25 +31,25 @@ export async function POST(
     });
   } catch (error) {
     if (error instanceof BadRequestError) {
-      return new Response(error.message, {
+      return new Response(JSON.stringify(error.message), {
         status: 400,
       });
     } else if (error instanceof UnauthorizedError) {
-      return new Response(error.message, {
+      return new Response(JSON.stringify(error.message), {
         status: 401,
       });
     } else if (error instanceof ForbiddenError) {
-      return new Response(error.message, {
+      return new Response(JSON.stringify(error.message), {
         status: 403,
       });
     } else if (error instanceof NotFoundError) {
-      return new Response(error.message, {
+      return new Response(JSON.stringify(error.message), {
         status: 404,
       });
     } else {
       const errorMessage =
         (error as ServerError).message || (error as Error).toString();
-      return new Response(errorMessage, {
+      return new Response(JSON.stringify(errorMessage), {
         status: 500,
       });
     }

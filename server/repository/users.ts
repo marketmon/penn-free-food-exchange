@@ -6,14 +6,14 @@ export async function createUser(
   lastName: string,
   meadowId: string,
   primaryEmail: string
-): Promise<void> {
+) {
   const meadow = await prisma.meadow.findUnique({
     where: {
       id: meadowId,
     },
   });
 
-  await prisma.user.create({
+  const newUser = await prisma.user.create({
     data: {
       id,
       firstName,
@@ -27,6 +27,7 @@ export async function createUser(
       },
     },
   });
+  return newUser;
 }
 
 export async function updateUser(
@@ -35,7 +36,7 @@ export async function updateUser(
   lastName: string,
   primaryEmail: string,
   primaryPhone: string | undefined
-): Promise<void> {
+) {
   const data: {
     firstName: string;
     lastName: string;
@@ -48,15 +49,16 @@ export async function updateUser(
     primaryPhone: primaryPhone ? primaryPhone : null,
   };
 
-  await prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: {
       id,
     },
     data,
   });
+  return updatedUser;
 }
 
-export async function deleteUser(id: string): Promise<void> {
+export async function deleteUser(id: string) {
   await prisma.user.update({
     where: {
       id,
@@ -71,9 +73,10 @@ export async function deleteUser(id: string): Promise<void> {
     },
   });
 
-  await prisma.user.delete({
+  const deletedUser = await prisma.user.delete({
     where: {
       id,
     },
   });
+  return deletedUser;
 }

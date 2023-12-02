@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
-import { filterListings } from "@/lib/utils";
+import { filterListings } from "@/lib/helpers";
 import Navigation from "@/components/Listings/Navigation";
 import Filter from "@/components/Listings/Filter";
 import CardList from "@/components/Listings/Card/CardList";
