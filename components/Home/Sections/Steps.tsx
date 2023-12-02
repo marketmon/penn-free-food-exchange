@@ -41,8 +41,8 @@ export default function Steps({ sectionRef }: StepsProps) {
           width={610}
           height={370}
           priority
-          alt="Picture of the author"
-          className="my-2 hidden hide-image-mobile:hidden show-image-mobile:block hide-image-tablet:hidden show-image-tablet:block hide-image-laptop:hidden show-image-laptop:block"
+          alt="Picture of creating listings"
+          className="my-2 hidden hide-image-mobile:hidden show-image-mobile:block hide-image-tablet:hidden hide-image-laptop:hidden show-image-laptop:block"
         />
         <ul className="space-y-4 tablet:space-y-8">
           {STEPS.map((step) => (

@@ -72,6 +72,7 @@ module.exports = {
       },
       screens: {
         tablet: "450px",
+        "tablet-lg": "700px",
         laptop: "1024px",
         desktop: "1350px",
         "hide-image-mobile": {
@@ -81,16 +82,13 @@ module.exports = {
           raw: "(min-height: 600px) and (max-width: 449px)",
         },
         "hide-image-tablet": {
-          raw: "(max-height: 649px) and (min-width: 449px)",
-        },
-        "show-image-tablet": {
-          raw: "(min-height: 650px) and (min-width: 449px)",
+          raw: "(min-width: 450px) and (max-width:699px)",
         },
         "hide-image-laptop": {
-          raw: "(max-height: 699px) and (min-width: 1023px)",
+          raw: "(max-height: 699px) and (min-width: 700px)",
         },
         "show-image-laptop": {
-          raw: "(min-height: 700px) and (min-width: 1024px)",
+          raw: "(min-height: 700px) and (min-width: 700px)",
         },
       },
       height: {
