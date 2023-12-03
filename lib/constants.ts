@@ -1,5 +1,6 @@
-export const BASE_URL = "https://panbo.vercel.app";
-
+export const BASE_URL =
+  "https://vigilant-spoon-r57x9qv9g7wcx7p4-3000.app.github.dev";
+  
 export const ICON_LIST = [
   { id: 1, icon: "📍" },
   { id: 2, icon: "🍎" },
