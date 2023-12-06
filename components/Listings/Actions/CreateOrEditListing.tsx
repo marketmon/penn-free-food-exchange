@@ -133,7 +133,7 @@ export default function CreateOrEditListing() {
           },
           {
             name: "caption",
-            label: "Caption (Optional)",
+            label: "Caption",
             type: "textarea",
             disabled: !position,
           },

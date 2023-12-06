@@ -28,7 +28,7 @@ model Listing {
   lng               Float
   location          String
   icon              String
-  caption           String?
+  caption           String
   imageUrl          String?
   contact           String?
   creator           User     @relation("createdListings", fields: [creatorId], references: [id], onDelete: Cascade)

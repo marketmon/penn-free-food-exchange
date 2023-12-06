@@ -153,6 +153,7 @@ export const listingFormSchema = z.object({
     .max(30, { message: "Location must be less than 30 characters" }),
   caption: z
     .string()
+    .min(1, { message: "Caption is required" })
     .max(300, { message: "Caption must be less than 300 characters" }),
   contact: z.string().refine(isPhoneValid, {
     message: "Invalid phone number",

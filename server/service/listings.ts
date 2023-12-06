@@ -39,6 +39,8 @@ export async function createListingService(payload: { listing: Listing }) {
     throw new BadRequestError("Location is required");
   } else if (location.length > 30) {
     throw new BadRequestError("Location must be less than 30 characters");
+  } else if (!caption || caption.length === 0) {
+    throw new BadRequestError("Caption is required");
   } else if (caption.length > 300) {
     throw new BadRequestError("Caption must be less than 300 characters");
   } else if (!icon) {
@@ -105,6 +107,8 @@ export async function updateListingService(payload: {
       throw new BadRequestError("Location is required");
     } else if (location.length > 30) {
       throw new BadRequestError("Location must be less than 30 characters");
+    } else if (!caption || caption.length === 0) {
+      throw new BadRequestError("Caption is required");
     } else if (caption.length > 300) {
       throw new BadRequestError("Caption must be less than 300 characters");
     } else if (!icon) {
