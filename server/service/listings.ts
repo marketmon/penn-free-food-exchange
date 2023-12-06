@@ -19,8 +19,17 @@ import {
 import { getMeadowByIdService } from "@/server/service/meadow";
 
 export async function createListingService(payload: { listing: Listing }) {
-  const { lat, lng, location, icon, caption, contact, creatorId, meadowId } =
-    payload.listing;
+  const {
+    lat,
+    lng,
+    location,
+    icon,
+    caption,
+    contact,
+    imageUrl,
+    creatorId,
+    meadowId,
+  } = payload.listing;
 
   if (!creatorId) {
     throw new UnauthorizedError(
@@ -55,6 +64,7 @@ export async function createListingService(payload: { listing: Listing }) {
       icon,
       caption,
       contact,
+      imageUrl,
       creatorId,
       meadowId
     );

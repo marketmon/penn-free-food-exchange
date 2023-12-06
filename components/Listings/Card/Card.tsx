@@ -41,6 +41,7 @@ export default function Card({ listing }: CardProps) {
           updatedAt={listing.updatedAt}
           numThanks={listing.usersThankedIds.length}
           contact={listing.contact}
+          imageThumbnailUrl={listing.imageUrl}
         />
       </CardShadcn>
     </div>

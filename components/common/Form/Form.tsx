@@ -14,6 +14,7 @@ import Select from "@/components/common/Form/FormInput/Select";
 import SuccessMessage from "@/components/common/Message/SuccessMessage";
 import ErrorMessage from "@/components/common/Message/ErrorMessage";
 import TextInput from "@/components/common/Form/FormInput/TextInput";
+import File from "@/components/common/Form/FormInput/File";
 import FormLabel from "@/components/common/Form/FormLabel";
 import ButtonSubmit from "@/components/common/Button/ButtonSubmit";
 
@@ -73,6 +74,7 @@ export default function Form({
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
     setIsLoading(true);
+
     try {
       await handleSubmit(values);
       setStatus({
@@ -85,6 +87,7 @@ export default function Form({
         success: null,
       });
     }
+
     setIsLoading(false);
   };
 
@@ -92,6 +95,11 @@ export default function Form({
     if (error) {
       setStatus({
         error: error?.message,
+        success: null,
+      });
+    } else {
+      setStatus({
+        error: null,
         success: null,
       });
     }
@@ -121,6 +129,8 @@ export default function Form({
                           meadows={meadows}
                           setIcon={setIcon}
                         />
+                      ) : input.type === "file" ? (
+                        <File input={input} />
                       ) : (
                         <TextInput
                           value={field.value}

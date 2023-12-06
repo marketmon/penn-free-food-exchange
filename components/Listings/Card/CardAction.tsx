@@ -21,7 +21,7 @@ export default function CardAction({ listing }: CardActionProps) {
   ) : (
     <div className="space-x-2">
       <ShowEditListingForm listing={listing} />
-      <DeleteListing listingId={listing.id} />
+      <DeleteListing listingId={listing.id} imageUrl={listing.imageUrl} />
     </div>
   );
 }

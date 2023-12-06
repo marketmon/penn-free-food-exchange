@@ -4,13 +4,13 @@ import { FormInput } from "@/lib/types";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
-type TextInput = {
+type TextInputProps = {
   value: string;
   onChange: (...event: any[]) => void;
   input: FormInput;
 };
 
-export default function TextInput({ input, value, onChange }: TextInput) {
+export default function TextInput({ input, value, onChange }: TextInputProps) {
   return input.type === "textarea" ? (
     <Textarea value={value} onChange={onChange} disabled={input.disabled} />
   ) : input.type === "phone" ? (

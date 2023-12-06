@@ -1,6 +1,7 @@
 import { useListings } from "@/context/ListingsProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { useEditListing } from "@/context/EditListingProvider";
+import { useListingImage } from "@/context/ListingImageProvider";
 import { DashboardFor, ListingNavigationButton } from "@/lib/types";
 import ButtonPrimary from "../common/Button/ButtonPrimary";
 import ButtonSecondary from "../common/Button/ButtonSecodary";
@@ -28,6 +29,15 @@ export default function Navigation() {
   const { dashboardFor, setDashboardFor } = useListings();
 
   const { currentListing, setCurrentListing } = useEditListing();
+
+  const {
+    imageUrl,
+    setImageUrl,
+    imageOperationInProgress,
+    imageError,
+    setImageError,
+    onDeleteImage,
+  } = useListingImage();
 
   const {
     setPosition,
@@ -61,6 +71,13 @@ export default function Navigation() {
         if (currentListing) {
           setCurrentListing(null);
         }
+        if (imageUrl) {
+          setImageUrl("");
+          onDeleteImage(imageUrl);
+        }
+        if (imageError) {
+          setImageError(null);
+        }
       }
     }
   }
@@ -76,6 +93,7 @@ export default function Navigation() {
               onClick={() =>
                 onNavigationButtonClick(button.action, button.text)
               }
+              disabled={imageOperationInProgress}
             />
           ) : (
             <ButtonSecondary
@@ -84,6 +102,7 @@ export default function Navigation() {
               onClick={() =>
                 onNavigationButtonClick(button.action, button.text)
               }
+              disabled={imageOperationInProgress}
             />
           )
       )}

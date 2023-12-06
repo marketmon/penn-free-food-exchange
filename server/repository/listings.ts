@@ -20,6 +20,7 @@ export async function createListing(
   icon: string,
   caption: string,
   contact: string,
+  imageUrl: string,
   userId: string,
   meadowId: string
 ) {
@@ -30,6 +31,7 @@ export async function createListing(
     icon: string;
     caption: string | null;
     contact: string | null;
+    imageUrl: string | null;
   } = {
     lat,
     lng,
@@ -37,6 +39,7 @@ export async function createListing(
     icon,
     caption: caption.length > 0 ? caption : null,
     contact: !COUNTRY_CODES.includes(contact) ? contact : null,
+    imageUrl: imageUrl !== "" ? imageUrl : null,
   };
 
   const newListing = await prisma.listing.create({
@@ -58,7 +61,16 @@ export async function createListing(
 }
 
 export async function updateListing(listing: any) {
-  const { id, lat, lng, location, icon, caption, contact } = listing;
+  const {
+    id,
+    lat,
+    lng,
+    location,
+    icon,
+    caption,
+    contact,
+    imageUrl,
+  } = listing;
 
   const data: {
     lat: number;
@@ -67,6 +79,7 @@ export async function updateListing(listing: any) {
     icon: string;
     caption: string | null;
     contact: string | null;
+    imageUrl: string | null;
   } = {
     lat,
     lng,
@@ -74,11 +87,12 @@ export async function updateListing(listing: any) {
     icon,
     caption: caption.length > 0 ? caption : null,
     contact: !COUNTRY_CODES.includes(contact) ? contact : null,
+    imageUrl: imageUrl !== "" ? imageUrl : null,
   };
 
   const updatedListing = await prisma.listing.update({
     where: {
-      id
+      id,
     },
     data: {
       ...data,

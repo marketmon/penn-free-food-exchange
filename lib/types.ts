@@ -20,8 +20,8 @@ export type DashboardFor = "view" | "manage" | "create" | "edit";
 export type CurrentListing = {
   id: string;
   location: string;
-  caption: string;
-  contact: string;
+  caption: string | null;
+  contact: string | null;
   icon: string;
 } | null;
 
@@ -54,6 +54,7 @@ export type Listing = {
   caption: string;
   contact: string;
   icon: string;
+  imageUrl: string;
   creatorId: string | null;
   meadowId: string;
   updatedAt: string;

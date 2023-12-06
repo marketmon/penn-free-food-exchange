@@ -1,6 +1,6 @@
 import { Popup as PopupLeaflet } from "react-leaflet";
 import { Listing } from "@/lib/types";
-import { getLastUpdatedTimeAgo } from "@/lib/helpers";
+import { getLastUpdatedTimeAgo } from "@/lib/utils";
 import ToggleStillThere from "@/components/Listings/Actions/ToggleStillThere";
 
 type PopupProps = {

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { useMutateData } from "@/hooks/useMutateData";
+import { useListingImage } from "@/context/ListingImageProvider";
 import { useListings } from "@/context/ListingsProvider";
 import { useEditListing } from "@/context/EditListingProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
@@ -18,6 +19,25 @@ export default function CreateOrEditListing() {
   const queryClient = useQueryClient();
 
   const isCreateMode = !currentListing;
+
+  const {
+    imageUrl,
+    setImageUrl,
+    imageOperationInProgress,
+    imageError,
+    setImageError,
+  } = useListingImage();
+
+  const imageInput = isCreateMode
+    ? [
+        {
+          name: "image",
+          label: "Image (optional)",
+          type: "file",
+          disabled: !position || imageOperationInProgress || imageUrl !== "",
+        },
+      ]
+    : [];
 
   const {
     mutate: createOrEditListing,
@@ -41,11 +61,31 @@ export default function CreateOrEditListing() {
     }),
   });
 
+  async function onCreateOrEditListing(
+    values: z.infer<typeof listingFormSchema>
+  ) {
+    const valuesWithImageUrl = {
+      icon: values.icon,
+      location: values.location,
+      caption: values.caption,
+      contact: values.contact,
+      imageUrl: imageUrl,
+    };
+
+    createOrEditListing(valuesWithImageUrl);
+  }
+
   useEffect(() => {
     if (isSuccess) {
       setDashboardFor(isCreateMode ? "view" : "manage");
       setPosition(null);
       setIcon("📍");
+      if (imageUrl) {
+        setImageUrl("");
+      }
+      if (imageError) {
+        setImageError(null);
+      }
       if (!isCreateMode) {
         setCurrentListing(null);
       }
@@ -103,15 +143,16 @@ export default function CreateOrEditListing() {
             type: "phone",
             disabled: !position,
           },
+          ...imageInput,
         ]}
-        handleSubmit={createOrEditListing}
+        handleSubmit={onCreateOrEditListing}
         isLoadingFromMutateFunction={isLoading}
         btnText="Save"
         btnLoadingText="Saving"
-        btnDisabled={!position}
+        btnDisabled={!position || imageOperationInProgress}
         showLabel={true}
         setIcon={setIcon}
-        error={error}
+        error={imageError || error}
         formStyles="space-y-8 mb-2"
       />
     </div>
