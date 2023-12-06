@@ -10,9 +10,9 @@ export default function Thumbnail({ imageUrl }: ThumbnailProps) {
       src={imageUrl}
       height={0}
       width={0}
-      sizes="64px"
-      className="h-auto w-16"
-      alt="thumbnail of image"
+      sizes="100vw"
+      className="w-full h-auto"
+      alt="image"
     />
   );
 }

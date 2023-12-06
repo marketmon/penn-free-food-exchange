@@ -3,7 +3,7 @@ import { FormInput } from "@/lib/types";
 import { useListingImage } from "@/context/ListingImageProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
-import Thumbnail from "@/components/Listings/Image/Thumbnail";
+import Image from "@/components/Listings/Image";
 import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
 
 type FileInputProps = {
@@ -38,7 +38,9 @@ export default function File({ input }: FileInputProps) {
 
       {imageUrl && (
         <div className="flex justify-start space-x-1 mt-2">
-          <Thumbnail imageUrl={imageUrl} />
+          <div className="w-16 h-auto">
+            <Image imageUrl={imageUrl} />
+          </div>
           <X
             onClick={() => onDeleteImage()}
             className="text-red-500 h-4 w-4 cursor-pointer"
