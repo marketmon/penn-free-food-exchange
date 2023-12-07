@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 
 type ButtonSecondaryProps = {
-  btnText: string;
+  btnText?: string;
   btnIcon?: React.ReactNode;
   btnStyles?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;

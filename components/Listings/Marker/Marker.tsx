@@ -31,7 +31,6 @@ export default function Marker({
 
   return (
     <MarkerLeaflet
-      attribution='<a href="https://www.flaticon.com/free-icons/location" title="location icons">Location icons created by IconMarketPK - Flaticon</a>'
       draggable={draggable}
       eventHandlers={eventHandlers && eventHandlers}
       position={position!}
