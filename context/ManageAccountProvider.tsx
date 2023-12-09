@@ -19,15 +19,17 @@ type ManageAccountContextType = {
   setCurrSection: Dispatch<SetStateAction<Section>>;
 };
 
-const ManageAccountContext = createContext<ManageAccountContextType | undefined>(
-  undefined
-);
+type ManageAccountProviderProps = {
+  children: React.ReactNode;
+};
+
+const ManageAccountContext = createContext<
+  ManageAccountContextType | undefined
+>(undefined);
 
 export function ManageAccountProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: ManageAccountProviderProps) {
   const [currSection, setCurrSection] = useState({
     label: "Profile",
     value: "profile",
@@ -50,7 +52,9 @@ export function useManageAccount() {
   const context = useContext(ManageAccountContext);
 
   if (context === undefined) {
-    throw new Error("useManageAccount must be used within a ManageAccountProvider");
+    throw new Error(
+      "useManageAccount must be used within a ManageAccountProvider"
+    );
   }
 
   return context;

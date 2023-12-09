@@ -10,8 +10,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import ButtonDelete from "@/components/common/Button/ButtonDelete";
-import ButtonSecondary from "../../common/Button/ButtonSecodary";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 export default function Danger() {
   const router = useRouter();
@@ -31,7 +30,7 @@ export default function Danger() {
           <span>Delete your account and all its associated data</span>
           <div className="pt-4">
             <DialogTrigger asChild>
-              <ButtonDelete btnText="Delete account" />
+              <ButtonOnClick variant="destructive" btnText="Delete account" />
             </DialogTrigger>
           </div>
         </div>
@@ -47,9 +46,13 @@ export default function Danger() {
           </DialogDescription>
           <DialogFooter>
             <DialogClose asChild>
-              <ButtonSecondary btnText="Close" />
+              <ButtonOnClick variant="secondary" btnText="Close" />
             </DialogClose>
-            <ButtonDelete btnText="Confirm" onClick={onDeleteAccount} />
+            <ButtonOnClick
+              variant="destructive"
+              btnText="Confirm"
+              onClick={onDeleteAccount}
+            />
           </DialogFooter>
         </DialogHeader>
       </DialogContent>

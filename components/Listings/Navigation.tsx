@@ -2,9 +2,8 @@ import { useListings } from "@/context/ListingsProvider";
 import { useDraggableMarker } from "@/context/DraggableMarkerProvider";
 import { useEditListing } from "@/context/EditListingProvider";
 import { useListingImage } from "@/context/ListingImageProvider";
-import { DashboardFor, ListingNavigationButton } from "@/lib/types";
-import ButtonPrimary from "../common/Button/ButtonPrimary";
-import ButtonSecondary from "../common/Button/ButtonSecodary";
+import { DashboardFor } from "@/lib/types";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 const BUTTON_GROUP = {
   view: [
@@ -85,26 +84,15 @@ export default function Navigation() {
   return (
     <div className="mb-2 space-x-2">
       {BUTTON_GROUP[dashboardFor as DashboardFor].map(
-        (button: ListingNavigationButton) =>
-          button.id === 1 ? (
-            <ButtonPrimary
-              key={button.id}
-              btnText={button.text}
-              onClick={() =>
-                onNavigationButtonClick(button.action, button.text)
-              }
-              disabled={imageOperationInProgress}
-            />
-          ) : (
-            <ButtonSecondary
-              key={button.id}
-              btnText={button.text}
-              onClick={() =>
-                onNavigationButtonClick(button.action, button.text)
-              }
-              disabled={imageOperationInProgress}
-            />
-          )
+        (button) => (
+          <ButtonOnClick
+            variant={button.id === 1 ? "default" : "secondary"}
+            key={button.id}
+            btnText={button.text}
+            onClick={() => onNavigationButtonClick(button.action, button.text)}
+            disabled={imageOperationInProgress}
+          />
+        )
       )}
     </div>
   );

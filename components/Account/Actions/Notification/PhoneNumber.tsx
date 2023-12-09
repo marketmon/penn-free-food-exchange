@@ -6,7 +6,7 @@ import { DialogTrigger } from "@/components/ui/dialog";
 export default function PhoneNumber() {
   const { user } = useUser();
 
-  const phone = user!.primaryPhoneNumber?.phoneNumber || undefined;
+  const phone = user!.primaryPhoneNumber?.phoneNumber;
 
   const { setStep } = useAddPhone();
 

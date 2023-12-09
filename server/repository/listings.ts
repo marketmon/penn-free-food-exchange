@@ -29,7 +29,7 @@ export async function createListing(
     lng: number;
     location: string;
     icon: string;
-    caption: string | null;
+    caption: string;
     contact: string | null;
     imageUrl: string | null;
   } = {
@@ -37,7 +37,7 @@ export async function createListing(
     lng,
     location,
     icon,
-    caption: caption.length > 0 ? caption : null,
+    caption,
     contact: !COUNTRY_CODES.includes(contact) ? contact : null,
     imageUrl: imageUrl !== "" ? imageUrl : null,
   };
@@ -77,7 +77,7 @@ export async function updateListing(listing: any) {
     lng: number;
     location: string;
     icon: string;
-    caption: string | null;
+    caption: string;
     contact: string | null;
     imageUrl: string | null;
   } = {
@@ -85,7 +85,7 @@ export async function updateListing(listing: any) {
     lng,
     location,
     icon,
-    caption: caption.length > 0 ? caption : null,
+    caption,
     contact: !COUNTRY_CODES.includes(contact) ? contact : null,
     imageUrl: imageUrl !== "" ? imageUrl : null,
   };

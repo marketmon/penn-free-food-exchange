@@ -1,6 +1,6 @@
 "use client";
 
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { getListOfMeadows } from "@/lib/queryFns";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDown } from "lucide-react";
@@ -16,23 +16,21 @@ export default function SectionContainer() {
     staleTime: Infinity,
   });
 
-  const allMeadows = useRef<HTMLDivElement>();
-  const goals = useRef<HTMLDivElement>();
-  const steps = useRef<HTMLDivElement>();
-  const contact = useRef<HTMLDivElement>();
+  const sections = {
+    allMeadows: useRef<HTMLDivElement>(null),
+    goals: useRef<HTMLDivElement>(null),
+    steps: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null),
+  };
 
-  const [nextSection, setNextSection] = useState<MutableRefObject<
-    HTMLDivElement | undefined
-  > | null>(allMeadows);
+  const [nextSection, setNextSection] =
+    useState<RefObject<HTMLDivElement> | null>(sections.goals);
 
-  function onSectionScroll(
-    section: MutableRefObject<HTMLDivElement | undefined>
-  ) {
+  function onSectionScroll(section: RefObject<HTMLDivElement>) {
     section.current?.scrollIntoView({ behavior: "smooth" });
   }
 
   useEffect(() => {
-    const sections = [allMeadows, goals, steps, contact];
     const observerOptions = {
       root: null,
       rootMargin: "0px",
@@ -42,14 +40,16 @@ export default function SectionContainer() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // frind the index of the current section in view
-          const currentIndex = sections.findIndex(
-            (sectionRef) => sectionRef.current === entry.target
+          const sectionEntries = Object.entries(sections);
+
+          // find the index of the current section in view
+          const currentIndex = sectionEntries.findIndex(
+            ([_, sectionRef]) => sectionRef.current === entry.target
           );
 
           // set nextSection to the ref of the next section, or null if it's the last section
-          if (currentIndex < sections.length - 1) {
-            setNextSection(sections[currentIndex + 1]);
+          if (currentIndex < sectionEntries.length - 1) {
+            setNextSection(sectionEntries[currentIndex + 1][1]);
           } else {
             setNextSection(null);
           }
@@ -57,7 +57,7 @@ export default function SectionContainer() {
       });
     }, observerOptions);
 
-    sections.forEach((sectionRef) => {
+    Object.values(sections).forEach((sectionRef) => {
       if (sectionRef.current) {
         observer.observe(sectionRef.current);
       }
@@ -70,10 +70,10 @@ export default function SectionContainer() {
 
   return (
     <div className="h-full overflow-y-auto overscroll-y-contain snap-y snap-mandatory">
-      <AllMeadows data={data} sectionRef={allMeadows} />
-      <Goals sectionRef={goals} />
-      <Steps sectionRef={steps} />
-      <Contact sectionRef={contact} />
+      <AllMeadows data={data} sectionRef={sections.allMeadows} />
+      <Goals sectionRef={sections.goals} />
+      <Steps sectionRef={sections.steps} />
+      <Contact sectionRef={sections.contact} />
       {nextSection && (
         <ChevronDown
           className="absolute bottom-0 left-0 right-0 m-auto cursor-pointer w-[35px] h-[35px] z-20 bg-no-repeat"

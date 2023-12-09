@@ -8,10 +8,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function mapMeadowToDomain(meadow: string) {
-  const meadowDomainMappings: {
-    [key: string]: string;
-  } = {
+export function mapMeadowToDomain(meadow: string): string {
+  const meadowDomainMappings: Record<string, string> = {
     "University of Pennsylvania": "upenn.edu",
     "University of Florida": "ufl.edu",
     // Add more college mappings as needed
@@ -25,7 +23,10 @@ export async function getClerkCurrentUser() {
   return user;
 }
 
-export function getLastUpdatedTimeAgo(updatedTime: string, displayFor: string) {
+export function getLastUpdatedTimeAgo(
+  updatedTime: string,
+  displayFor: string
+): string {
   const currentTime = new Date();
   const updateTime = new Date(updatedTime);
   const timeDifference = currentTime.getTime() - updateTime.getTime();
@@ -57,7 +58,10 @@ export function getLastUpdatedTimeAgo(updatedTime: string, displayFor: string) {
   }
 }
 
-export function filterListings(currFilter: string, listings: Listing[]) {
+export function filterListings(
+  currFilter: string,
+  listings: Listing[]
+): Listing[] {
   if (currFilter === "new") {
     return filterListingsByNew(listings);
   } else if (currFilter === "old") {
@@ -71,7 +75,7 @@ export function filterListings(currFilter: string, listings: Listing[]) {
   }
 }
 
-function filterListingsByNew(listings: Listing[]) {
+function filterListingsByNew(listings: Listing[]): Listing[] {
   listings.sort((listingA, listingB) => {
     const dateForListingA = new Date(listingA.updatedAt);
     const dateForListingB = new Date(listingB.updatedAt);
@@ -81,7 +85,7 @@ function filterListingsByNew(listings: Listing[]) {
   return listings;
 }
 
-function filterListingsByOld(listings: Listing[]) {
+function filterListingsByOld(listings: Listing[]): Listing[] {
   listings.sort((listingA, listingB) => {
     const dateForListingA = new Date(listingA.updatedAt);
     const dateForListingB = new Date(listingB.updatedAt);
@@ -91,7 +95,7 @@ function filterListingsByOld(listings: Listing[]) {
   return listings;
 }
 
-function filterListingsByStillThere(listings: Listing[]) {
+function filterListingsByStillThere(listings: Listing[]): Listing[] {
   listings.sort((listingA, listingB) => {
     if (listingA.stillThere !== listingB.stillThere) {
       // sort by "stillThere" (true first)
@@ -107,7 +111,7 @@ function filterListingsByStillThere(listings: Listing[]) {
   return listings;
 }
 
-function filterListingsByMostThanked(listings: Listing[]) {
+function filterListingsByMostThanked(listings: Listing[]): Listing[] {
   listings.sort((listingA, listingB) => {
     // Compare the length of usersThankedIds
     const numThanksForListingA = listingA.usersThankedIds.length;
@@ -126,7 +130,7 @@ function filterListingsByMostThanked(listings: Listing[]) {
   return listings;
 }
 
-function filterListingsByLeastThanked(listings: Listing[]) {
+function filterListingsByLeastThanked(listings: Listing[]): Listing[] {
   listings.sort((listingA, listingB) => {
     const numThanksForListingA = listingA.usersThankedIds.length;
     const numThanksForListingB = listingB.usersThankedIds.length;
@@ -142,4 +146,22 @@ function filterListingsByLeastThanked(listings: Listing[]) {
   });
 
   return listings;
+}
+
+export function getListingsToShow(
+  isLoading: boolean,
+  error: Error | null,
+  dashboardFor: string,
+  listings: Listing[] | undefined,
+  userId: string | undefined
+): Listing[] | null {
+  if (isLoading || error) return null;
+
+  if (dashboardFor === "view") return listings!;
+
+  if (dashboardFor === "manage") {
+    return listings!.filter((listing: Listing) => listing.creatorId === userId);
+  }
+
+  return null;
 }

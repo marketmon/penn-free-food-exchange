@@ -40,7 +40,7 @@ export default function CreateOrEditListing() {
     : [];
 
   const {
-    mutate: createOrEditListing,
+    mutate,
     isPending: isLoading,
     isSuccess,
     error,
@@ -61,7 +61,7 @@ export default function CreateOrEditListing() {
     }),
   });
 
-  async function onCreateOrEditListing(
+  async function createOrEditListing(
     values: z.infer<typeof listingFormSchema>
   ) {
     const valuesWithImageUrl = {
@@ -69,10 +69,10 @@ export default function CreateOrEditListing() {
       location: values.location,
       caption: values.caption,
       contact: values.contact,
-      imageUrl: imageUrl,
+      imageUrl: currentListing?.imageUrl ? currentListing?.imageUrl : imageUrl,
     };
 
-    createOrEditListing(valuesWithImageUrl);
+    mutate(valuesWithImageUrl);
   }
 
   useEffect(() => {
@@ -96,7 +96,11 @@ export default function CreateOrEditListing() {
     setPosition,
     setIcon,
     setCurrentListing,
+    setImageUrl,
+    setImageError,
     isCreateMode,
+    imageUrl,
+    imageError,
   ]);
 
   return (
@@ -145,7 +149,7 @@ export default function CreateOrEditListing() {
           },
           ...imageInput,
         ]}
-        handleSubmit={onCreateOrEditListing}
+        handleSubmit={createOrEditListing}
         isLoadingFromMutateFunction={isLoading}
         btnText="Save"
         btnLoadingText="Saving"

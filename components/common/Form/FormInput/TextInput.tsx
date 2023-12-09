@@ -1,7 +1,7 @@
+import { PhoneInput } from "react-international-phone";
+import { FormInput } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FormInput } from "@/lib/types";
-import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
 type TextInputProps = {

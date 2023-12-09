@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useListings } from "@/context/ListingsProvider";
 import { useMutateData } from "@/hooks/useMutateData";
 import { Listing } from "@/lib/types";
-import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 type ToggleStillThereProps = {
   stillThere: boolean;
@@ -17,7 +17,7 @@ export default function ToggleStillThere({
 
   const queryClient = useQueryClient();
 
-  const { mutate: toggleStillThereForListing } = useMutateData({
+  const { mutate } = useMutateData({
     requestConfig: {
       url: `/api/listings/${listingId}`,
       method: "PATCH",
@@ -46,21 +46,22 @@ export default function ToggleStillThere({
     },
   });
 
-  function onToggleStillThereListing() {
-    toggleStillThereForListing({
+  function toggleStillThereForListing() {
+    mutate({
       action: "toggleStillThere",
     });
   }
 
   return (
-    <ButtonSecondary
+    <ButtonOnClick
+      variant="secondary"
       btnText={stillThere ? "Not there?" : "Still there?"}
       btnStyles={`${
         stillThere
           ? "border-red-500 text-red-500"
           : "border-green-500 text-green-500"
       } border bg-transparent text-[10px] h-6 py-0"`}
-      onClick={onToggleStillThereListing}
+      onClick={toggleStillThereForListing}
     />
   );
 }

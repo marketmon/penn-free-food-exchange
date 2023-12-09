@@ -17,7 +17,7 @@ export default function DraggableMarker() {
 
   const map = useMap();
 
-  const markerRef = useRef<any>(null);
+  const markerRef = useRef<L.Marker>(null);
 
   const onMarkerDrag = {
     dragend() {

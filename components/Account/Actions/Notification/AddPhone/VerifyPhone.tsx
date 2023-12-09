@@ -3,8 +3,8 @@ import { z } from "zod";
 import { useAddPhone } from "@/context/AddPhoneProvider";
 import { verificationCodeSchema } from "@/lib/validations";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import Form from "@/components/common/Form/Form";
 import Prompt from "@/components/Auth/Prompt";
+import Form from "@/components/common/Form/Form";
 
 export default function StepTwo() {
   const { user } = useUser();

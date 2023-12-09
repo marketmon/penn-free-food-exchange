@@ -1,18 +1,18 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { BtnVariants } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 type ButtonNavigationProps = {
-  href: string;
   variant: BtnVariants;
   btnText: string;
+  href: string;
   btnStyles?: string;
 };
 
 export default function ButtonNavigation({
-  href,
   variant,
   btnText,
+  href,
   btnStyles,
 }: ButtonNavigationProps) {
   return (

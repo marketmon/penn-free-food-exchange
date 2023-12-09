@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
 import { Users, Expand, SmilePlus } from "lucide-react";
+import Image from "@/components/common/Image";
 
 const GOALS = [
   {
@@ -24,7 +24,7 @@ const GOALS = [
 ];
 
 type GoalsProps = {
-  sectionRef: MutableRefObject<any>;
+  sectionRef: RefObject<HTMLDivElement>;
 };
 
 export default function Goals({ sectionRef }: GoalsProps) {
@@ -46,11 +46,10 @@ export default function Goals({ sectionRef }: GoalsProps) {
       <div className="tablet:pr-8 tablet:flex tablet:flex-col tablet:space-y-8">
         <Image
           src="/panbo-1.png"
-          width={610}
+          width={662}
           height={370}
-          priority
-          alt="Picture of listings"
-          className="my-2 hidden hide-image-mobile:hidden show-image-mobile:block hide-image-tablet:hidden hide-image-laptop:hidden show-image-laptop:block"
+          priority={true}
+          imageStyles="my-2 hidden hide-image-mobile:hidden show-image-mobile:block hide-image-tablet:hidden hide-image-laptop:hidden show-image-laptop:block"
         />
         <ul className="space-y-4 tablet:space-y-8">
           {GOALS.map((goal) => (

@@ -1,19 +1,21 @@
-import { Button } from "@/components/ui/button";
 import { BtnVariants } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 type ButtonNavigationProps = {
   variant: BtnVariants;
   btnText: string;
+  href: string;
   btnStyles?: string;
 };
 
 export default function ButtonAnchor({
   variant,
   btnText,
+  href,
   btnStyles,
 }: ButtonNavigationProps) {
   return (
-    <a href="mailto: etmar@wharton.upenn.edu">
+    <a href={href}>
       <Button className={btnStyles} variant={variant}>
         {btnText}
       </Button>

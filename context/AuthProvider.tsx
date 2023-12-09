@@ -17,10 +17,14 @@ type AuthContextType = Auth & {
   setMeadowInfo?: Dispatch<SetStateAction<Domain>>;
 };
 
+type AuthProviderProps = {
+  children: React.ReactNode;
+};
+
 function createAuthContext(useAuth: () => Auth, authFor: string) {
   const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-  function AuthProvider({ children }: { children: React.ReactNode }) {
+  function AuthProvider({ children }: AuthProviderProps) {
     const auth = useAuth();
     const [step, setStep] = useState(1);
     const [meadowInfo, setMeadowInfo] = useState({ id: "", domain: "" });

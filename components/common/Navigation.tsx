@@ -1,19 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import ButtonNavigation from "@/components/common/Button/ButtonNavigation";
+import Image from "@/components/common/Image";
 
 export default function Navigation() {
   return (
     <div className="h-10 flex justify-between items-center px-3 shadow-md">
       <Link href="/" className="h-[27px]">
-        <Image
-          src="/logo.png"
-          width={100}
-          height={27}
-          priority
-          alt="Picture of the author"
-        />
+        <div className="w-[100px] h-[27px]">
+          <Image src="/logo.png" priority={true} />
+        </div>
       </Link>
       <SignedIn>
         <UserButton

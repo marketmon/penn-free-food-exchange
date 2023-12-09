@@ -23,6 +23,7 @@ export type CurrentListing = {
   caption: string;
   contact: string | null;
   icon: string;
+  imageUrl: string | null;
 } | null;
 
 export type ListingNavigationButton = {

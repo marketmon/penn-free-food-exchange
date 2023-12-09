@@ -1,9 +1,9 @@
 "use client";
 
 import { useManageAccount } from "@/context/ManageAccountProvider";
-import { Button } from "@/components/ui/button";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
-const SIDEBAR_ITEMS = [
+const BUTTON_GROUP = [
   {
     label: "Profile",
     value: "profile",
@@ -31,19 +31,18 @@ export function Sidebar() {
 
   return (
     <nav className="flex flex-wrap lg:flex-col lg:space-y-1">
-      {SIDEBAR_ITEMS.map((item) => (
-        <Button
+      {BUTTON_GROUP.map((button) => (
+        <ButtonOnClick
           variant="ghost"
-          className={`justify-start ${
-            currSection.value === item.value
+          btnText={button.label}
+          btnStyles={`justify-start ${
+            currSection.value === button.value
               ? "bg-muted hover:bg-muted"
               : "hover:bg-transparent hover:underline"
           }`}
-          key={item.value}
-          onClick={() => setCurrSection(item)}
-        >
-          {item.label}
-        </Button>
+          onClick={() => setCurrSection(button)}
+          key={button.value}
+        />
       ))}
     </nav>
   );

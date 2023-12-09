@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { logInSchema } from "@/lib/validations";
 import { useSignInContext } from "@/context/AuthProvider";
+import Prompt from "@/components/Auth/Prompt";
 import Form from "@/components/common/Form/Form";
 import FormTitle from "@/components/common/Form/FormTitle";
-import Prompt from "@/components/Auth/Prompt";
 import Loading from "@/components/common/Loading";
 
 export default function Page() {

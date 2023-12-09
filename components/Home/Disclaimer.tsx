@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ButtonSecondary from "../common/Button/ButtonSecodary";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 export default function Disclaimer() {
   const storedOpenState = localStorage.getItem("disclaimerOpen");
@@ -134,7 +134,11 @@ export default function Disclaimer() {
           </CardContent>
           <CardFooter>
             <div className="w-full flex justify-end">
-              <ButtonSecondary btnText="Close" onClick={onCloseDisclaimer} />
+              <ButtonOnClick
+                variant="secondary"
+                btnText="Close"
+                onClick={onCloseDisclaimer}
+              />
             </div>
           </CardFooter>
         </Card>

@@ -13,11 +13,15 @@ type AddPhoneContextType = {
   setStep: Dispatch<SetStateAction<number>>;
 };
 
+type AddPhoneProviderProps = {
+  children: React.ReactNode;
+};
+
 const AddPhoneContext = createContext<AddPhoneContextType | undefined>(
   undefined
 );
 
-export function AddPhoneProvider({ children }: { children: React.ReactNode }) {
+export function AddPhoneProvider({ children }: AddPhoneProviderProps) {
   const [step, setStep] = useState(1);
 
   return (

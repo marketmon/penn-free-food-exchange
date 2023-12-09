@@ -4,7 +4,11 @@ import { ListingsProvider } from "@/context/ListingsProvider";
 import { EdgeStoreProvider } from "@/context/EdgeStoreProvider";
 import { ListingImageProvider } from "@/context/ListingImageProvider";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <ListingsProvider>
       <DraggableMarkerProvider>

@@ -3,8 +3,8 @@ import { FormInput } from "@/lib/types";
 import { useListingImage } from "@/context/ListingImageProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
-import Image from "@/components/Listings/Image";
-import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
+import Image from "@/components/common/Image";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 type FileInputProps = {
   input: FormInput;
@@ -30,16 +30,16 @@ export default function File({ input }: FileInputProps) {
         }
         onClick={(e) => ((e.target as HTMLButtonElement).value = "")}
       />
-      <ButtonSecondary
+      <ButtonOnClick
+        variant="secondary"
         btnText="Select an image"
         disabled={input.disabled}
         onClick={() => document.getElementById("browseImage")?.click()}
       />
-
       {imageUrl && (
         <div className="flex justify-start space-x-1 mt-2">
           <div className="w-16 h-auto">
-            <Image imageUrl={imageUrl} />
+            <Image src={imageUrl} heightAuto={true} />
           </div>
           <X
             onClick={() => onDeleteImage()}

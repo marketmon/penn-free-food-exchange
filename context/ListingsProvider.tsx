@@ -18,11 +18,15 @@ type ListingsContextType = {
   setMeadowId: Dispatch<SetStateAction<string | null>>;
 };
 
+type ListingsProviderProps = {
+  children: React.ReactNode;
+};
+
 const ListingsContext = createContext<ListingsContextType | undefined>(
   undefined
 );
 
-export function ListingsProvider({ children }: { children: React.ReactNode }) {
+export function ListingsProvider({ children }: ListingsProviderProps) {
   const [meadowId, setMeadowId] = useState<string | null>(null);
   const [clickedListingCardPosition, setClickedListingCardPosition] =
     useState<Position>(null);

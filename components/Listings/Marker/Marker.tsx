@@ -1,4 +1,4 @@
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
 import { Marker as MarkerLeaflet } from "react-leaflet";
 import { DivIcon } from "leaflet";
 import { Position } from "@/lib/types";
@@ -7,7 +7,7 @@ type MarkerProps = {
   children?: React.ReactNode;
   draggable?: boolean;
   position: Position;
-  markerRef?: MutableRefObject<any>;
+  markerRef?: RefObject<L.Marker>;
   icon: string;
   eventHandlers?: any;
 };

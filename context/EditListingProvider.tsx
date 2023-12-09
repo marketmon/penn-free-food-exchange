@@ -14,15 +14,15 @@ type EditListingContextType = {
   setCurrentListing: Dispatch<SetStateAction<CurrentListing>>;
 };
 
+type EditListingProviderProps = {
+  children: React.ReactNode;
+};
+
 const EditListingContext = createContext<EditListingContextType | undefined>(
   undefined
 );
 
-export function EditListingProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function EditListingProvider({ children }: EditListingProviderProps) {
   const [currentListing, setCurrentListing] = useState<CurrentListing>(null);
 
   return (

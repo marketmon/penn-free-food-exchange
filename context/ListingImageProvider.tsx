@@ -21,15 +21,15 @@ type ListingImageContextType = {
   onDeleteImage: (url?: string) => Promise<void>;
 };
 
+type ListingImageProviderProps = {
+  children: React.ReactNode;
+};
+
 const ListingImageContext = createContext<ListingImageContextType | undefined>(
   undefined
 );
 
-export function ListingImageProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function ListingImageProvider({ children }: ListingImageProviderProps) {
   const { edgestore } = useEdgeStore();
 
   const [imageUrl, setImageUrl] = useState("");

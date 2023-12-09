@@ -4,7 +4,7 @@ import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import { useListings } from "@/context/ListingsProvider";
 import { useMutateData } from "@/hooks/useMutateData";
 import { Listing } from "@/lib/types";
-import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 type ThankListingProps = {
   listingId: string;
@@ -21,7 +21,7 @@ export default function ThankListing({
 
   const queryClient = useQueryClient();
 
-  const { mutate: thankListing } = useMutateData({
+  const { mutate } = useMutateData({
     requestConfig: {
       url: `/api/listings/${listingId}`,
       method: "PATCH",
@@ -58,15 +58,16 @@ export default function ThankListing({
 
   const currentUserLikedListing = usersThankedIds.includes(userId!);
 
-  function onThankListing(e: React.MouseEvent<HTMLButtonElement>) {
+  function thankListing(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    thankListing({
+    mutate({
       action: "toggleThank",
     });
   }
 
   return (
-    <ButtonSecondary
+    <ButtonOnClick
+      variant="secondary"
       btnText="thank"
       btnIcon={
         currentUserLikedListing ? (
@@ -75,7 +76,7 @@ export default function ThankListing({
           <HeartIcon className="mr-2 h-4 w-4" />
         )
       }
-      onClick={onThankListing}
+      onClick={thankListing}
     />
   );
 }

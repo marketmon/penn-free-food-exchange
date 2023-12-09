@@ -5,7 +5,7 @@ import {
   ChevronRight,
   ChevronUp,
 } from "lucide-react";
-import ButtonSecondary from "@/components/common/Button/ButtonSecodary";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 type FullScreenToggle = {
   isSmallScreen: boolean;
@@ -19,7 +19,8 @@ export default function FullScreenToggle({
   setShowFullScreen,
 }: FullScreenToggle) {
   return isSmallScreen ? (
-    <ButtonSecondary
+    <ButtonOnClick
+      variant="secondary"
       btnIcon={showFullScreen ? <ChevronUp /> : <ChevronDown />}
       onClick={() =>
         setShowFullScreen((prevShowFullScreen) => !prevShowFullScreen)
@@ -29,7 +30,8 @@ export default function FullScreenToggle({
       } `}
     />
   ) : (
-    <ButtonSecondary
+    <ButtonOnClick
+      variant="secondary"
       btnIcon={showFullScreen ? <ChevronLeft /> : <ChevronRight />}
       onClick={() =>
         setShowFullScreen((prevShowFullScreen) => !prevShowFullScreen)

@@ -7,7 +7,7 @@ import ResetPassword from "@/components/Auth/Actions/ResetPassword/ResetPassword
 import MultiStepAuthManager from "@/components/Auth/MultiStepAuthManager";
 import Loading from "@/components/common/Loading";
 
-export default function Page() {
+export default function Page() { 
   const { isLoaded, step } = useSignInContext();
 
   if (!isLoaded) {

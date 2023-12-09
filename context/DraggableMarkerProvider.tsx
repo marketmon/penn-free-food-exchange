@@ -20,15 +20,17 @@ type DraggableMarkerContextType = {
   setIcon: Dispatch<SetStateAction<string>>;
 };
 
+type DraggableMarkerProviderProps = {
+  children: React.ReactNode;
+};
+
 const DraggableMarkerContext = createContext<
   DraggableMarkerContextType | undefined
 >(undefined);
 
 export function DraggableMarkerProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: DraggableMarkerProviderProps) {
   const [position, setPosition] = useState<Position>(null);
   const [hasClickedMap, setHasClickedMap] = useState(false);
   const [isPositionBasedOnUserLocation, setIsPositionBasedOnUserLocation] =

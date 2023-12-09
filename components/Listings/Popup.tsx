@@ -2,7 +2,7 @@ import { Popup as PopupLeaflet } from "react-leaflet";
 import { Listing } from "@/lib/types";
 import { getLastUpdatedTimeAgo } from "@/lib/utils";
 import ToggleStillThere from "@/components/Listings/Actions/ToggleStillThere";
-import Image from "@/components/Listings/Image";
+import Image from "@/components/common/Image";
 
 type PopupProps = {
   listing: Listing;
@@ -14,7 +14,7 @@ export default function Popup({ listing }: PopupProps) {
       <div className="flex justify-between space-x-4">
         {listing.imageUrl && (
           <div className="w-28 h-auto">
-            <Image imageUrl={listing.imageUrl} />
+            <Image src={listing.imageUrl} heightAuto={true} />
           </div>
         )}
         <div className="space-y-1">

@@ -3,7 +3,7 @@ import { useListingImage } from "@/context/ListingImageProvider";
 import { useListings } from "@/context/ListingsProvider";
 import { useMutateData } from "@/hooks/useMutateData";
 import { Listing } from "@/lib/types";
-import ButtonDelete from "@/components/common/Button/ButtonDelete";
+import ButtonOnClick from "@/components/common/Button/ButtonOnClick";
 
 type DeleteListingProps = {
   listingId: string;
@@ -20,7 +20,7 @@ export default function DeleteListing({
 
   const queryClient = useQueryClient();
 
-  const { mutate: deleteListing } = useMutateData({
+  const { mutate } = useMutateData({
     requestConfig: {
       url: `/api/listings/${listingId}`,
       method: "DELETE",
@@ -39,13 +39,13 @@ export default function DeleteListing({
     },
   });
 
-  function onDeleteListing(e: React.MouseEvent<HTMLButtonElement>) {
+  function deleteListing(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    deleteListing(null);
+    mutate(null);
     if (imageUrl) {
       onDeleteImage(imageUrl);
     }
   }
 
-  return <ButtonDelete btnText="Delete" onClick={onDeleteListing} />;
+  return <ButtonOnClick variant="destructive" btnText="Delete" onClick={deleteListing} />;
 }

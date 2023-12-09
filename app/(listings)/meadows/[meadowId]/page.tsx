@@ -5,20 +5,26 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "@tanstack/react-query";
 import { useListings } from "@/context/ListingsProvider";
-import { Listing } from "@/lib/types";
 import { getMeadowById } from "@/lib/queryFns";
+import { getListingsToShow } from "@/lib/utils";
 import Sidebar from "@/components/Listings/Sidebar";
-import Loading from "@/components/common/Loading";
 import FullScreenToggle from "@/components/Listings/Map/FullScreenToggle";
+import Loading from "@/components/common/Loading";
 
 const Map = dynamic(() => import("@/components/Listings/Map/Map"), {
   ssr: false,
 });
 
-export default function Page({ params }: { params: { meadowId: string } }) {
-  const meadowId = params.meadowId;
+type PageProps = {
+  params: {
+    meadowId: string;
+  };
+};
 
+export default function Page({ params }: PageProps) {
   const { user } = useUser();
+
+  const meadowId = params.meadowId;
 
   const { data, isLoading, error } = useQuery({
     queryKey: [`meadow-${meadowId}`],
@@ -29,16 +35,13 @@ export default function Page({ params }: { params: { meadowId: string } }) {
 
   const { dashboardFor, setMeadowId } = useListings();
 
-  const listingsToShow =
-    !isLoading &&
-    !error &&
-    (dashboardFor === "view"
-      ? data.listings
-      : dashboardFor === "manage"
-      ? data.listings.filter(
-          (listing: Listing) => listing.creatorId === user?.id
-        )
-      : null);
+  const listingsToShow = getListingsToShow(
+    isLoading,
+    error,
+    dashboardFor,
+    data?.listings,
+    user?.id
+  );
 
   const [showFullScreen, setShowFullScreen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -60,20 +63,14 @@ export default function Page({ params }: { params: { meadowId: string } }) {
     };
   }, []);
 
-  if (isLoading) {
+  if (isLoading || error) {
     return (
       <div className="h-full flex justify-center items-center">
-        <Loading />
+        {isLoading ? <Loading /> : error!.message}
       </div>
     );
   }
-  if (error) {
-    return (
-      <div className="h-full flex justify-center items-center">
-        {error.message}
-      </div>
-    );
-  }
+
   return (
     <div className="flex flex-col h-full laptop:flex-row overflow-hidden">
       <div

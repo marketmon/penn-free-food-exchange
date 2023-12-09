@@ -3,7 +3,11 @@ import { AddPhoneProvider } from "@/context/AddPhoneProvider";
 import { Separator } from "@/components/ui/separator";
 import { Sidebar } from "@/components/Account/Sidebar";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <ManageAccountProvider>
       <AddPhoneProvider>
