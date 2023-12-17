@@ -34,13 +34,10 @@ export default function DataMap({ sectionRef }: DataMapProps) {
   const [hasStartedMapping, setHasStartedMapping] = useState(false);
 
   function createMarkersWithDelay() {
-    const newMarkers: React.ReactNode[] = [];
-
     function addMarkers(item: WestPhillyHalloweenDataProject, delay: number) {
       setTimeout(() => {
         const marker = <Marker key={item.id} item={item} />;
-        newMarkers.push(marker);
-        setMarkers([newMarkers]);
+        setMarkers((prevMarkers) => [...prevMarkers, marker]); 
         setCurrentTime(item.timestamp);
       }, delay);
     }
