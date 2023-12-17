@@ -138,3 +138,28 @@ export type BtnVariants =
   | "secondary"
   | "ghost"
   | "home";
+
+export type WestPhillyHalloweenDataProject = {
+  id: string;
+  lat: number;
+  long: number;
+  costume: string;
+  costume_category: string;
+  worst: string;
+  favorite: string;
+  flavor_fav: string;
+  type_fav: string;
+  collectorName: string;
+  fav_chocolate: number;
+  fav_fruit: number;
+  fav_caramel: number;
+  fav_peanut: number;
+  fav_sour: number;
+  fav_gummy: number;
+  fav_bar: number;
+  fav_hard: number;
+  fav_pieces: number;
+  fav_wafer: number;
+  fav_pure: number;
+  timestamp: string;
+};

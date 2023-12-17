@@ -1,14 +1,21 @@
 import { RefObject } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getListOfMeadows } from "@/lib/queryFns";
 import { Meadow } from "@/lib/types";
 import ButtonNavigation from "@/components/common/Button/ButtonNavigation";
 import Image from "@/components/common/Image";
 
 type AllMeadowsProps = {
-  data: Meadow[];
   sectionRef: RefObject<HTMLDivElement>;
 };
 
-export default function AllMeadows({ data, sectionRef }: AllMeadowsProps) {
+export default function AllMeadows({ sectionRef }: AllMeadowsProps) {
+  const { data } = useQuery({
+    queryKey: ["meadows"],
+    queryFn: () => getListOfMeadows(),
+    staleTime: Infinity,
+  });
+
   return (
     <div
       className="h-full flex flex-col justify-center items-center snap-always snap-center"

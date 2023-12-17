@@ -15,7 +15,7 @@ export default function ButtonAnchor({
   btnStyles,
 }: ButtonNavigationProps) {
   return (
-    <a href={href}>
+    <a target="_blank" rel="noopener noreferrer" href={href}>
       <Button className={btnStyles} variant={variant}>
         {btnText}
       </Button>
