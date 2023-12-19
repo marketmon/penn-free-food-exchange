@@ -9,6 +9,7 @@ import {
 import { WebhookRequest } from "@/lib/types";
 
 export async function POST(req: Request) {
+  console.log('asdadasdasdasdasdjhakjdhakjdhajkdhasjkdhkjasdhjkasdhkjasdhjkasdhkjasdhjkasdhkjashdjkashdkjasdhkjashdkjsad')
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || "";
 
   // Get the headers
