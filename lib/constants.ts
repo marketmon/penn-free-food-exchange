@@ -1,5 +1,5 @@
 export const BASE_URL =
-  "https://panbotest.com";
+  "https://www.panbotest.com";
   
 export const ICON_LIST = [
   { id: 1, icon: "📍" },

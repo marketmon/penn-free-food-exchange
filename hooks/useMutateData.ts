@@ -29,7 +29,7 @@ export function useMutateData({
     const headers: { [key: string]: string } = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      mode: "no-cors",
+      mode: "cors",
     };
     if (!data) {
       headers["Content-Length"] = "0";
