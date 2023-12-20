@@ -40,9 +40,7 @@ export async function POST(req: Request) {
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
     }) as WebhookEvent;
-    console.log(evt)
   } catch (err) {
-    console.log('error')
     return new Response("Server error", {
       status: 400,
     });
@@ -51,6 +49,7 @@ export async function POST(req: Request) {
   // Get the ID and type
   const eventType = evt.type;
   const data = evt.data;
+  console.log(data)
   const dataTyped = data as WebhookRequest;
 
   let user;
