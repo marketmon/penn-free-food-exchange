@@ -7,6 +7,7 @@ export async function createUser(
   meadowId: string,
   primaryEmail: string
 ) {
+  console.log(id, firstName, lastName, meadowId, primaryEmail);
   const meadow = await prisma.meadow.findUnique({
     where: {
       id: meadowId,
