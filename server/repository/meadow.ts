@@ -14,6 +14,7 @@ export async function getMeadows() {
 }
 
 export async function getMeadowById(meadowId: string) {
+  console.log("getMeadowById")
   const meadow = await prisma.meadow.findUnique({
     where: {
       id: meadowId,
@@ -23,5 +24,6 @@ export async function getMeadowById(meadowId: string) {
       users: true,
     },
   });
+  console.log(meadow);
   return meadow;
 }
