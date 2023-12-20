@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
   let user;
   if (eventType === "user.created") {
-    user = createUserService(dataTyped);
+    //user = createUserService(dataTyped);
   } else if (eventType === "user.updated") {
     user = updateUserService(dataTyped);
   } else if (eventType === "user.deleted") {
