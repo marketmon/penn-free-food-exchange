@@ -49,9 +49,9 @@ export async function POST(req: Request) {
   // Get the ID and type
   const eventType = evt.type;
   const data = evt.data;
-  console.log(data)
   const dataTyped = data as WebhookRequest;
 
+  console.log(dataTyped)
   let user;
   if (eventType === "user.created") {
     user = createUserService(dataTyped);
