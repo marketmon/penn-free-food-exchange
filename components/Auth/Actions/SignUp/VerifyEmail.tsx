@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import { ZodSchema, z } from "zod";
 import { useSignUpContext } from "@/context/AuthProvider";
+import { createUserToDb } from "@/lib/queryFns";
 import { verificationCodeSchema } from "@/lib/validations";
 import Form from "@/components/common/Form/Form";
 import FormTitle from "@/components/common/Form/FormTitle";
@@ -17,6 +18,7 @@ export default function StepThree() {
     const result = await signUp!.attemptEmailAddressVerification({
       code: values.verificationCode,
     });
+    await createUserToDb(result);
     await setActive!({ session: result.createdSessionId });
     router.push("/");
   }

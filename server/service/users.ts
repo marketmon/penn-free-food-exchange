@@ -1,24 +1,23 @@
 import { WebhookRequest } from "@/lib/types";
 import { createUser, deleteUser, updateUser } from "@/server/repository/users";
 
-export async function createUserService(data: WebhookRequest) {
-  const {
-    id,
-    first_name,
-    last_name,
-    unsafe_metadata,
-    email_addresses,
-    primary_email_address_id,
-  } = data;
+export async function createUserService(payload: {
+  createdUserId: string;
+  firstName: string;
+  lastName: string;
+  primaryEmail: string;
+  meadowId: string;
+}) {
+  const { createdUserId, firstName, lastName, primaryEmail, meadowId } =
+    payload;
 
-  const firstName = first_name;
-  const lastName = last_name;
-  const meadowId = unsafe_metadata.initialMeadowId;
-  const primaryEmail = email_addresses.find(
-    (email) => (email.id = primary_email_address_id)
-  )!.email_address;
-
-  return await createUser(id!, firstName, lastName, meadowId, primaryEmail);
+  return await createUser(
+    createdUserId,
+    firstName,
+    lastName,
+    primaryEmail,
+    meadowId
+  );
 }
 
 export async function updateUserService(data: WebhookRequest) {
