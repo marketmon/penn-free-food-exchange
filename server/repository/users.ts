@@ -7,13 +7,13 @@ export async function createUser(
   meadowId: string,
   primaryEmail: string
 ) {
-  //console.log(id, firstName, lastName, meadowId, primaryEmail);
+  console.log(id, firstName, lastName, meadowId, primaryEmail);
   const meadow = await prisma.meadow.findUnique({
     where: {
       id: meadowId,
     },
   });
-
+  console.log(meadow);
   const newUser = await prisma.user.create({
     data: {
       id,
@@ -28,6 +28,7 @@ export async function createUser(
       },
     },
   });
+
   return newUser;
 }
 
