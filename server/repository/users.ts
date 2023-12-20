@@ -7,7 +7,7 @@ export async function createUser(
   meadowId: string,
   primaryEmail: string
 ) {
-  console.log('before')
+  console.log(meadowId, typeof(meadowId))
   const meadow = await (async () => {
     try {
       return await prisma.meadow.findUnique({
