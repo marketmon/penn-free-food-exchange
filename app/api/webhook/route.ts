@@ -9,7 +9,6 @@ import {
 import { WebhookRequest } from "@/lib/types";
 
 export async function POST(req: Request) {
-  console.log('---------------------WEBHOOK---------------------')
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || "";
 
   // Get the headers
@@ -29,6 +28,7 @@ export async function POST(req: Request) {
   const payload = await req.json();
   const body = JSON.stringify(payload);
 
+  console.log(body + "in webhook")
   // Create a new SVIX instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
 
@@ -52,7 +52,6 @@ export async function POST(req: Request) {
   const data = evt.data;
   const dataTyped = data as WebhookRequest;
 
-  console.log(eventType, data)
   let user;
   if (eventType === "user.created") {
     user = createUserService(dataTyped);
