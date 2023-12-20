@@ -18,6 +18,8 @@ export async function createUserService(data: WebhookRequest) {
     (email) => (email.id = primary_email_address_id)
   )!.email_address;
 
+  console.log(id!, firstName, lastName, meadowId, primaryEmail)
+  console.log("service")
   return await createUser(id!, firstName, lastName, meadowId, primaryEmail);
 }
 
