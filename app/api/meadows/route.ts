@@ -2,7 +2,6 @@ import { ServerError } from "@/lib/errors";
 import { getMeadowsService } from "@/server/service/meadow";
 
 export async function GET() {
-  console.log('---------------------GET MEADOWS---------------------')
   try {
     const meadows = await getMeadowsService();
     return new Response(JSON.stringify(meadows), {
