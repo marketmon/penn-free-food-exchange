@@ -1,13 +1,3 @@
-import {
-  DeletedObjectJSON,
-  EmailJSON,
-  OrganizationInvitationJSON,
-  OrganizationJSON,
-  OrganizationMembershipJSON,
-  SMSMessageJSON,
-  SessionJSON,
-  UserJSON,
-} from "@clerk/nextjs/server";
 import { SignInResource, SignUpResource } from "@clerk/types";
 
 export type RequestConfig = {
@@ -99,36 +89,6 @@ export type Auth = {
     | ((config: { session: string | null }) => Promise<void>)
     | undefined;
 };
-
-type PhoneVerification = {
-  status: "unverified" | "verified";
-};
-
-type ClerkRequestData = {
-  first_name: "string";
-  last_name: "string";
-  unsafe_metadata: { [key: string]: string };
-  email_addresses: { id: string; email_address: string }[];
-  primary_email_address_id: string;
-  phone_numbers: {
-    id: string;
-    phone_number: string;
-    verification: PhoneVerification | null;
-  }[];
-  primary_phone_number_id: string;
-};
-
-export type WebhookRequest = (
-  | UserJSON
-  | DeletedObjectJSON
-  | SessionJSON
-  | EmailJSON
-  | SMSMessageJSON
-  | OrganizationJSON
-  | OrganizationMembershipJSON
-  | OrganizationInvitationJSON
-) &
-  ClerkRequestData;
 
 export type BtnVariants =
   | "link"

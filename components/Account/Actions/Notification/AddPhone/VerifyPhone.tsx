@@ -1,6 +1,7 @@
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { z } from "zod";
 import { useAddPhone } from "@/context/AddPhoneProvider";
+import { updateUserToDb } from "@/lib/queryFns";
 import { verificationCodeSchema } from "@/lib/validations";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Prompt from "@/components/Auth/Prompt";
@@ -8,6 +9,8 @@ import Form from "@/components/common/Form/Form";
 
 export default function StepTwo() {
   const { user } = useUser();
+
+  const { getToken } = useAuth();
 
   const { setStep } = useAddPhone();
 
@@ -29,6 +32,12 @@ export default function StepTwo() {
     }
 
     await user!.reload();
+
+    const token = await getToken();
+    await updateUserToDb(
+      { id: user!.id, phoneNumber: phoneToVerify.phoneNumber },
+      token!
+    );
 
     document.getElementById("closeDialog")?.click();
 

@@ -83,7 +83,11 @@ export default function Form({
       });
     } catch (error: any) {
       setStatus({
-        error: error.errors[0].longMessage,
+        error: error.errors
+          ? error.errors[0].longMessage
+          : error.toString().split(": ").length > 1
+          ? error.toString().split(": ")[1]
+          : "Server error",
         success: null,
       });
     }

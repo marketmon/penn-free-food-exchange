@@ -1,61 +1,118 @@
-import { WebhookRequest } from "@/lib/types";
+import { Prisma } from "@prisma/client";
+import { isEmailValid } from "@/lib/validations";
+import {
+  BadRequestError,
+  ForbiddenError,
+  NotFoundError,
+  ServerError,
+  UnauthorizedError,
+} from "@/lib/errors";
 import { createUser, deleteUser, updateUser } from "@/server/repository/users";
 
 export async function createUserService(payload: {
-  createdUserId: string;
+  id: string;
   firstName: string;
   lastName: string;
   primaryEmail: string;
   meadowId: string;
+  meadowDomain: string;
 }) {
-  const { createdUserId, firstName, lastName, primaryEmail, meadowId } =
+  const { id, firstName, lastName, primaryEmail, meadowId, meadowDomain } =
     payload;
 
-  return await createUser(
-    createdUserId,
-    firstName,
-    lastName,
-    primaryEmail,
-    meadowId
-  );
+  if (!firstName || firstName.length === 0) {
+    throw new BadRequestError("First name is required");
+  } else if (!lastName || lastName.length === 0) {
+    throw new BadRequestError("Last name is required");
+  } else if (!primaryEmail || primaryEmail.length === 0) {
+    throw new BadRequestError("Email is required");
+  } else if (!isEmailValid(primaryEmail)) {
+    throw new BadRequestError("Invalid email");
+  } else if (!primaryEmail.endsWith(meadowDomain)) {
+    throw new BadRequestError(`Email must be associated with ${meadowDomain}`);
+  }
+
+  try {
+    const newUser = await createUser(
+      id,
+      firstName,
+      lastName,
+      primaryEmail,
+      meadowId
+    );
+    return newUser;
+  } catch (error) {
+    throw new ServerError("Server error");
+  }
 }
 
-export async function updateUserService(data: WebhookRequest) {
+export async function updateUserService(payload: {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  primaryPhone?: string;
+  userIdFromSession: string;
+  userIdFromURL: string;
+}) {
   const {
     id,
-    first_name,
-    last_name,
-    email_addresses,
-    primary_email_address_id,
-    phone_numbers,
-  } = data;
+    firstName,
+    lastName,
+    primaryPhone,
+    userIdFromSession,
+    userIdFromURL,
+  } = payload;
 
-  const firstName = first_name;
-  const lastName = last_name;
-  const primaryEmail = email_addresses.find(
-    (email) => email.id === primary_email_address_id
-  )!.email_address;
-
-  let primaryPhone;
-
-  if (
-    phone_numbers.length === 1 &&
-    phone_numbers[0].verification?.status === "verified"
-  ) {
-    primaryPhone = phone_numbers[0].phone_number;
+  if (!userIdFromSession) {
+    throw new UnauthorizedError("Unauthorized: log in required to update user");
+  } else if (userIdFromSession !== userIdFromURL) {
+    throw new ForbiddenError("Forbidden: permission required update user");
   }
 
-  if (
-    phone_numbers.length === 2 &&
-    phone_numbers[1].verification?.status === "verified"
-  ) {
-    primaryPhone = phone_numbers[1].phone_number;
+  if (primaryPhone === undefined) {
+    if (!firstName || firstName.length === 0) {
+      throw new BadRequestError("First name is required");
+    } else if (!lastName || lastName.length === 0) {
+      throw new BadRequestError("Last name is required");
+    }
   }
 
-  return await updateUser(id!, firstName, lastName, primaryEmail, primaryPhone);
+  try {
+    const updatedUser = await updateUser(id, firstName, lastName, primaryPhone);
+    return updatedUser;
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2023"
+    ) {
+      throw new NotFoundError("No user found");
+    }
+    throw new ServerError("Server error");
+  }
 }
 
-export async function deleteUserService(data: WebhookRequest) {
-  const { id } = data;
-  return await deleteUser(id!);
+export async function deleteUserService(payload: {
+  userIdFromSession: string | null;
+  userIdFromURL: string;
+}) {
+  const { userIdFromSession, userIdFromURL } = payload;
+
+  if (!userIdFromSession) {
+    throw new UnauthorizedError("Unauthorized: log in required to delete user");
+  } else if (userIdFromSession !== userIdFromURL) {
+    throw new ForbiddenError("Forbidden: permission required delete user");
+  }
+
+  try {
+    const deletedUser = await deleteUser(userIdFromURL);
+    return deletedUser;
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2023"
+    ) {
+      throw new NotFoundError("No user found");
+    }
+    throw new ServerError("Server error");
+  }
 }

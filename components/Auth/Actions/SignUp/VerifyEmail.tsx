@@ -8,7 +8,7 @@ import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function StepThree() {
-  const { signUp, setActive } = useSignUpContext();
+  const { signUp, meadowInfo, setActive } = useSignUpContext();
 
   const router = useRouter();
 
@@ -18,8 +18,12 @@ export default function StepThree() {
     const result = await signUp!.attemptEmailAddressVerification({
       code: values.verificationCode,
     });
-    await createUserToDb(result);
+    await createUserToDb(result, {
+      meadowId: meadowInfo!.id,
+      meadowDomain: meadowInfo!.domain,
+    });
     await setActive!({ session: result.createdSessionId });
+
     router.push("/");
   }
 

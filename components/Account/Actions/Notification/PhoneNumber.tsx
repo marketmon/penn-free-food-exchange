@@ -1,10 +1,13 @@
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { Pencil, PlusCircle, Trash } from "lucide-react";
 import { useAddPhone } from "@/context/AddPhoneProvider";
+import { updateUserToDb } from "@/lib/queryFns";
 import { DialogTrigger } from "@/components/ui/dialog";
 
 export default function PhoneNumber() {
   const { user } = useUser();
+
+  const { getToken } = useAuth();
 
   const phone = user!.primaryPhoneNumber?.phoneNumber;
 
@@ -22,6 +25,9 @@ export default function PhoneNumber() {
 
     await user!.reload();
 
+    const token = await getToken();
+    await updateUserToDb({ id: user!.id, phoneNumber: null }, token!);
+    
     setStep(1);
   }
 

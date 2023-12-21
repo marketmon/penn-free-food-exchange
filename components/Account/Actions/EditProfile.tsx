@@ -1,10 +1,13 @@
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { z } from "zod";
+import { updateUserToDb } from "@/lib/queryFns";
 import { editProfileSchema } from "@/lib/validations";
 import Form from "@/components/common/Form/Form";
 
 export default function EditProfile() {
   const { user } = useUser();
+
+  const { getToken } = useAuth();
 
   async function updateProfile(values: z.infer<typeof editProfileSchema>) {
     await user!.update({
@@ -13,6 +16,9 @@ export default function EditProfile() {
     });
 
     user!.reload();
+
+    const token = await getToken();
+    await updateUserToDb({ id: user!.id, ...values }, token!);
   }
 
   return (

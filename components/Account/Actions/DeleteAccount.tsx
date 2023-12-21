@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { deleteUserFromDb } from "@/lib/queryFns";
 import {
   Dialog,
   DialogTrigger,
@@ -17,7 +19,15 @@ export default function Danger() {
 
   const { user } = useUser();
 
+  const { getToken } = useAuth();
+
+  const [isLoading, setIsLoading] = useState(false);
+
   async function onDeleteAccount() {
+    setIsLoading(true);
+    
+    const token = await getToken();
+    await deleteUserFromDb(user!.id, token!);
     await user!.delete();
     router.push("/");
   }
@@ -52,6 +62,7 @@ export default function Danger() {
               variant="destructive"
               btnText="Confirm"
               onClick={onDeleteAccount}
+              disabled={isLoading}
             />
           </DialogFooter>
         </DialogHeader>

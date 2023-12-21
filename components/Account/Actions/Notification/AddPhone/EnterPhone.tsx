@@ -7,11 +7,11 @@ import Form from "@/components/common/Form/Form";
 
 export default function StepOne() {
   const { user } = useUser();
-
+  
   const { setStep } = useAddPhone();
 
   async function sendTextVerification(values: z.infer<typeof phoneSchema>) {
-    // delete any previous numbers (except) from db (user can only have one number at a time)
+    // delete any previous numbers (user can only have one number at a time)
     const phoneListFromDb = user!.phoneNumbers;
     if (phoneListFromDb.length > 0) {
       await Promise.all(
