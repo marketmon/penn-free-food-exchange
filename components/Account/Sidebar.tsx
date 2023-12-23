@@ -9,11 +9,11 @@ const BUTTON_GROUP = [
     value: "profile",
     description: "Edit your profile information",
   },
-  // {
-  //   label: "Notification",
-  //   value: "notification",
-  //   description: "Add your phone number to receive notifications",
-  // },
+  {
+    label: "Notification",
+    value: "notification",
+    description: "Add your phone number to receive notifications",
+  },
   {
     label: "Security",
     value: "security",
