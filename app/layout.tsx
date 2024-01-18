@@ -14,12 +14,9 @@ const Disclaimer = dynamic(() => import("@/components/Home/Disclaimer"), {
 const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Panbo",
+  title: "Penn Free Food Exchange",
   description:
-    "Welcome to Panbo, the online platform dedicated to fostering a positive and caring community by connecting individuals with surplus food to those in need.",
-  icons: {
-    icon: "/favicon.ico",
-  },
+    "Welcome to Penn Free Food Exchange, the online platform dedicated to fostering a positive and caring community by connecting individuals with surplus food to those in need.",
 };
 
 type RootLayoutProps = {

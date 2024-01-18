@@ -28,23 +28,24 @@ export default function Disclaimer() {
         <Card className="w-[700px] h-[350px] overflow-y-auto mx-12">
           <CardHeader>
             <CardTitle className="text-lg">
-              Disclaimer: Safety Notice for Panbo
+              Disclaimer: Safety Notice for Penn Free Food Exchange
             </CardTitle>
           </CardHeader>
           <CardContent className="text-xs">
             <p>
-              Welcome to Panbo, the online platform dedicated to fostering a
-              community of no waste by connecting individuals with surplus food.
-              We want to ensure that your experience on Panbo is not only
-              helpful but also safe. Please take a moment to review the
-              following safety guidelines and precautions:
+              Welcome to Penn Free Food Exchange, the online platform dedicated
+              to fostering a community of no waste by connecting individuals
+              with surplus food. We want to ensure that your experience on Penn
+              Free Food Exchange is not only helpful but also safe. Please take
+              a moment to review the following safety guidelines and
+              precautions:
             </p>
             <br />
             <h5 className="font-extrabold">Food Sharing Assurance</h5>
             <ul className="list-disc pl-8">
               <li>
-                As a user of Panbo, you play a vital role in ensuring the
-                quality and safety of the shared food.
+                As a user of Penn Free Food Exchange, you play a vital role in
+                ensuring the quality and safety of the shared food.
               </li>
               <li>
                 We encourage all food providers to uphold high standards of food
@@ -95,7 +96,7 @@ export default function Disclaimer() {
             <ul className="list-disc pl-8">
               <li>
                 We encourage users to report any negative experiences or issues
-                encountered on the Panbo platform.
+                encountered on the Penn Free Food Exchange platform.
               </li>
               <li>
                 Please reach out to our dedicated support team to report any
@@ -107,8 +108,9 @@ export default function Disclaimer() {
             <h5 className="font-extrabold">Encouraging Responsible Conduct</h5>
             <ul className="list-disc pl-8">
               <li>
-                Embrace the Panbo spirit by adhering to all applicable laws,
-                regulations, and community guidelines while using our platform.
+                Embrace the Penn Free Food Exchange spirit by adhering to all
+                applicable laws, regulations, and community guidelines while
+                using our platform.
               </li>
               <li>
                 Treat fellow users with kindness, respect, and empathy, ensuring
@@ -117,17 +119,18 @@ export default function Disclaimer() {
             </ul>
             <br />
             <p>
-              By joining Panbo, you affirm that you have read, understood, and
-              agreed to follow these safety guidelines and precautions. As Panbo
-              evolves, we may update this safety notice to better serve our
-              community. We encourage you to check back periodically to stay
-              informed of any changes.
+              By joining Penn Free Food Exchange, you affirm that you have read,
+              understood, and agreed to follow these safety guidelines and
+              precautions. As Penn Free Food Exchange evolves, we may update
+              this safety notice to better serve our community. We encourage you
+              to check back periodically to stay informed of any changes.
             </p>
             <br />
             <p>
               Remember, your safety and well-being are paramount. Embrace the
-              joy of sharing on Panbo while practicing safety and spreading
-              positivity to create a better world, one meal at a time.
+              joy of sharing on Penn Free Food Exchange while practicing safety
+              and spreading positivity to create a better world, one meal at a
+              time.
             </p>
             <br />
             <p>Last updated: 9/26/23</p>
