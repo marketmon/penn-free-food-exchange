@@ -16,8 +16,6 @@ export default function DeleteListing({
 }: DeleteListingProps) {
   const { onDeleteImage } = useListingImage();
 
-  const { meadowId } = useListings();
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutateData({
@@ -25,17 +23,13 @@ export default function DeleteListing({
       url: `/api/listings/${listingId}`,
       method: "DELETE",
     },
-    queryKey: [`meadow-${meadowId}`],
     queryClient: queryClient,
     updateDataOptimistically: (prevListings: Listing[]) => {
       const updatedListings = prevListings.filter(
         (listingFromQuery) => listingFromQuery.id !== listingId
       );
 
-      return {
-        updatedDataKey: "listings",
-        updatedData: updatedListings,
-      };
+      return updatedListings;
     },
   });
 

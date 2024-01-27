@@ -15,21 +15,12 @@ import {
   toggleStillThere,
   deleteListing,
   getListingById,
+  getListings,
 } from "@/server/repository/listings";
-import { getMeadowByIdService } from "@/server/service/meadow";
 
 export async function createListingService(payload: { listing: Listing }) {
-  const {
-    lat,
-    lng,
-    location,
-    icon,
-    caption,
-    contact,
-    imageUrl,
-    creatorId,
-    meadowId,
-  } = payload.listing;
+  const { lat, lng, location, icon, caption, contact, imageUrl, creatorId } =
+    payload.listing;
 
   if (!creatorId) {
     throw new UnauthorizedError(
@@ -49,15 +40,6 @@ export async function createListingService(payload: { listing: Listing }) {
     throw new BadRequestError("Invalid phone number");
   }
 
-  const meadow = await getMeadowByIdService(meadowId);
-
-  const userHasWriteAccessToMeadow = meadow.userIds.includes(creatorId);
-  if (!userHasWriteAccessToMeadow) {
-    throw new ForbiddenError(
-      "Forbidden: permission required to create listing"
-    );
-  }
-
   try {
     const newListing = createListing(
       lat,
@@ -67,8 +49,7 @@ export async function createListingService(payload: { listing: Listing }) {
       caption,
       contact,
       imageUrl,
-      creatorId,
-      meadowId
+      creatorId
     );
     return newListing;
   } catch (error) {
@@ -87,17 +68,6 @@ export async function updateListingService(payload: {
   // unauthenticated user can't thank or edit listing
   if (!userId && (action === "toggleThank" || action === "edit")) {
     throw new UnauthorizedError("Unauthorized: log in required");
-  }
-
-  const listingFromDB = await getListingByIdService(id);
-
-  // unauthorized user can't thank or edit listing
-  if (userId && (action === "toggleThank" || action === "edit")) {
-    const userHasEditAccessToListing =
-      listingFromDB.meadow.userIds.includes(userId);
-    if (!userHasEditAccessToListing) {
-      throw new ForbiddenError("Forbidden: permission required");
-    }
   }
 
   if (action === "edit") {
@@ -168,6 +138,15 @@ export async function deleteListingService(payload: {
       }
       throw new ServerError("Server error");
     }
+  }
+}
+
+export async function getListingsService() {
+  try {
+    const listings = await getListings();
+    return listings;
+  } catch (error) {
+    throw new ServerError("Server error");
   }
 }
 

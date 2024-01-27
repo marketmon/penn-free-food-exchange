@@ -8,16 +8,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function mapMeadowToDomain(meadow: string): string {
-  const meadowDomainMappings: Record<string, string> = {
-    "University of Pennsylvania": "upenn.edu",
-    "University of Florida": "ufl.edu",
-    // Add more college mappings as needed
-  };
-
-  return meadowDomainMappings[meadow];
-}
-
 export async function getClerkCurrentUser() {
   const user: User | null = await currentUser();
   return user;

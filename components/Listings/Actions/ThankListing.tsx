@@ -15,8 +15,6 @@ export default function ThankListing({
   listingId,
   usersThankedIds,
 }: ThankListingProps) {
-  const { meadowId } = useListings();
-
   const userId = useUser().user?.id;
 
   const queryClient = useQueryClient();
@@ -26,7 +24,6 @@ export default function ThankListing({
       url: `/api/listings/${listingId}`,
       method: "PATCH",
     },
-    queryKey: [`meadow-${meadowId}`],
     queryClient: queryClient,
     updateDataOptimistically: (prevListings: Listing[]) => {
       const listingToUpdate = prevListings.find(
@@ -49,10 +46,7 @@ export default function ThankListing({
           : listingFromQuery
       );
 
-      return {
-        updatedDataKey: "listings",
-        updatedData: updatedListings,
-      };
+      return updatedListings;
     },
   });
 

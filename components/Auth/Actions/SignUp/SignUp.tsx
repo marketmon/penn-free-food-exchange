@@ -6,7 +6,7 @@ import FormTitle from "@/components/common/Form/FormTitle";
 import Prompt from "@/components/Auth/Prompt";
 
 export default function SignUp() {
-  const { signUp, meadowInfo, setStep } = useSignUpContext();
+  const { signUp, setStep } = useSignUpContext();
 
   async function createAccountAndSendEmailVerification(
     values: z.infer<ZodSchema<any>>
@@ -16,20 +16,19 @@ export default function SignUp() {
       lastName: values.lastName,
       emailAddress: values.email,
       password: values.password,
-      unsafeMetadata: { initialMeadowId: meadowInfo!.id },
     });
 
     await signUp!.prepareEmailAddressVerification({
       strategy: "email_code",
     });
-    setStep(3);
+    setStep(2);
   }
 
   return (
     <>
       <FormTitle title="Sign up" />
       <Form
-        schema={signUpSchema(meadowInfo!.domain)}
+        schema={signUpSchema}
         defaultValues={{
           firstName: "",
           lastName: "",

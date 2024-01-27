@@ -16,8 +16,6 @@ model User {
   listings           Listing[] @relation("createdListings")
   thankedListingsIds String[]  @db.ObjectId
   thankedListings    Listing[] @relation("thankedListings", fields: [thankedListingsIds], references: [id])
-  meadowIds          String[]  @db.ObjectId
-  meadows            Meadow[]  @relation(fields: [meadowIds], references: [id])
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 }
@@ -38,17 +36,4 @@ model Listing {
   updatedAt         DateTime @updatedAt
   usersThankedIds   String[]
   usersThanked      User[]   @relation("thankedListings", fields: [usersThankedIds], references: [id])
-  meadow            Meadow   @relation(fields: [meadowId], references: [id], onDelete: Cascade)
-  meadowId          String   @db.ObjectId
-}
-
-model Meadow {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name     String    @unique
-  domain   String    @unique
-  lat      Float
-  lng      Float
-  listings Listing[]
-  userIds  String[]
-  users    User[]    @relation(fields: [userIds], references: [id])
 }

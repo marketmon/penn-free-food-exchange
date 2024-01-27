@@ -14,8 +14,6 @@ type ListingsContextType = {
   setClickedListingCardPosition: Dispatch<SetStateAction<Position>>;
   dashboardFor: string;
   setDashboardFor: Dispatch<SetStateAction<string>>;
-  meadowId: string | null;
-  setMeadowId: Dispatch<SetStateAction<string | null>>;
 };
 
 type ListingsProviderProps = {
@@ -27,7 +25,6 @@ const ListingsContext = createContext<ListingsContextType | undefined>(
 );
 
 export function ListingsProvider({ children }: ListingsProviderProps) {
-  const [meadowId, setMeadowId] = useState<string | null>(null);
   const [clickedListingCardPosition, setClickedListingCardPosition] =
     useState<Position>(null);
   const [dashboardFor, setDashboardFor] = useState("view");
@@ -39,8 +36,6 @@ export function ListingsProvider({ children }: ListingsProviderProps) {
         setClickedListingCardPosition,
         dashboardFor,
         setDashboardFor,
-        meadowId,
-        setMeadowId,
       }}
     >
       {children}
