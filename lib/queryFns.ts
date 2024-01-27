@@ -8,36 +8,8 @@ import {
   UnauthorizedError,
 } from "@/lib/errors";
 
-export async function getListOfMeadows() {
-  const res = await fetch(`${BASE_URL}/api/meadows`);
-  const meadowsOrError = await res.json();
-  if (res.status === 200) {
-    return meadowsOrError;
-  } else {
-    throw new ServerError(meadowsOrError);
-  }
-}
-
-export async function getMeadowById(id: string) {
-  const res = await fetch(`${BASE_URL}/api/meadows/${id}`, {
-    cache: "no-store",
-  });
-  const meadowOrError = await res.json();
-  if (res.status === 200) {
-    return meadowOrError;
-  } else if (res.status === 404) {
-    throw new NotFoundError(meadowOrError);
-  } else {
-    throw new ServerError(meadowOrError);
-  }
-}
-
-export async function createUserToDb(
-  signUpResult: SignUpResource,
-  meadowInfo: { meadowDomain: string; meadowId: string }
-) {
+export async function createUserToDb(signUpResult: SignUpResource) {
   const { createdUserId, firstName, lastName, emailAddress } = signUpResult;
-  const { meadowId, meadowDomain } = meadowInfo;
 
   const res = await fetch(`${BASE_URL}/api/users`, {
     method: "POST",
@@ -50,8 +22,6 @@ export async function createUserToDb(
       firstName,
       lastName,
       primaryEmail: emailAddress,
-      meadowId,
-      meadowDomain,
     }),
   });
   const newUserOrError = await res.json();
@@ -127,5 +97,15 @@ export async function updateUserToDb(
     throw new NotFoundError(updatedUserOrError);
   } else {
     throw new ServerError(updatedUserOrError);
+  }
+}
+
+export async function getListings() {
+  const res = await fetch(`${BASE_URL}/api/listings`);
+  const listingsOrError = await res.json();
+  if (res.status === 200) {
+    return listingsOrError;
+  } else {
+    throw new ServerError(listingsOrError);
   }
 }

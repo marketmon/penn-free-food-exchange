@@ -1,6 +1,10 @@
 export const BASE_URL =
   "https://vigilant-spoon-r57x9qv9g7wcx7p4-3000.app.github.dev";
 
+export const UPENN_MEADOW_DOMAIN = "upenn.edu";
+export const UPENN_LAT = 39.95295329909881
+export const UPENN_LNG = -75.1935820978563
+
 export const ICON_LIST = [
   { id: 1, icon: "📍" },
   { id: 2, icon: "🍎" },

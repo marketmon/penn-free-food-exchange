@@ -13,8 +13,6 @@ export default function ToggleStillThere({
   stillThere,
   listingId,
 }: ToggleStillThereProps) {
-  const { meadowId } = useListings();
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutateData({
@@ -22,7 +20,6 @@ export default function ToggleStillThere({
       url: `/api/listings/${listingId}`,
       method: "PATCH",
     },
-    queryKey: [`meadow-${meadowId}`],
     queryClient: queryClient,
     updateDataOptimistically: (prevListings: Listing[]) => {
       const listingToUpdate = prevListings.find(
@@ -39,10 +36,7 @@ export default function ToggleStillThere({
         listingFromQuery.id === listingId ? updatedListing : listingFromQuery
       );
 
-      return {
-        updatedDataKey: "listings",
-        updatedData: updatedListingsForMeadow,
-      };
+      return updatedListings;
     },
   });
 

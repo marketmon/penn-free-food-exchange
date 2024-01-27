@@ -1,7 +1,6 @@
 "use client";
 
 import { useSignUpContext } from "@/context/AuthProvider";
-import SelectMeadow from "@/components/Auth/Actions/SignUp/SelectMeadow";
 import SignUp from "@/components/Auth/Actions/SignUp/SignUp";
 import VerifyEmail from "@/components/Auth/Actions/SignUp/VerifyEmail";
 import MultiStepAuthManager from "@/components/Auth/MultiStepAuthManager";
@@ -20,7 +19,6 @@ export default function Page() {
       <MultiStepAuthManager
         step={step}
         stepComponents={[
-          <SelectMeadow key="select-meadow" />,
           <SignUp key="sign-up" />,
           <VerifyEmail key="verify-email" />,
         ]}

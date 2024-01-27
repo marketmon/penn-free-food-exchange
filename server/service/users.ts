@@ -14,11 +14,8 @@ export async function createUserService(payload: {
   firstName: string;
   lastName: string;
   primaryEmail: string;
-  meadowId: string;
-  meadowDomain: string;
 }) {
-  const { id, firstName, lastName, primaryEmail, meadowId, meadowDomain } =
-    payload;
+  const { id, firstName, lastName, primaryEmail } = payload;
 
   if (!firstName || firstName.length === 0) {
     throw new BadRequestError("First name is required");
@@ -28,18 +25,10 @@ export async function createUserService(payload: {
     throw new BadRequestError("Email is required");
   } else if (!isEmailValid(primaryEmail)) {
     throw new BadRequestError("Invalid email");
-  } else if (!primaryEmail.endsWith(meadowDomain)) {
-    throw new BadRequestError(`Email must be associated with ${meadowDomain}`);
   }
 
   try {
-    const newUser = await createUser(
-      id,
-      firstName,
-      lastName,
-      primaryEmail,
-      meadowId
-    );
+    const newUser = await createUser(id, firstName, lastName, primaryEmail);
     return newUser;
   } catch (error) {
     throw new ServerError("Server error");

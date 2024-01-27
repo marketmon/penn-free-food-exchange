@@ -4,6 +4,11 @@ import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { EditListingProvider } from "@/context/EditListingProvider";
+import { DraggableMarkerProvider } from "@/context/DraggableMarkerProvider";
+import { ListingsProvider } from "@/context/ListingsProvider";
+import { EdgeStoreProvider } from "@/context/EdgeStoreProvider";
+import { ListingImageProvider } from "@/context/ListingImageProvider";
 import QueryProvider from "@/context/QueryProvider";
 import Navigation from "@/components/common/Navigation";
 
@@ -27,13 +32,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <QueryProvider>
       <ClerkProvider>
-        <html lang="en">
-          <body className={`${nunito.className} h-dvh`}>
-            <Disclaimer />
-            <Navigation />
-            <div className="h-[calc(100%-40px)]">{children}</div>
-          </body>
-        </html>
+        <ListingsProvider>
+          <DraggableMarkerProvider>
+            <EditListingProvider>
+              <EdgeStoreProvider>
+                <ListingImageProvider>
+                  <html lang="en">
+                    <body className={`${nunito.className} h-dvh`}>
+                      <Disclaimer />
+                      <Navigation />
+                      <div className="h-[calc(100%-40px)]">{children}</div>
+                    </body>
+                  </html>
+                </ListingImageProvider>
+              </EdgeStoreProvider>
+            </EditListingProvider>
+          </DraggableMarkerProvider>
+        </ListingsProvider>
       </ClerkProvider>
     </QueryProvider>
   );

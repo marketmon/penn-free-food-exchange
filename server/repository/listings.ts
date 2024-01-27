@@ -1,13 +1,15 @@
 import { prisma } from "@/lib/db";
 import { COUNTRY_CODES } from "@/lib/constants";
 
+export async function getListings() {
+  const listings = await prisma.listing.findMany();
+  return listings;
+}
+
 export async function getListingById(listingId: string) {
   const listing = await prisma.listing.findUnique({
     where: {
       id: listingId,
-    },
-    include: {
-      meadow: true,
     },
   });
   return listing;
@@ -21,8 +23,7 @@ export async function createListing(
   caption: string,
   contact: string,
   imageUrl: string,
-  userId: string,
-  meadowId: string
+  userId: string
 ) {
   const data: {
     lat: number;
@@ -50,27 +51,13 @@ export async function createListing(
           id: userId,
         },
       },
-      meadow: {
-        connect: {
-          id: meadowId,
-        },
-      },
     },
   });
   return newListing;
 }
 
 export async function updateListing(listing: any) {
-  const {
-    id,
-    lat,
-    lng,
-    location,
-    icon,
-    caption,
-    contact,
-    imageUrl,
-  } = listing;
+  const { id, lat, lng, location, icon, caption, contact, imageUrl } = listing;
 
   const data: {
     lat: number;

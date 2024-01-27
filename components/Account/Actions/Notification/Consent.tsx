@@ -15,7 +15,7 @@ export default function Consent() {
       ) : (
         <span>
           By adding your phone number, you agree to receive text notifications
-          from Penn Free Food Exchange whenever new listings get posted in your meadow.
+          from Penn Free Food Exchange whenever new listings get posted.
         </span>
       )}
     </p>

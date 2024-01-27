@@ -1,27 +1,8 @@
 import * as z from "zod";
 import { PhoneNumberUtil, PhoneNumber } from "google-libphonenumber";
-import { Meadow } from "@/lib/types";
-import { COUNTRY_CODES } from "@/lib/constants";
+import { COUNTRY_CODES, UPENN_MEADOW_DOMAIN } from "@/lib/constants";
 
-export const selectMeadowSchema = (meadows: Meadow[]) =>
-  z.object({
-    meadowInfo: z.string().refine(
-      // Check if the meadow value matches any of the meadow names
-      (domainInfo) => {
-        if (domainInfo) {
-          const domainInfoParsed = JSON.parse(domainInfo);
-          return meadows.some(
-            (meadow) => meadow.domain === domainInfoParsed.domain
-          );
-        }
-      },
-      {
-        message: "Please select a meadow",
-      }
-    ),
-  });
-
-export const signUpSchema = (domain: string) =>
+export const signUpSchema = 
   z.object({
     firstName: z.string().min(1, { message: "First name is required" }),
     lastName: z.string().min(1, { message: "Last name is required" }),
@@ -31,8 +12,8 @@ export const signUpSchema = (domain: string) =>
       .email({
         message: "Invalid email",
       })
-      .refine((email) => email.endsWith(domain), {
-        message: `Email must be associated with ${domain}`,
+      .refine((email) => email.endsWith(UPENN_MEADOW_DOMAIN), {
+        message: `Email must be associated with ${UPENN_MEADOW_DOMAIN}`,
       }),
     password: z
       .string()

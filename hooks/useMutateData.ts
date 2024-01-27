@@ -3,13 +3,12 @@ import { QueryClient, useMutation } from "@tanstack/react-query";
 import {
   ToggleAction,
   ListingFromForm,
-  Meadow,
   RequestConfig,
+  Listing,
 } from "@/lib/types";
 
 type useMutateDataType = {
   requestConfig: RequestConfig;
-  queryKey: string[];
   queryClient: QueryClient;
   dataTransformer?: (data: any) => any;
   updateDataOptimistically?: (data: any) => any;
@@ -17,7 +16,6 @@ type useMutateDataType = {
 
 export function useMutateData({
   requestConfig,
-  queryKey,
   queryClient,
   dataTransformer,
   updateDataOptimistically,
@@ -50,29 +48,26 @@ export function useMutateData({
   return useMutation({
     mutationFn: mutateData,
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey });
+      await queryClient.cancelQueries({ queryKey: ["listings"] });
 
-      const previousData: Meadow | undefined =
-        queryClient.getQueryData(queryKey);
+      const previousData: Listing[] | undefined = queryClient.getQueryData([
+        "listings",
+      ]);
 
       if (updateDataOptimistically) {
-        const { updatedDataKey, updatedData } = updateDataOptimistically!(
-          previousData!.listings
-        );
-
-        queryClient.setQueryData(queryKey, (old: any) => ({
-          ...old,
-          [updatedDataKey]: updatedData,
-        }));
+        const updatedData =
+          updateDataOptimistically!(previousData);
+          
+        queryClient.setQueryData(["listings"], () => updatedData);
       }
 
       return { previousData };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: ["listings"] });
     },
     onError: (_error, _variables, context) => {
-      queryClient.setQueryData(queryKey, context!.previousData);
+      queryClient.setQueryData(["listings"], context!.previousData);
     },
   });
 }

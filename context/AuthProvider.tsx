@@ -13,8 +13,6 @@ import { Auth, Domain } from "@/lib/types";
 type AuthContextType = Auth & {
   step: number;
   setStep: Dispatch<SetStateAction<number>>;
-  meadowInfo?: Domain;
-  setMeadowInfo?: Dispatch<SetStateAction<Domain>>;
 };
 
 type AuthProviderProps = {
@@ -27,7 +25,6 @@ function createAuthContext(useAuth: () => Auth, authFor: string) {
   function AuthProvider({ children }: AuthProviderProps) {
     const auth = useAuth();
     const [step, setStep] = useState(1);
-    const [meadowInfo, setMeadowInfo] = useState({ id: "", domain: "" });
 
     return (
       <AuthContext.Provider
@@ -35,7 +32,6 @@ function createAuthContext(useAuth: () => Auth, authFor: string) {
           ...auth,
           step,
           setStep,
-          ...(authFor === "signUp" ? { meadowInfo, setMeadowInfo } : {}),
         }}
       >
         {children}

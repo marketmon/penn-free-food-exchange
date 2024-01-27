@@ -22,10 +22,6 @@ export type ListingNavigationButton = {
   text: string;
 };
 
-export type User = {
-  meadows: Meadow[];
-};
-
 export type ToggleAction = {
   action: "toggleThank" | "toggleStillThere";
 };
@@ -47,7 +43,6 @@ export type Listing = {
   icon: string;
   imageUrl: string;
   creatorId: string | null;
-  meadowId: string;
   updatedAt: string;
   stillThere: boolean;
   stillThereUpdatedAt: string;
@@ -57,16 +52,6 @@ export type Listing = {
 export type Icon = { id: string; icon: string };
 
 export type Domain = { id: string; domain: string };
-
-export type Meadow = {
-  id: string;
-  domain: string;
-  name: string;
-  lat: number;
-  lng: number;
-  listings: Listing[];
-  userIds: string[];
-};
 
 export type FormInput = {
   name: string;

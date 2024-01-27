@@ -10,7 +10,7 @@ import { listingFormSchema } from "@/lib/validations";
 import Form from "@/components/common/Form/Form";
 
 export default function CreateOrEditListing() {
-  const { meadowId, setDashboardFor } = useListings();
+  const { setDashboardFor } = useListings();
 
   const { position, setPosition, setIcon } = useDraggableMarker();
 
@@ -47,11 +47,10 @@ export default function CreateOrEditListing() {
   } = useMutateData({
     requestConfig: {
       url: isCreateMode
-        ? `/api/${meadowId}/listings`
+        ? `/api/listings`
         : `/api/listings/${currentListing.id}`,
       method: isCreateMode ? "POST" : "PATCH",
     },
-    queryKey: [`meadow-${meadowId}`],
     queryClient: queryClient,
     dataTransformer: (values: z.infer<typeof listingFormSchema>) => ({
       listing: {

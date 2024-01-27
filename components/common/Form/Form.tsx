@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ZodSchema, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInput, Meadow } from "@/lib/types";
+import { FormInput } from "@/lib/types";
 import {
   Form as FormShadcn,
   FormControl,
@@ -32,8 +32,6 @@ type FormProps = {
   btnText?: string;
   btnLoadingText?: string;
   showSuccessMessage?: boolean;
-  meadowsLoading?: boolean;
-  meadows?: Meadow[];
   setIcon?: Dispatch<SetStateAction<string>>;
   error?: Error | null;
   formStyles: string;
@@ -51,8 +49,6 @@ export default function Form({
   btnText = "Continue",
   btnLoadingText = "Continuing",
   showSuccessMessage,
-  meadowsLoading,
-  meadows,
   setIcon,
   error,
   formStyles,
@@ -119,9 +115,7 @@ export default function Form({
             name={input.name}
             render={({ field }) => (
               <FormItem>
-                {meadowsLoading ? (
-                  <div>Loading</div>
-                ) : (
+                {
                   <>
                     {showLabel && <FormLabel input={input} />}
                     <FormControl>
@@ -130,7 +124,6 @@ export default function Form({
                           value={field.value}
                           onChange={field.onChange}
                           input={input}
-                          meadows={meadows}
                           setIcon={setIcon}
                         />
                       ) : input.type === "file" ? (
@@ -144,7 +137,7 @@ export default function Form({
                       )}
                     </FormControl>
                   </>
-                )}
+                }
                 <FormMessage />
               </FormItem>
             )}

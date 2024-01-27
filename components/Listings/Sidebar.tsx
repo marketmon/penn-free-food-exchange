@@ -8,21 +8,16 @@ import CardList from "@/components/Listings/Card/CardList";
 import CreateOrEditListing from "@/components/Listings/Actions/CreateOrEditListing";
 
 type SidebarProps = {
-  meadowUsers: string[];
   userId: string | undefined;
   listingsToShow: Listing[] | null;
 };
 
-export default function Sidebar({
-  meadowUsers,
-  userId,
-  listingsToShow,
-}: SidebarProps) {
+export default function Sidebar({ userId, listingsToShow }: SidebarProps) {
   const { dashboardFor } = useListings();
 
   const [currFilter, setCurrFilter] = useState("new");
 
-  const userHasWriteAccess = userId && meadowUsers.includes(userId);
+  const userHasWriteAccess = userId;
 
   const showFilter =
     listingsToShow && listingsToShow.length > 0 && dashboardFor === "view";
