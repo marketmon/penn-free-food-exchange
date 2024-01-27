@@ -32,7 +32,7 @@ export default function ToggleStillThere({
         updatedAt: new Date().toISOString(),
       };
 
-      const updatedListingsForMeadow = prevListings.map((listingFromQuery) =>
+      const updatedListings = prevListings.map((listingFromQuery) =>
         listingFromQuery.id === listingId ? updatedListing : listingFromQuery
       );
 

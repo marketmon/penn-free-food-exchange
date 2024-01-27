@@ -82,7 +82,7 @@ export default function Page() {
           showFullScreen ? "h-0 laptop:w-0 pt-0" : "h-1/2 laptop:w-1/3 pt-2"
         }`}
       >
-        <Sidebar userId={user?.id} listingsToShow={listingsToShow} />
+        <Sidebar listingsToShow={listingsToShow} />
       </div>
     </div>
   );

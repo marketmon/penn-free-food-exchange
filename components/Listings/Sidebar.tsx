@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 import { useListings } from "@/context/ListingsProvider";
 import { Listing } from "@/lib/types";
 import { filterListings } from "@/lib/utils";
@@ -8,16 +9,15 @@ import CardList from "@/components/Listings/Card/CardList";
 import CreateOrEditListing from "@/components/Listings/Actions/CreateOrEditListing";
 
 type SidebarProps = {
-  userId: string | undefined;
   listingsToShow: Listing[] | null;
 };
 
-export default function Sidebar({ userId, listingsToShow }: SidebarProps) {
+export default function Sidebar({ listingsToShow }: SidebarProps) {
+  const { user } = useUser();
+
   const { dashboardFor } = useListings();
 
   const [currFilter, setCurrFilter] = useState("new");
-
-  const userHasWriteAccess = userId;
 
   const showFilter =
     listingsToShow && listingsToShow.length > 0 && dashboardFor === "view";
@@ -25,7 +25,7 @@ export default function Sidebar({ userId, listingsToShow }: SidebarProps) {
   return (
     <div className="h-full overflow-y-hidden px-3">
       <div className="flex justify-between sticky top-0">
-        {userHasWriteAccess && <Navigation />}
+        {user && <Navigation />}
         {showFilter && <Filter setCurrFilter={setCurrFilter} />}
       </div>
       <div className="h-[calc(100%-48px)] overflow-y-auto">
