@@ -1,5 +1,5 @@
 export const BASE_URL =
-  "https://vigilant-spoon-r57x9qv9g7wcx7p4-3000.app.github.dev";
+  "https://jubilant-space-couscous-7j7xq6466rp3x7xr-3000.app.github.dev";
 
 export const UPENN_MEADOW_DOMAIN = "upenn.edu";
 export const UPENN_LAT = 39.95295329909881
