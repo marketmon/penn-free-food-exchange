@@ -1,6 +1,6 @@
 <h1 align="center">Penn Free Food Exchange</h1>
 <div align="center">
-  <h3>Have any leftover food? Share instead of throwing away</h3>
+  <h3>Have any leftover food? Share it</h3>
 </div>
 <div align="center">
 
