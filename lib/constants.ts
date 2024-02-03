@@ -1,5 +1,5 @@
 export const BASE_URL =
-  "https://penn-free-food-exchange.vercel.app";
+  "https://penn-free-food-exchange-eight.vercel.app/";
 
 export const UPENN_MEADOW_DOMAIN = "upenn.edu";
 export const UPENN_LAT = 39.95295329909881
